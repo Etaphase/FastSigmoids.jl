@@ -232,9 +232,6 @@ end
     summary = summary || ((summmask & adj_fraction) != 0)
     absval += (summary & guardbit) | (lastbit & guardbit)
 
-    println($PositType)
-    println(typeof(absval))
-
     reinterpret($PositType, sign ? -absval : absval)
   end
 end
