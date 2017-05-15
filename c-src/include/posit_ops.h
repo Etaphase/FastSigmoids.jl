@@ -167,16 +167,16 @@ extern "C" p32e1_t p32e1_fas(p32e1_t a, p32e1_t b, p32e1_t c);
 extern "C" p32e2_t p32e2_fas(p32e2_t a, p32e2_t b, p32e2_t c);
 extern "C" p32e3_t p32e3_fas(p32e3_t a, p32e3_t b, p32e3_t c);
 
-extern "C" p8e0_t p8e0_fcp(p8e0_t a, p8e0_t b, p8e0_t c, p8e0_t b);
-extern "C" p8e1_t p8e1_fcp(p8e1_t a, p8e1_t b, p8e1_t c, p8e1_t b);
-extern "C" p8e2_t p8e2_fcp(p8e2_t a, p8e2_t b, p8e2_t c, p8e2_t b);
-extern "C" p16e0_t p16e0_fcp(p16e0_t a, p16e0_t b, p16e0_t c, p16e0_t b);
-extern "C" p16e1_t p16e1_fcp(p16e1_t a, p16e1_t b, p16e1_t c, p16e1_t b);
-extern "C" p16e2_t p16e2_fcp(p16e2_t a, p16e2_t b, p16e2_t c, p16e2_t b);
-extern "C" p32e0_t p32e0_fcp(p32e0_t a, p32e0_t b, p32e0_t c, p32e0_t b);
-extern "C" p32e1_t p32e1_fcp(p32e1_t a, p32e1_t b, p32e1_t c, p32e1_t b);
-extern "C" p32e2_t p32e2_fcp(p32e2_t a, p32e2_t b, p32e2_t c, p32e2_t b);
-extern "C" p32e3_t p32e3_fcp(p32e3_t a, p32e3_t b, p32e3_t c, p32e3_t b);
+extern "C" p8e0_t p8e0_fcp(p8e0_t a, p8e0_t b, p8e0_t c, p8e0_t d);
+extern "C" p8e1_t p8e1_fcp(p8e1_t a, p8e1_t b, p8e1_t c, p8e1_t d);
+extern "C" p8e2_t p8e2_fcp(p8e2_t a, p8e2_t b, p8e2_t c, p8e2_t d);
+extern "C" p16e0_t p16e0_fcp(p16e0_t a, p16e0_t b, p16e0_t c, p16e0_t d);
+extern "C" p16e1_t p16e1_fcp(p16e1_t a, p16e1_t b, p16e1_t c, p16e1_t d);
+extern "C" p16e2_t p16e2_fcp(p16e2_t a, p16e2_t b, p16e2_t c, p16e2_t d);
+extern "C" p32e0_t p32e0_fcp(p32e0_t a, p32e0_t b, p32e0_t c, p32e0_t d);
+extern "C" p32e1_t p32e1_fcp(p32e1_t a, p32e1_t b, p32e1_t c, p32e1_t d);
+extern "C" p32e2_t p32e2_fcp(p32e2_t a, p32e2_t b, p32e2_t c, p32e2_t d);
+extern "C" p32e3_t p32e3_fcp(p32e3_t a, p32e3_t b, p32e3_t c, p32e3_t d);
 
 extern "C" p8e0_t p8e0_fdp(fdp_cache8e0_t *fc, p8e0_t a, p8e0_t b);
 extern "C" p8e1_t p8e1_fdp(fdp_cache8e1_t *fc, p8e1_t a, p8e1_t b);

@@ -2,7 +2,7 @@
 unary_val_header(op::Symbol, n::Integer, es::Integer) =      "extern \"C\" $(p(n,es)) $(p(n,es,op))($(p(n,es)) x)"
 binary_val_header(op::Symbol, n::Integer, es::Integer) =     "extern \"C\" $(p(n,es)) $(p(n,es,op))($(p(n,es)) a, $(p(n,es)) b)"
 ternary_val_header(op::Symbol, n::Integer, es::Integer) =    "extern \"C\" $(p(n,es)) $(p(n,es,op))($(p(n,es)) a, $(p(n,es)) b, $(p(n,es)) c)"
-quaternary_val_header(op::Symbol, n::Integer, es::Integer) = "extern \"C\" $(p(n,es)) $(p(n,es,op))($(p(n,es)) a, $(p(n,es)) b, $(p(n,es)) c, $(p(n,es)) b)"
+quaternary_val_header(op::Symbol, n::Integer, es::Integer) = "extern \"C\" $(p(n,es)) $(p(n,es,op))($(p(n,es)) a, $(p(n,es)) b, $(p(n,es)) c, $(p(n,es)) d)"
 
 #boolean headers
 boolean_header(op::Symbol, n::Integer, es::Integer) =        "extern \"C\" bool $(p(n,es,op))($(p(n,es)) lhs, $(p(n,es)) rhs)"
