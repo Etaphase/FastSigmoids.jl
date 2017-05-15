@@ -1,5 +1,4 @@
 
-
 const bits_to_UInt = Dict(8=>UInt8, 16=>UInt16, 32=>UInt32, 64=>UInt64)
 
 top_bits(n) = one(bits_to_UInt[n]) << (n - 1)
@@ -16,8 +15,6 @@ function c_literal(n::Unsigned)
   end
 end
 
-c_ftype(n) = Dict(32 => "float", 64 => "double")[n]
-
 exp_bits(n) = Dict(32 => 8, 64 => 11)[n]
 exp_shift(n) = n - exp_bits(n) - 1
 exp_bias(n) = (1 << (exp_bits(n) - 1)) - 1
@@ -28,8 +25,6 @@ guard_mask(n, fpsize) = top_bits(fpsize) >> n
 inner_mask(n, fpsize) = top_bits(fpsize) >> (n - 1)
 summ_mask(n, fpsize) = guard_mask(n, fpsize) - one(bits_to_UInt[n])
 
-float_for_posit_size(n) = (n < 32) ? 32 : 64
-
 function floatconvert(n, es)
   maximum_exponent = (n - 2) * (2 ^ es)
   minimum_exponent = -((n - 1) * (2 ^ es))
@@ -39,8 +34,8 @@ function floatconvert(n, es)
   fcall = (es == 0) ? "$(ftype)_to_p$(n)_zero_es(fval)" : "$(ftype)_to_p$(n)(fval, $(es), $maximum_exponent, $minimum_exponent)"
 
   """
-extern "C" $(ftype)_to_p$(n)_$(es)($(ftype) fval){
-  p_$(n)_$(es)_t res;
+$(f2pheader(n,es)){
+  $(p(n,es)) res;
   res.udata = $(fcall);
   return res;
 }
@@ -91,13 +86,7 @@ static uint$(n)_t $(ftype)_to_p$(n)$(es_fn)($(ftype) fval$(es_hd)){
   if (isinf(fval)) {return $(c_literal(top_bits(n)));};
   if (fval == 0)   {return $(c_literal(zero_bits(n)));};
 
-  if (isnan(fval)){
-    #ifdef __cplusplus
-      throw NaNError();
-    #else
-      longjmp(__nan_ex_buf__, 1);
-    #endif
-  }
+  if (isnan(fval)){ throw_nan_jmp(); }
 
   //do a surreptitious conversion from $(ftype) precision to UInt$(n)
   uint$(fpsize)_t *ival = (uint$(fpsize)_t *) &fval;
@@ -151,8 +140,8 @@ function positconvert(n, es)
   ftype = c_ftype(fpsize)
 
   """
-extern "C" $(ftype) p$(n)_$(es)_to_$(ftype)(p$(n)_$(es)_t fval){
-  return p_$(n)_to_$(ftype)(fval.udata, $(es), $(c_literal(-(top_bits(n) >> (es - 1)))));
+$(p2fheader(n,es)){
+  return p$(n)_to_$(ftype)(fval.udata, $(es), $(c_literal(-(top_bits(n) >> (es - 1)))));
 }
   """
 end
@@ -218,7 +207,7 @@ static $(ftype) p$(n)_to_$(ftype)(uint$(n)_t pval, int16_t es, uint$(n)_t es_mas
 """
 end
 
-function generate_posit_conv_cpp(io, posit_defs)
+function generate_posit_conv_c(io, posit_defs)
   #generates "posit.h" based on the posit_definitions
   write(io, "#include \"posit.h\"\n")
   write(io, "\n")
