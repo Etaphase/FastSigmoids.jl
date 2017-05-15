@@ -3,6 +3,8 @@ using Base.Test
 
 # comprehensively test that transcoding of fast sigmoids works.
 
+include("c-lib-test.jl")
+
 #integration tests.
 
 @test FastSigmoid.__decomp(reinterpret(Posit{16,0}, 0x0001)) == (false, -14, 0x0000)

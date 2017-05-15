@@ -1,5 +1,5 @@
 #include "include/posit.h"
-
+#include <stdio.h>
 /*************************************************************/
 /* posit_8 section, general form                          */
 /*************************************************************/
@@ -159,15 +159,19 @@ static float p8_to_float(uint8_t pval, int16_t es, uint8_t es_mask){
     uint16_t z_posit = ~pos_val & ((uint8_t) 0x7f);
 
     //__builtin_clz has "undefined" state for a value of 0.  W.T.F, C??
-    u_regime = (z_posit == 0) ? 32 : __builtin_clz(z_posit)-24;
+    u_regime = (z_posit == 0) ? 32 : __builtin_clz(z_posit)-24 - 1;
     s_regime = u_regime - 1;
   }
   //next create the proper exp/frac value by shifting the pos_val, based on the
   //unsigned regime value.
-  uint8_t p_exp_frac = (pos_val << (u_regime + 3));
+  uint8_t p_exp_frac = (pos_val << (u_regime + 2));
 
+  printf("------\n");
+  printf("es_mask: %04xh\n", es_mask);
   //extract the exponent value by grabbing the top bits.
-  int16_t exponent = (p_exp_frac & es_mask) >> (32 - es);
+  int16_t exponent = (p_exp_frac & es_mask) >> (8 - es);
+
+  printf("exponent: %i \n", exponent);
   //append the (signed) regime value to this.
   exponent |= (s_regime << es);
   //finally, add the bias value
@@ -175,6 +179,9 @@ static float p8_to_float(uint8_t pval, int16_t es, uint8_t es_mask){
 
   //shift the fraction again to obliterate the exponent section.
   uint8_t p_frac = p_exp_frac << es;
+
+  printf("p_exp_frac: %04xh\n", p_exp_frac);
+  printf("p_frac:     %04xh\n", p_frac);
 
   uint32_t result;
   result = (negative ? 0x80000000L : 0x00000000L) |
@@ -378,15 +385,19 @@ static float p16_to_float(uint16_t pval, int16_t es, uint16_t es_mask){
     uint16_t z_posit = ~pos_val & ((uint16_t) 0x7fff);
 
     //__builtin_clz has "undefined" state for a value of 0.  W.T.F, C??
-    u_regime = (z_posit == 0) ? 32 : __builtin_clz(z_posit)-16;
+    u_regime = (z_posit == 0) ? 32 : __builtin_clz(z_posit)-16 - 1;
     s_regime = u_regime - 1;
   }
   //next create the proper exp/frac value by shifting the pos_val, based on the
   //unsigned regime value.
-  uint16_t p_exp_frac = (pos_val << (u_regime + 3));
+  uint16_t p_exp_frac = (pos_val << (u_regime + 2));
 
+  printf("------\n");
+  printf("es_mask: %04xh\n", es_mask);
   //extract the exponent value by grabbing the top bits.
-  int16_t exponent = (p_exp_frac & es_mask) >> (32 - es);
+  int16_t exponent = (p_exp_frac & es_mask) >> (16 - es);
+
+  printf("exponent: %i \n", exponent);
   //append the (signed) regime value to this.
   exponent |= (s_regime << es);
   //finally, add the bias value
@@ -394,6 +405,9 @@ static float p16_to_float(uint16_t pval, int16_t es, uint16_t es_mask){
 
   //shift the fraction again to obliterate the exponent section.
   uint16_t p_frac = p_exp_frac << es;
+
+  printf("p_exp_frac: %04xh\n", p_exp_frac);
+  printf("p_frac:     %04xh\n", p_frac);
 
   uint32_t result;
   result = (negative ? 0x80000000L : 0x00000000L) |
@@ -589,7 +603,7 @@ static double p32_to_double(uint32_t pval, int16_t es, uint32_t es_mask){
 
   if (inverted){
     //just count the leading zeros, which will tell you the regime.
-    u_regime = __builtin_clz(pos_val) - 1;
+    u_regime = __builtin_clzl(pos_val) - 1;
     s_regime = - u_regime;
   } else {
     //there's no "clo" intrinsic in standard c (whether or not there is a
@@ -597,15 +611,19 @@ static double p32_to_double(uint32_t pval, int16_t es, uint32_t es_mask){
     uint16_t z_posit = ~pos_val & 0x7fffffffL;
 
     //__builtin_clz has "undefined" state for a value of 0.  W.T.F, C??
-    u_regime = (z_posit == 0) ? 64 : __builtin_clzl(z_posit);
+    u_regime = (z_posit == 0) ? 64 : __builtin_clzl(z_posit) - 1;
     s_regime = u_regime - 1;
   }
   //next create the proper exp/frac value by shifting the pos_val, based on the
   //unsigned regime value.
-  uint32_t p_exp_frac = (pos_val << (u_regime + 3));
+  uint32_t p_exp_frac = (pos_val << (u_regime + 2));
 
+  printf("------\n");
+  printf("es_mask: %04xh\n", es_mask);
   //extract the exponent value by grabbing the top bits.
-  int16_t exponent = (p_exp_frac & es_mask) >> (64 - es);
+  int16_t exponent = (p_exp_frac & es_mask) >> (32 - es);
+
+  printf("exponent: %i \n", exponent);
   //append the (signed) regime value to this.
   exponent |= (s_regime << es);
   //finally, add the bias value
@@ -613,6 +631,9 @@ static double p32_to_double(uint32_t pval, int16_t es, uint32_t es_mask){
 
   //shift the fraction again to obliterate the exponent section.
   uint32_t p_frac = p_exp_frac << es;
+
+  printf("p_exp_frac: %04xh\n", p_exp_frac);
+  printf("p_frac:     %04xh\n", p_frac);
 
   uint64_t result;
   result = (negative ? 0x8000000000000000LL : 0x0000000000000000LL) |

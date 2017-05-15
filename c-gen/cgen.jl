@@ -49,7 +49,7 @@ function generate_fastsigmoid_c_library(posit_defs, d::AbstractString = normpath
   end
 
   ##############################################################################
-  # c code files.
+  # "c" code files.
 
   filelist = Dict("posit_err"      => generate_posit_err_c,
                   "posit_conv"     => generate_posit_conv_c,
@@ -66,15 +66,13 @@ function generate_fastsigmoid_c_library(posit_defs, d::AbstractString = normpath
 
     #next, compile the files.
     cc = run(`gcc -c -Wall -Werror -fpic $posit_file_path -o $posit_object_path`)
-
-    #then, link them
-    object_files = ["$object_dir/$f" for f in readdir(object_dir) if f[end-1:end] == ".o"]
-
-    library_path = normpath(d, "libfastposit.so")
-    ln = run(`gcc -shared -o $library_path $object_files`)
   end
 
   ##############################################################################
   # c++ code files.
 
+  #link all the files and combine them into libfastposit.so
+  object_files = ["$object_dir/$f" for f in readdir(object_dir) if f[end-1:end] == ".o"]
+  library_path = normpath(d, "libfastposit.so")
+  ln = run(`gcc -shared -o $library_path $object_files`)
 end

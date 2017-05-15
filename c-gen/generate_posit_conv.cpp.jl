@@ -159,7 +159,7 @@ static $(ftype) p$(n)_to_$(ftype)(uint$(n)_t pval, int16_t es, uint$(n)_t es_mas
 
   if (inverted){
     //just count the leading zeros, which will tell you the regime.
-    u_regime = __builtin_clz(pos_val)$(n < 32 ? n - 32 : "") - 1;
+    u_regime = $(clz)(pos_val)$(n < 32 ? n - 32 : "") - 1;
     s_regime = - u_regime;
   } else {
     //there's no "clo" intrinsic in standard c (whether or not there is a
@@ -167,15 +167,19 @@ static $(ftype) p$(n)_to_$(ftype)(uint$(n)_t pval, int16_t es, uint$(n)_t es_mas
     uint16_t z_posit = ~pos_val & $(c_literal(~top_bits(n)));
 
     //__builtin_clz has "undefined" state for a value of 0.  W.T.F, C??
-    u_regime = (z_posit == 0) ? $(fpsize) : $(clz)(z_posit)$(n < 32 ? n - 32 : "");
+    u_regime = (z_posit == 0) ? $(fpsize) : $(clz)(z_posit)$(n < 32 ? n - 32 : "") - 1;
     s_regime = u_regime - 1;
   }
   //next create the proper exp/frac value by shifting the pos_val, based on the
   //unsigned regime value.
-  uint$(n)_t p_exp_frac = (pos_val << (u_regime + 3));
+  uint$(n)_t p_exp_frac = (pos_val << (u_regime + 2));
 
+  printf("------\\n");
+  printf("es_mask: %04xh\\n", es_mask);
   //extract the exponent value by grabbing the top bits.
-  int16_t exponent = (p_exp_frac & es_mask) >> ($fpsize - es);
+  int16_t exponent = (p_exp_frac & es_mask) >> ($(n) - es);
+
+  printf("exponent: %i \\n", exponent);
   //append the (signed) regime value to this.
   exponent |= (s_regime << es);
   //finally, add the bias value
@@ -183,6 +187,9 @@ static $(ftype) p$(n)_to_$(ftype)(uint$(n)_t pval, int16_t es, uint$(n)_t es_mas
 
   //shift the fraction again to obliterate the exponent section.
   uint$(n)_t p_frac = p_exp_frac << es;
+
+  printf("p_exp_frac: %04xh\\n", p_exp_frac);
+  printf("p_frac:     %04xh\\n", p_frac);
 
   uint$(fpsize)_t result;
   result = (negative ? $(c_literal(top_bits(fpsize))) : $(c_literal(zero_bits(fpsize)))) |
@@ -198,6 +205,7 @@ end
 function generate_posit_conv_c(io, posit_defs)
   #generates "posit.h" based on the posit_definitions
   write(io, "#include \"include/posit.h\"\n")
+  write(io, "#include <stdio.h>")
   write(io, "\n")
 
   for n in sort(collect(keys(posit_defs)))
