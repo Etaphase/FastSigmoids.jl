@@ -1,7 +1,8 @@
-# FastSigmoid
+FastSigmoid
+===========
 
-
-# FastSigmoid-c
+FastSigmoid-c
+=============
 
 FastSigmoid-c is a hybrid C/C++ library for the deployment of posit numerical
 types.  By default, it implements the following posit environments:
@@ -19,7 +20,8 @@ types.  By default, it implements the following posit environments:
 
 Support for 64- bit environments is forthcoming.
 
-#USE
+USE
+---
 
 FastSigmoid-c implements C types of the form p(N)e(ES)\_t.  These correspond to
 Posit{N,ES}.  For example, p16e2_t represents Posit{16,2}.
@@ -61,3 +63,26 @@ Supported functions:
 * atan2   - trigonometric arctangent with coordinate arguments
 
 _italic_ functions are not currently implemented.
+
+Specific functions
+------------------
+
+all functions in this section use Posit{16,0} as the example posit type
+
+
+    void p16e0_add(p16e0_t \*res, p16e0_t \*lhs, p16e0_t \*rhs)
+
+computes lhs + rhs and overwrites the value in res.
+
+
+    void p16e0_sub(p16e0_t \*res, p16e0_t \*lhs, p16e0_t \*rhs)
+    
+computes rhs + lhs and overwrites the value in res.
+
+
+
+
+
+
+* sub     - binary subtraction
+* mul     - binary multiplicaton
