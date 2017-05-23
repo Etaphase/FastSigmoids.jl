@@ -1,12 +1,18 @@
 #include "include/posit.h"
 #include "include/posit_conv.h"
+#include <stdio.h>
 
 extern "C" void p8e0_add(p8e0_t *res, p8e0_t *lhs, p8e0_t *rhs){
     bool lhs_inf = (lhs->udata == P8INF);
     bool rhs_inf = (rhs->udata == P8INF);
 
+    if (lhs_inf || rhs_inf) {
+      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
+      res->udata = P8INF;
+      return;
+    }
+
     //throw or long jump with the global NaNJump on addition of two infinities.
-    if ( lhs_inf && rhs_inf ) { throw_nan_jmp(); }
 
     float fres = p8e0_to_f(*lhs) + p8e0_to_f(*rhs);
 
@@ -25,8 +31,13 @@ extern "C" void p8e1_add(p8e1_t *res, p8e1_t *lhs, p8e1_t *rhs){
     bool lhs_inf = (lhs->udata == P8INF);
     bool rhs_inf = (rhs->udata == P8INF);
 
+    if (lhs_inf || rhs_inf) {
+      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
+      res->udata = P8INF;
+      return;
+    }
+
     //throw or long jump with the global NaNJump on addition of two infinities.
-    if ( lhs_inf && rhs_inf ) { throw_nan_jmp(); }
 
     float fres = p8e1_to_f(*lhs) + p8e1_to_f(*rhs);
 
@@ -45,8 +56,13 @@ extern "C" void p8e2_add(p8e2_t *res, p8e2_t *lhs, p8e2_t *rhs){
     bool lhs_inf = (lhs->udata == P8INF);
     bool rhs_inf = (rhs->udata == P8INF);
 
+    if (lhs_inf || rhs_inf) {
+      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
+      res->udata = P8INF;
+      return;
+    }
+
     //throw or long jump with the global NaNJump on addition of two infinities.
-    if ( lhs_inf && rhs_inf ) { throw_nan_jmp(); }
 
     float fres = p8e2_to_f(*lhs) + p8e2_to_f(*rhs);
 
@@ -65,8 +81,13 @@ extern "C" void p16e0_add(p16e0_t *res, p16e0_t *lhs, p16e0_t *rhs){
     bool lhs_inf = (lhs->udata == P16INF);
     bool rhs_inf = (rhs->udata == P16INF);
 
+    if (lhs_inf || rhs_inf) {
+      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
+      res->udata = P16INF;
+      return;
+    }
+
     //throw or long jump with the global NaNJump on addition of two infinities.
-    if ( lhs_inf && rhs_inf ) { throw_nan_jmp(); }
 
     float fres = p16e0_to_f(*lhs) + p16e0_to_f(*rhs);
 
@@ -85,8 +106,13 @@ extern "C" void p16e1_add(p16e1_t *res, p16e1_t *lhs, p16e1_t *rhs){
     bool lhs_inf = (lhs->udata == P16INF);
     bool rhs_inf = (rhs->udata == P16INF);
 
+    if (lhs_inf || rhs_inf) {
+      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
+      res->udata = P16INF;
+      return;
+    }
+
     //throw or long jump with the global NaNJump on addition of two infinities.
-    if ( lhs_inf && rhs_inf ) { throw_nan_jmp(); }
 
     float fres = p16e1_to_f(*lhs) + p16e1_to_f(*rhs);
 
@@ -105,8 +131,13 @@ extern "C" void p16e2_add(p16e2_t *res, p16e2_t *lhs, p16e2_t *rhs){
     bool lhs_inf = (lhs->udata == P16INF);
     bool rhs_inf = (rhs->udata == P16INF);
 
+    if (lhs_inf || rhs_inf) {
+      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
+      res->udata = P16INF;
+      return;
+    }
+
     //throw or long jump with the global NaNJump on addition of two infinities.
-    if ( lhs_inf && rhs_inf ) { throw_nan_jmp(); }
 
     float fres = p16e2_to_f(*lhs) + p16e2_to_f(*rhs);
 
@@ -125,8 +156,13 @@ extern "C" void p32e0_add(p32e0_t *res, p32e0_t *lhs, p32e0_t *rhs){
     bool lhs_inf = (lhs->udata == P32INF);
     bool rhs_inf = (rhs->udata == P32INF);
 
+    if (lhs_inf || rhs_inf) {
+      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
+      res->udata = P32INF;
+      return;
+    }
+
     //throw or long jump with the global NaNJump on addition of two infinities.
-    if ( lhs_inf && rhs_inf ) { throw_nan_jmp(); }
 
     double fres = p32e0_to_f(*lhs) + p32e0_to_f(*rhs);
 
@@ -145,8 +181,13 @@ extern "C" void p32e1_add(p32e1_t *res, p32e1_t *lhs, p32e1_t *rhs){
     bool lhs_inf = (lhs->udata == P32INF);
     bool rhs_inf = (rhs->udata == P32INF);
 
+    if (lhs_inf || rhs_inf) {
+      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
+      res->udata = P32INF;
+      return;
+    }
+
     //throw or long jump with the global NaNJump on addition of two infinities.
-    if ( lhs_inf && rhs_inf ) { throw_nan_jmp(); }
 
     double fres = p32e1_to_f(*lhs) + p32e1_to_f(*rhs);
 
@@ -165,8 +206,13 @@ extern "C" void p32e2_add(p32e2_t *res, p32e2_t *lhs, p32e2_t *rhs){
     bool lhs_inf = (lhs->udata == P32INF);
     bool rhs_inf = (rhs->udata == P32INF);
 
+    if (lhs_inf || rhs_inf) {
+      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
+      res->udata = P32INF;
+      return;
+    }
+
     //throw or long jump with the global NaNJump on addition of two infinities.
-    if ( lhs_inf && rhs_inf ) { throw_nan_jmp(); }
 
     double fres = p32e2_to_f(*lhs) + p32e2_to_f(*rhs);
 
@@ -185,8 +231,13 @@ extern "C" void p32e3_add(p32e3_t *res, p32e3_t *lhs, p32e3_t *rhs){
     bool lhs_inf = (lhs->udata == P32INF);
     bool rhs_inf = (rhs->udata == P32INF);
 
+    if (lhs_inf || rhs_inf) {
+      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
+      res->udata = P32INF;
+      return;
+    }
+
     //throw or long jump with the global NaNJump on addition of two infinities.
-    if ( lhs_inf && rhs_inf ) { throw_nan_jmp(); }
 
     double fres = p32e3_to_f(*lhs) + p32e3_to_f(*rhs);
 
@@ -487,8 +538,13 @@ extern "C" void p8e0_sub(p8e0_t *res, p8e0_t *lhs, p8e0_t *rhs){
     bool lhs_inf = (lhs->udata == P8INF);
     bool rhs_inf = (rhs->udata == P8INF);
 
+    if (lhs_inf || rhs_inf) {
+      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
+      res->udata = P8INF;
+      return;
+    }
+
     //throw or long jump with the global NaNJump on addition of two infinities.
-    if ( lhs_inf && rhs_inf ) { throw_nan_jmp(); }
 
     float fres = p8e0_to_f(*lhs) - p8e0_to_f(*rhs);
 
@@ -507,8 +563,13 @@ extern "C" void p8e1_sub(p8e1_t *res, p8e1_t *lhs, p8e1_t *rhs){
     bool lhs_inf = (lhs->udata == P8INF);
     bool rhs_inf = (rhs->udata == P8INF);
 
+    if (lhs_inf || rhs_inf) {
+      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
+      res->udata = P8INF;
+      return;
+    }
+
     //throw or long jump with the global NaNJump on addition of two infinities.
-    if ( lhs_inf && rhs_inf ) { throw_nan_jmp(); }
 
     float fres = p8e1_to_f(*lhs) - p8e1_to_f(*rhs);
 
@@ -527,8 +588,13 @@ extern "C" void p8e2_sub(p8e2_t *res, p8e2_t *lhs, p8e2_t *rhs){
     bool lhs_inf = (lhs->udata == P8INF);
     bool rhs_inf = (rhs->udata == P8INF);
 
+    if (lhs_inf || rhs_inf) {
+      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
+      res->udata = P8INF;
+      return;
+    }
+
     //throw or long jump with the global NaNJump on addition of two infinities.
-    if ( lhs_inf && rhs_inf ) { throw_nan_jmp(); }
 
     float fres = p8e2_to_f(*lhs) - p8e2_to_f(*rhs);
 
@@ -547,8 +613,13 @@ extern "C" void p16e0_sub(p16e0_t *res, p16e0_t *lhs, p16e0_t *rhs){
     bool lhs_inf = (lhs->udata == P16INF);
     bool rhs_inf = (rhs->udata == P16INF);
 
+    if (lhs_inf || rhs_inf) {
+      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
+      res->udata = P16INF;
+      return;
+    }
+
     //throw or long jump with the global NaNJump on addition of two infinities.
-    if ( lhs_inf && rhs_inf ) { throw_nan_jmp(); }
 
     float fres = p16e0_to_f(*lhs) - p16e0_to_f(*rhs);
 
@@ -567,8 +638,13 @@ extern "C" void p16e1_sub(p16e1_t *res, p16e1_t *lhs, p16e1_t *rhs){
     bool lhs_inf = (lhs->udata == P16INF);
     bool rhs_inf = (rhs->udata == P16INF);
 
+    if (lhs_inf || rhs_inf) {
+      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
+      res->udata = P16INF;
+      return;
+    }
+
     //throw or long jump with the global NaNJump on addition of two infinities.
-    if ( lhs_inf && rhs_inf ) { throw_nan_jmp(); }
 
     float fres = p16e1_to_f(*lhs) - p16e1_to_f(*rhs);
 
@@ -587,8 +663,13 @@ extern "C" void p16e2_sub(p16e2_t *res, p16e2_t *lhs, p16e2_t *rhs){
     bool lhs_inf = (lhs->udata == P16INF);
     bool rhs_inf = (rhs->udata == P16INF);
 
+    if (lhs_inf || rhs_inf) {
+      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
+      res->udata = P16INF;
+      return;
+    }
+
     //throw or long jump with the global NaNJump on addition of two infinities.
-    if ( lhs_inf && rhs_inf ) { throw_nan_jmp(); }
 
     float fres = p16e2_to_f(*lhs) - p16e2_to_f(*rhs);
 
@@ -607,8 +688,13 @@ extern "C" void p32e0_sub(p32e0_t *res, p32e0_t *lhs, p32e0_t *rhs){
     bool lhs_inf = (lhs->udata == P32INF);
     bool rhs_inf = (rhs->udata == P32INF);
 
+    if (lhs_inf || rhs_inf) {
+      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
+      res->udata = P32INF;
+      return;
+    }
+
     //throw or long jump with the global NaNJump on addition of two infinities.
-    if ( lhs_inf && rhs_inf ) { throw_nan_jmp(); }
 
     double fres = p32e0_to_f(*lhs) - p32e0_to_f(*rhs);
 
@@ -627,8 +713,13 @@ extern "C" void p32e1_sub(p32e1_t *res, p32e1_t *lhs, p32e1_t *rhs){
     bool lhs_inf = (lhs->udata == P32INF);
     bool rhs_inf = (rhs->udata == P32INF);
 
+    if (lhs_inf || rhs_inf) {
+      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
+      res->udata = P32INF;
+      return;
+    }
+
     //throw or long jump with the global NaNJump on addition of two infinities.
-    if ( lhs_inf && rhs_inf ) { throw_nan_jmp(); }
 
     double fres = p32e1_to_f(*lhs) - p32e1_to_f(*rhs);
 
@@ -647,8 +738,13 @@ extern "C" void p32e2_sub(p32e2_t *res, p32e2_t *lhs, p32e2_t *rhs){
     bool lhs_inf = (lhs->udata == P32INF);
     bool rhs_inf = (rhs->udata == P32INF);
 
+    if (lhs_inf || rhs_inf) {
+      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
+      res->udata = P32INF;
+      return;
+    }
+
     //throw or long jump with the global NaNJump on addition of two infinities.
-    if ( lhs_inf && rhs_inf ) { throw_nan_jmp(); }
 
     double fres = p32e2_to_f(*lhs) - p32e2_to_f(*rhs);
 
@@ -667,8 +763,13 @@ extern "C" void p32e3_sub(p32e3_t *res, p32e3_t *lhs, p32e3_t *rhs){
     bool lhs_inf = (lhs->udata == P32INF);
     bool rhs_inf = (rhs->udata == P32INF);
 
+    if (lhs_inf || rhs_inf) {
+      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
+      res->udata = P32INF;
+      return;
+    }
+
     //throw or long jump with the global NaNJump on addition of two infinities.
-    if ( lhs_inf && rhs_inf ) { throw_nan_jmp(); }
 
     double fres = p32e3_to_f(*lhs) - p32e3_to_f(*rhs);
 

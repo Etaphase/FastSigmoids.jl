@@ -12,8 +12,13 @@ function basics_output(op::Symbol, n::Integer, es::Integer)
     bool lhs_inf = (lhs->udata == P$(n)INF);
     bool rhs_inf = (rhs->udata == P$(n)INF);
 
+    if (lhs_inf || rhs_inf) {
+      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
+      res->udata = P$(n)INF;
+      return;
+    }
+
     //throw or long jump with the global NaNJump on addition of two infinities.
-    if ( lhs_inf && rhs_inf ) { throw_nan_jmp(); }
 
     $(ftype) fres = $(to_f(n,es,"*lhs")) $(binf) $(to_f(n,es,"*rhs"));
 
@@ -78,6 +83,7 @@ function generate_posit_basics_c(io, posit_defs)
   #generates "posit.h" based on the posit_definitions
   write(io, "#include \"include/posit.h\"\n")
   write(io, "#include \"include/posit_conv.h\"\n")
+  write(io, "#include <stdio.h>\n")
   write(io, "\n")
 
   for fn in BASICS_FNS

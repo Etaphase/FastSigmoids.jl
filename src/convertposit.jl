@@ -161,108 +161,115 @@ end
 
 function regime_exponent{T <: Signed,ES}(exponent::T, ::Type{Val{ES}})
   low_mask = T((1 << ES) - 1)
-  (exponent >> ES, exponent & low_mask)
+  (exponent >> ES, unsigned(exponent & low_mask))
 end
 
 @generated function __build{N, ES}(::Type{Posit{N, ES}}, sign::Bool, exponent::Signed, fraction::Unsigned)
 
   sizeof(exponent) == sizeof(fraction) || throw(ArgumentError("mismatched integer sizes"))
 
-  UIntType = __UT(Posit{N, ES})
-  IntType = __ST(Posit{N, ES})
-  PositType = __PT(Posit{N, ES})
-  topbit = one(IntType) << (N - 1)
-  topmask = ~topbit
+  #in the __build function, we will promote the fraction to be the size of larger
+  #of fraction / UInt(N).  This will be trimmed later.
 
-  #in case our starting floating point was too small, increase the size of the exponent and fraction.
-  if N > (sizeof(exponent) * 8)
-    shift = N - sizeof(exponent) * 8
-    adjuster = quote
-      adj_exponent = $IntType(exponent)
-      adj_fraction = $UIntType(fraction) << $shift
-      summary = false
-    end
-  elseif N == (sizeof(exponent) * 8)
-    adjuster = quote
-      adj_exponent = exponent
-      adj_fraction = fraction
-      summary = false
-    end
+  frac_width = sizeof(fraction) * 8
+
+  if (frac_width) > N
+    #note that in the unquoted parts of generated functions the variable name is
+    #assigned to the *type* of the variable.
+    UIntType = fraction
+    IntType  = exponent
+
+    topbit = one(UIntType) << (frac_width - 1)
+    minreal = one(UIntType) << (frac_width - N)
+    buffer_width = frac_width
   else
-    shift = (sizeof(exponent) * 8) - N
-    guardmask = one(UIntType) << (shift - 1)
-    summarymask = guardmask - one(UIntType)
-    adjuster = quote
-      adj_exponent = $IntType(exponent)
-      adj_fraction = $UIntType(fraction >> $shift)
-      summary = ($summarymask & fraction) != 0
-    end
+    UIntType = __UT(Posit{N, ES})
+    IntType  = __ST(Posit{N, ES})
+
+    topbit = one(UIntType) << (N - 1)
+    minreal = one(UIntType)
+    buffer_width = N
   end
 
+  #next create code which shifts the fraction correctly.  Fraction
+  #should start 3 bits to the right of the desired value, plus making some
+  #room for the exponent bits.
+  create_data_buffer = if frac_width < N
+    :( data_buffer = $UIntType(fraction) << (N - frac_width - 3 - ES) )
+  else
+    :( data_buffer = fraction >> (3 + ES) )
+  end
+
+  #the code for summary mask is different for the two cases as well.
+  create_summary_mask = if frac_width > N
+    :( value_mask -= one($IntType) )
+  else
+    :( value_mask = (shift > 0) * value_mask - one($IntType) )
+  end
+
+  #finally create "trimmer" code which trims the tail end of the fraction.
+  trim_buffer_to_result = if frac_width > N
+    ResultType = __UT(Posit{N,ES})
+    :( result_value = $ResultType(data_buffer >> $(frac_width - N)) )
+  else
+    :( result_value = data_buffer )
+  end
+
+  #create a series of useful constants.
+  toptwo = -(topbit >> 1)
+  thirdbit = topbit >> 2
+  topmask = ~topbit
+  maxreal = topbit - minreal
+
+  #this allows us to directly cast to the non-abstract posit type
+  PositType = __PT(Posit{N,ES})
+
   quote
-    #adjust the integers.
-    $adjuster
+    #adjust the integers to be left-aligned.
+    $create_data_buffer
 
+    (regime, subexponent) = regime_exponent(exponent, Val{ES})
 
+    #generate a "signature" - 001 for less than one, 110 for more than one.
     if exponent < 0
-      (regime, subexponent) = regime_exponent(adj_exponent, Val{ES})
-
-      prefix = $topbit | (subexponent << (N - ES - 1))
-      prefix = prefix >>> (-regime + 1)
-
-      fshift = -regime + 2 + ES
+      signature = $thirdbit | ($UIntType(subexponent) << ($buffer_width - ES - 3))
+      shift = (-regime - 1)
     else
-      (regime, subexponent) = regime_exponent(adj_exponent, Val{ES})
-      #set the regime.
-      prefix = $topbit | (subexponent << (N - ES - 2))
-      #then add the exponent values
-      prefix >>= (regime + 1)
-      prefix &= $topmask
-
-      fshift = regime + 3 + ES
+      signature = $toptwo | ($UIntType(subexponent) << ($buffer_width - ES - 3))
+      shift = regime
     end
 
-    #combine the prefix with the shifted fraction
-    absval = prefix | $IntType(adj_fraction >> fshift)
 
-    #decide whether or not we need to round.
-    lastbit = (one($UIntType) & absval) != 0
-    guardbit = (adj_fraction & (one($UIntType) << (fshift - 1))) != 0
-    summmask = guardbit - one($UIntType)
-    summary = summary || ((summmask & adj_fraction) != 0)
-    absval += (summary & guardbit) | (lastbit & guardbit)
+    data_buffer = signature | data_buffer
 
-    reinterpret($PositType, sign ? -absval : absval)
+    #check the inner bit.
+    value_mask = $minreal << shift
+    innerbit = ((value_mask) & data_buffer) != 0
+
+    #check the guard bit
+    value_mask >>= 1
+    guardbit = ((value_mask) & data_buffer) != 0
+
+    #check the summary bit.
+    $create_summary_mask
+    summarybit = ((value_mask) & data_buffer) != 0
+
+    #do an arithmetic shift on the signed data buffer.
+    data_buffer = unsigned(signed(data_buffer) >> shift)
+
+    #mask out the top bit.
+    data_buffer &= $topmask
+    #perform rounding.
+    data_buffer += ((summarybit & guardbit) | (innerbit & guardbit)) * $minreal
+
+    #intercept infinities and convert to maxreal.
+    data_buffer = clamp(data_buffer, $minreal, $maxreal)
+
+    $trim_buffer_to_result
+
+    reinterpret($PositType, sign ? -result_value : result_value)
   end
 end
-
-#__build is much simpler when ES = 0
-#=
-function __build{N}(::Type{Posit{N, 0}}, sign, exponent, fraction)
-
-  IntType = __ST(Posit{N, 0})
-  PositType = __PT(Posit{N, 0})
-  topbit = one(IntType) << (N - 1)
-  topmask = ~topbit
-
-  quote
-  if exponent < 0
-    fshift = -exponent + 2
-    body = one(@UInt) << (__BITS + exponent - 2)
-  else
-    #set the prefix.  That's 2^exponent - 1
-    prefix = (one(@UInt) << (exponent + 1)) - 1
-    #shift the prefix over
-    body = prefix << (__BITS - exponent - 2)
-    fshift = exponent + 3
-  end
-
-  absval = body | (fraction >> fshift)
-
-  reinterpret(Sigmoid{N, 0, mode}, sign ? -absval : absval)
-  end
-end
-=#
 
 #reimplement the reinterpret directive to support non-leaf posit types.
 Base.reinterpret{ES}(::Type{Posit{8,ES}}, i::UInt8) = reinterpret(Posit8{ES}, i)

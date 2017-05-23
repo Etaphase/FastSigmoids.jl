@@ -14,7 +14,15 @@ Base.:+{N,ES}(x::Posit{N,ES}) = x
 Base.:-{N,ES}(x::Posit{N,ES}) = reinterpret(__PT(Posit{N,ES}), -__s(x))
 
 #partial required operations
-@__binaryshim Base.:+
+function Base.:+{N,ES}(lhs::Posit{N,ES}, rhs::Posit{N,ES})
+  if (isinf(lhs) | isinf(rhs))
+    (isinf(lhs) & isinf(rhs)) && (throw(NaNError()))
+    return Posit{N,ES}(Inf)
+  end
+
+  Posit{N,ES}(__p2f(lhs) + __p2f(rhs))
+end
+
 @__binaryshim Base.:-
 @__binaryshim Base.:*
 
