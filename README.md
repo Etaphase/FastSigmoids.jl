@@ -70,19 +70,64 @@ Specific functions
 all functions in this section use Posit{16,0} as the example posit type
 
 
-    void p16e0_add(p16e0_t \*res, p16e0_t \*lhs, p16e0_t \*rhs)
+    void p16e0_add(p16e0_t *res, p16e0_t *lhs, p16e0_t *rhs)
 
 computes lhs + rhs and overwrites the value in res.
 
 
-    void p16e0_sub(p16e0_t \*res, p16e0_t \*lhs, p16e0_t \*rhs)
-    
-computes rhs + lhs and overwrites the value in res.
+    void p16e0_sub(p16e0_t *res, p16e0_t *lhs, p16e0_t *rhs)
+
+computes rhs - lhs and overwrites the value in res.
 
 
+    void p16e0_mul(p16e0_t *res, p16e0_t *lhs, p16e0_t *rhs)
+
+computes rhs * lhs and overwrites the value in res.
 
 
+    p16e0_t p16e0_addinv(p16e0_t arg)
+
+computes -arg and returns it.
 
 
-* sub     - binary subtraction
-* mul     - binary multiplicaton
+    bool p16e0_lt(p16_e0_t lhs, p16e0_t rhs)
+
+returns lhs < rhs.
+
+
+    bool p16e0_lte(p16_e0_t lhs, p16e0_t rhs)
+
+returns lhs < rhs.
+
+
+    void p16e0_mul(p16e0_t *res, p16e0_t *lhs, p16e0_t *rhs)
+
+computes rhs / lhs and overwrites the value in res.
+
+
+    p16e0_t mulinv(p16e0_t arg)
+
+computes 1/arg returns it.
+
+    * mulinv  - multiplactive inverse
+    * log2    - logarithm base 2
+    * exp2    - exponential base 2
+    * fma     - fused multiply add
+    * fms     - fused multiply subtract
+    * nfma    - negative fused multiply add
+    * nfms    - negative fused multiply subtract
+    * fas     - _fused add/scale_
+    * fcp     - _fused cross product_
+    * fdp     - _fused dot product_
+    * dpi     - _initialize dot product accumulator_
+    * sqrt    - square root
+    * log1p   - logarithm base e of (argument + 1)
+    * log     - logarithm base e
+    * log10   - logarithm base 10
+    * exp     - exponential base e
+    * pow     - arbitrary base exponential
+    * logx    - arbitrary base logarithm
+    * sin     - trigonometric sine
+    * cos     - trigonometric cosine
+    * atan    - trigonometric arctangent
+    * atan2   - trigonometric arctangent with coordinate arguments
