@@ -32,102 +32,34 @@ conversion of the posit to the smallest IEEE floating point form, evaulation
 using standard hardware, followed by conversion back to the posit form.
 
 Supported functions:
-* add     - binary addition
-* sub     - binary subtraction
-* mul     - binary multiplicaton
-* addinv  - additive inverse
-* lt      - less than
-* lte     - less than or equal to
-* div     - division
-* mulinv  - multiplactive inverse
-* log2    - logarithm base 2
-* exp2    - exponential base 2
-* fma     - fused multiply add
-* fms     - fused multiply subtract
-* nfma    - negative fused multiply add
-* nfms    - negative fused multiply subtract
+* `void p16e0_add(p16e0_t *res, p16e0_t *lhs, p16e0_t *rhs)`  res <- lhs + rhs
+* `void p16e0_sub(p16e0_t *res, p16e0_t *lhs, p16e0_t *rhs)`  res <- lhs - rhs
+* `void p16e0_mul(p16e0_t *res, p16e0_t *lhs, p16e0_t *rhs)`  res <- lhs * rhs
+* `p16e0_t p16e0_addinv(p16e0_t arg)`  ==> -arg
+* `bool p16e0_lt(p16e0_t lhs, p16e0_t rhs)` ==> lhs < rhs
+* `bool p16e0_lte(p16e0_t lhs, p16e0_t rhs)` ==> lhs <= rhs
+* `void p16e0_sub(p16e0_t *res, p16e0_t *lhs, p16e0_t *rhs)`  res <- lhs / rhs
+* `p16e0_t p16e0_addinv(p16e0_t arg)`  ==> 1/arg
+* `p16e0_t p16e0_log2(p16e0_t arg)`  ==> log2(arg)
+* `p16e0_t p16e0_exp2(p16e0_t arg)`  ==> 2^(arg)
+* `void p16e0_fma(p16e0_t *res, p16e0_t *a, p16e0_t *b, p16e0_t *c,)`  res <- a * b + c
+* `void p16e0_fms(p16e0_t *res, p16e0_t *a, p16e0_t *b, p16e0_t *c,)`  res <- a * b - c
+* `void p16e0_nfma(p16e0_t *res, p16e0_t *a, p16e0_t *b, p16e0_t *c,)`  res <- -(a * b) + c
+* `void p16e0_nfms(p16e0_t *res, p16e0_t *a, p16e0_t *b, p16e0_t *c,)`  res <- -(a * b) - c
 * fas     - _fused add/scale_
 * fcp     - _fused cross product_
 * fdp     - _fused dot product_
 * dpi     - _initialize dot product accumulator_
-* sqrt    - square root
-* log1p   - logarithm base e of (argument + 1)
-* log     - logarithm base e
-* log10   - logarithm base 10
-* exp     - exponential base e
-* pow     - arbitrary base exponential
-* logx    - arbitrary base logarithm
-* sin     - trigonometric sine
-* cos     - trigonometric cosine
-* atan    - trigonometric arctangent
-* atan2   - trigonometric arctangent with coordinate arguments
+* `p16e0_t p16e0_sqrt(p16e0_t arg)`  ==> sqrt(arg)
+* `p16e0_t p16e0_log1p(p16e0_t arg)`  ==> ln(arg + 1)
+* `p16e0_t p16e0_log(p16e0_t arg)`  ==> ln(arg)
+* `p16e0_t p16e0_log10(p16e0_t arg)`  ==> log10(arg)
+* `p16e0_t p16e0_exp(p16e0_t arg)`  ==> e^(arg)
+* `p16e0_t p16e0_pow(p16e0_t lhs, p16e0_t rhs)`  ==> (lhs)^(rhs)
+* `p16e0_t p16e0_logx(p16e0_t lhs, p16e0_t rhs)`  ==> log_lhs(rhs)
+* `p16e0_t p16e0_sin(p16e0_t arg)`  ==> sin(arg)
+* `p16e0_t p16e0_cos(p16e0_t arg)`  ==> cos(arg)
+* `p16e0_t p16e0_atan(p16e0_t arg)`  ==> atan(arg)
+* `p16e0_t p16e0_atan2(p16e0_t y, p16e0_t x)`  ==> atan(y/x)
 
 _italic_ functions are not currently implemented.
-
-Specific functions
-------------------
-
-all functions in this section use Posit{16,0} as the example posit type
-
-
-    void p16e0_add(p16e0_t *res, p16e0_t *lhs, p16e0_t *rhs)
-
-computes lhs + rhs and overwrites the value in res.
-
-
-    void p16e0_sub(p16e0_t *res, p16e0_t *lhs, p16e0_t *rhs)
-
-computes rhs - lhs and overwrites the value in res.
-
-
-    void p16e0_mul(p16e0_t *res, p16e0_t *lhs, p16e0_t *rhs)
-
-computes rhs * lhs and overwrites the value in res.
-
-
-    p16e0_t p16e0_addinv(p16e0_t arg)
-
-computes -arg and returns it.
-
-
-    bool p16e0_lt(p16_e0_t lhs, p16e0_t rhs)
-
-returns lhs < rhs.
-
-
-    bool p16e0_lte(p16_e0_t lhs, p16e0_t rhs)
-
-returns lhs < rhs.
-
-
-    void p16e0_mul(p16e0_t *res, p16e0_t *lhs, p16e0_t *rhs)
-
-computes rhs / lhs and overwrites the value in res.
-
-
-    p16e0_t mulinv(p16e0_t arg)
-
-computes 1/arg returns it.
-
-    * mulinv  - multiplactive inverse
-    * log2    - logarithm base 2
-    * exp2    - exponential base 2
-    * fma     - fused multiply add
-    * fms     - fused multiply subtract
-    * nfma    - negative fused multiply add
-    * nfms    - negative fused multiply subtract
-    * fas     - _fused add/scale_
-    * fcp     - _fused cross product_
-    * fdp     - _fused dot product_
-    * dpi     - _initialize dot product accumulator_
-    * sqrt    - square root
-    * log1p   - logarithm base e of (argument + 1)
-    * log     - logarithm base e
-    * log10   - logarithm base 10
-    * exp     - exponential base e
-    * pow     - arbitrary base exponential
-    * logx    - arbitrary base logarithm
-    * sin     - trigonometric sine
-    * cos     - trigonometric cosine
-    * atan    - trigonometric arctangent
-    * atan2   - trigonometric arctangent with coordinate arguments
