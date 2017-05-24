@@ -3,15 +3,16 @@ include("posit_cgen_helpers.jl")
 
 #conversion headers
 include("generate_posit.h.jl")
+include("generate_posit.hpp.jl")
 include("generate_posit_conv.h.jl")
 include("generate_posit_ops.h.jl")
 
 #c library source files
-include("generate_posit_err.cpp.jl")
+#include("generate_posit_err.cpp.jl")
 include("generate_posit_conv.cpp.jl")
-include("generate_posit_basics.cpp.jl")
-include("generate_posit_full.cpp.jl")
-include("generate_posit_extended.cpp.jl")
+#include("generate_posit_basics.cpp.jl")
+#include("generate_posit_full.cpp.jl")
+#include("generate_posit_extended.cpp.jl")
 
 doc"""
   generate_fastsigmoid_c_libary(directory)
@@ -36,6 +37,11 @@ function generate_fastsigmoid_c_library(posit_defs, d::AbstractString = normpath
     generate_posit_h(io, posit_defs)
   end
 
+  posits_hpp = normpath(include_dir, "posit.hpp")
+  open(posits_hpp, "w") do io
+    generate_posit_hpp(io, posit_defs)
+  end
+
   #posit conversions
   posit_conv_h = normpath(include_dir, "posit_conv.h")
   open(posit_conv_h, "w") do io
@@ -43,19 +49,25 @@ function generate_fastsigmoid_c_library(posit_defs, d::AbstractString = normpath
   end
 
   #posit operations
-  posit_ops_h = normpath(include_dir, "posit_ops.h")
-  open(posit_ops_h, "w") do io
-    generate_posit_ops_h(io, posit_defs)
+  posit_ops_status_h = normpath(include_dir, "posit_ops.h")
+  open(posit_ops_status_h, "w") do io
+    generate_posit_ops_status_h(io, posit_defs)
   end
+
+  posit_ops_jumps_h = normpath(include_dir, "posit_ops_jumps.h")
+  open(posit_ops_jumps_h, "w") do io
+    generate_posit_ops_jumps_h(io, posit_defs)
+  end
+
 
   ##############################################################################
   # "c" code files.
 
-  filelist = Dict("posit_err"      => generate_posit_err_c,
-                  "posit_conv"     => generate_posit_conv_c,
-                  "posit_basics"   => generate_posit_basics_c,
-                  "posit_full"     => generate_posit_full_c,
-                  "posit_extended" => generate_posit_extended_c)
+  filelist = Dict("posit_err"      => generate_posit_err_cpp,
+                  "posit_conv"     => generate_posit_conv_cpp,
+                  )#"posit_basics"   => generate_posit_basics_c,
+                  #"posit_full"     => generate_posit_full_c,
+                  #"posit_extended" => generate_posit_extended_c)
 
   for file in keys(filelist)
     posit_file_path = normpath(d, string(file,".cpp"))
@@ -71,8 +83,10 @@ function generate_fastsigmoid_c_library(posit_defs, d::AbstractString = normpath
   ##############################################################################
   # c++ code files.
 
+#=
   #link all the files and combine them into libfastposit.so
   object_files = ["$object_dir/$f" for f in readdir(object_dir) if f[end-1:end] == ".o"]
   library_path = normpath(d, "libfastposit.so")
   ln = run(`gcc -shared -o $library_path $object_files`)
+  =#
 end

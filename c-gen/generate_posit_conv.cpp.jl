@@ -1,5 +1,3 @@
-const bits_to_UInt = Dict(8=>UInt8, 16=>UInt16, 32=>UInt32, 64=>UInt64)
-
 exp_bits(n) = Dict(32 => 8, 64 => 11)[n]
 exp_shift(n) = n - exp_bits(n) - 1
 exp_bias(n) = (1 << (exp_bits(n) - 1)) - 1
@@ -184,37 +182,34 @@ static $(ftype) p$(n)_to_$(ftype)(uint$(n)_t pval, int16_t es, uint$(n)_t es_mas
 """
 end
 
-function generate_posit_conv_c(io, posit_defs)
+function generate_posit_conv_cpp(io, posit_defs)
   #generates "posit.h" based on the posit_definitions
-  write(io, "#include \"include/posit.h\"\n")
-  write(io, "#include <stdio.h>")
-  write(io, "\n")
+  write(io, "#include \"include/posit.h\"")
 
   for n in sort(collect(keys(posit_defs)))
 
-    write(io, "/*************************************************************/\n")
-    write(io, "/* posit_$(n) section, general form                          */\n")
-    write(io, "/*************************************************************/\n")
-    write(io, "\n")
+    write(io, """
+    /*************************************************************/
+    /*  posit_$(n) section, general forms                           */
+    /*************************************************************/
 
-    #write down the the general float conversion
-    write(io, floatconvert(n))
-    write(io, "\n")
-    write(io, floatconvert(n, zero_es = true))
-    write(io, "\n")
-    #write down the general posit conversion
-    write(io, positconvert(n))
-    write(io, "\n")
+    $(floatconvert(n))
 
-    write(io, "/*************************************************************/\n")
-    write(io, "/* posit_$(n) section, variable ES adapters                  */\n")
-    write(io, "/*************************************************************/\n")
-    write(io, "\n")
+    $(floatconvert(n, zero_es = true))
+
+    $(positconvert(n))
+
+    /*************************************************************/
+    /*  posit_$(n) section, variable ES adapters                    */
+    /*************************************************************/
+    """)
+
     for es in posit_defs[n]
-      write(io, floatconvert(n, es))
-      write(io, "\n")
-      write(io, positconvert(n, es))
-      write(io, "\n")
+      write(io, """
+      extern "C" $(floatconvert(n, es))
+      extern "C" $(positconvert(n, es))
+
+      """)
     end
   end
 end

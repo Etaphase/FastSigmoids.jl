@@ -1,12 +1,14 @@
 function generate_posit_h(io, posit_defs)
   #generates "posit.h" based on the posit_definitions
-  write(io, "#ifndef __POSIT_H\n")
-  write(io, "#define __POSIT_H\n")
-  write(io, "\n")
+  write(io, """
+    #ifndef __POSIT_H
+    #define __POSIT_H
 
-  write(io, "#include <stdint.h>\n")
-  write(io, "#include <math.h>\n")
-  write(io, "#include <stdbool.h>\n\n")
+    #include <stdint.h>
+    #include <math.h>
+    #include <stdbool.h>
+    """)
+
   #create a section for error handling
 
   for n in sort(collect(keys(posit_defs)))
@@ -40,8 +42,13 @@ function generate_posit_h(io, posit_defs)
   write(io,"""
 
   //c error handling routines
-  extern "C" int set_nan_jmp();
-  extern "C" void throw_nan_jmp();
+  #ifdef __cplusplus
+    extern "C" int set_nan_jmp();
+    extern "C" void throw_nan_jmp();
+  #else
+    extern int set_nan_jmp();
+    extern void throw_nan_jmp();
+  #endif
 
   """)
 

@@ -1,4 +1,4 @@
-function generate_posit_err_c(io::IOStream, _)
+function generate_posit_err_cpp(io::IOStream, _)
   write(io,"""
 
 #include <setjmp.h>

@@ -4,7 +4,6 @@
 #include <stdint.h>
 #include <math.h>
 #include <stdbool.h>
-
 #define P8INF      ((uint8_t) 0x80)
 #define P8MAXREAL  ((uint8_t) 0x7f)
 #define P8MINREAL  ((uint8_t) 0x81)
@@ -52,7 +51,12 @@ typedef struct {uint64_t *cache; uint64_t exponent; uint64_t leading_ones;} fdp_
 
 
 //c error handling routines
-extern "C" int set_nan_jmp();
-extern "C" void throw_nan_jmp();
+#ifdef __cplusplus
+  extern "C" int set_nan_jmp();
+  extern "C" void throw_nan_jmp();
+#else
+  extern int set_nan_jmp();
+  extern void throw_nan_jmp();
+#endif
 
 #endif

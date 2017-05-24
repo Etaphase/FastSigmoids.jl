@@ -2,7 +2,7 @@ const BASICS_FNS = [:add, :mul, :sub, :addinv, :lt, :lte]
 const TPTR_TO_BINF = Dict(:add => "+", :mul => "*", :sub => "-", :div => "/")
 const UNV_TO_UNF = Dict(:addinv => "-")
 const BOOLF = Dict(:lt => "<", :lte => "<=")
-
+#=
 function basics_output(op::Symbol, n::Integer, es::Integer)
   headerfn = ops[op]
   ftype = ((n == 8) || (n == 16)) ? "float" : "double"
@@ -78,16 +78,65 @@ function basics_output(op::Symbol, n::Integer, es::Integer)
 }""")
   end
 end
+=#
 
-function generate_posit_basics_c(io, posit_defs)
+const basics_sanitizer = Dict(:add => (n) -> """
+  """, :sub => (n) -> """
+  """, :mul => (n) -> """
+  """)
+
+const basics_code = Dict(:add => (n, es) -> """
+  //jump_version
+  extern "C" $(op[:add][1](n,es)) {
+    $(p(n,es)) res;
+    status = sanitized_add(a, b);
+    switch (status){
+      case 1: res->udata = P$(n)ZER; return res;
+      case 2: res->udata = P$(n)INF; return res;
+      case 3: throw_nan_jmp();
+    }
+
+  }
+
+  //status_t version
+  extern "C" $(op[:add][2](n,es)) {
+    status = sanitized_add(a, b);
+    switch (status){
+      case 1: res->udata = P$(n)ZER; return;
+      case 2: res->udata = P$(n)INF; return;
+      case 3: throw_nan_jmp();
+    }
+    
+  }
+  """)
+
+function generate_posit_basics_cpp(io, posit_defs)
   #generates "posit.h" based on the posit_definitions
-  write(io, "#include \"include/posit.h\"\n")
-  write(io, "#include \"include/posit_conv.h\"\n")
-  write(io, "#include <stdio.h>\n")
-  write(io, "\n")
+  write(io,"""
+  #include "include/posit.h"
+  #include "include/posit_conv.h"
+  """)
 
   for fn in BASICS_FNS
     for n in sort(collect(keys(posit_defs)))
+
+      sanitizer = haskey(basics_sanitizer, fn) ? """
+      /*************************************************************/
+      /*  posit_$(n) section, $(fn) sanitizers                              */
+      /*************************************************************/
+
+      $(basics_sanitizer[fn](n))
+      """ : ""
+
+      write(io, """
+      $sanitizer
+
+      /*************************************************************/
+      /*  posit_$(n) section, variable ES adapters for $(fn)                */
+      /*************************************************************/
+      """)
+
+
       for es in posit_defs[n]
         write(io, basics_output(fn, n, es))
         write(io, "\n")
