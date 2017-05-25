@@ -50,7 +50,6 @@ function generate_posit_h(io, posit_defs)
     extern void throw_nan_jmp();
   #endif
 
+  #endif
   """)
-
-  write(io, "#endif\n")
 end

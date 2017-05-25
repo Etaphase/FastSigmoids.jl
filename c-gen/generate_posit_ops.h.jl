@@ -1,7 +1,7 @@
 
 function general_header(op::Symbol, n::Integer, es::Integer, arity::Integer, status = false)
   prefix = "  "
-  output = status ? "status_t" : p(n,es)
+  output = status ? "int" : p(n,es)
   ident  = string(p(n,es,op), status ? "" : "_j")
   statusarg = status ? ["$(p(n,es)) *res"] : []
   pointer = status ? "*" : ""

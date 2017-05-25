@@ -59,40 +59,40 @@ To use this these functions `#include "posit_ops.h"`
 
 Supported functions (described as p32e2_t but implemented for all types):
 
-* `status_t p32e2_add(p32e2_t *res, p32e2_t *lhs, p32e2_t *rhs)`          **res <- lhs + rhs**
-* `status_t p32e2_sub(p32e2_t *res, p32e2_t *lhs, p32e2_t *rhs)`          **res <- lhs - rhs**
-* `status_t p32e2_mul(p32e2_t *res, p32e2_t *lhs, p32e2_t *rhs)`          **res <- lhs * rhs**
-* `status_t p32e2_addinv(p32e2_t *res, p32e2_t *arg)`                     **res <- -arg**
+* `int p32e2_add(p32e2_t *res, p32e2_t *lhs, p32e2_t *rhs)`          **res <- lhs + rhs**
+* `int p32e2_sub(p32e2_t *res, p32e2_t *lhs, p32e2_t *rhs)`          **res <- lhs - rhs**
+* `int p32e2_mul(p32e2_t *res, p32e2_t *lhs, p32e2_t *rhs)`          **res <- lhs * rhs**
+* `int p32e2_addinv(p32e2_t *res, p32e2_t *arg)`                     **res <- -arg**
 * `bool p32e2_lt(p32e2_t lhs, p32e2_t rhs)`                               **==> lhs < rhs**
 * `bool p32e2_lte(p32e2_t lhs, p32e2_t rhs)`                              **==> lhs <= rhs**
-* `status_t p32e2_div(p32e2_t *res, p32e2_t *lhs, p32e2_t *rhs)`          **res <- lhs / rhs**
-* `status_t p32e2_mulinv(p32e2_t *res, p32e2_t *arg)`                     **res <- 1/arg**
-* `status_t p32e2_log2(p32e2_t *res, p32e2_t *arg)`                       **res <- log2(arg)**
-* `status_t p32e2_exp2(p32e2_t *res, p32e2_t *arg)`                       **res <- 2^(arg)**
-* `status_t p32e2_fma(p32e2_t *res, p32e2_t *a, p32e2_t *b, p32e2_t *c)`  **res <- a * b + c**
-* `status_t p32e2_fms(p32e2_t *res, p32e2_t *a, p32e2_t *b, p32e2_t *c)`  **res <- a * b - c**
-* `status_t p32e2_nfma(p32e2_t *res, p32e2_t *a, p32e2_t *b, p32e2_t *c)` **res <- -(a * b) + c**
-* `status_t p32e2_nfms(p32e2_t *res, p32e2_t *a, p32e2_t *b, p32e2_t *c)` **res <- -(a * b) - c**
+* `int p32e2_div(p32e2_t *res, p32e2_t *lhs, p32e2_t *rhs)`          **res <- lhs / rhs**
+* `int p32e2_mulinv(p32e2_t *res, p32e2_t *arg)`                     **res <- 1/arg**
+* `int p32e2_log2(p32e2_t *res, p32e2_t *arg)`                       **res <- log2(arg)**
+* `int p32e2_exp2(p32e2_t *res, p32e2_t *arg)`                       **res <- 2^(arg)**
+* `int p32e2_fma(p32e2_t *res, p32e2_t *a, p32e2_t *b, p32e2_t *c)`  **res <- a * b + c**
+* `int p32e2_fms(p32e2_t *res, p32e2_t *a, p32e2_t *b, p32e2_t *c)`  **res <- a * b - c**
+* `int p32e2_nfma(p32e2_t *res, p32e2_t *a, p32e2_t *b, p32e2_t *c)` **res <- -(a * b) + c**
+* `int p32e2_nfms(p32e2_t *res, p32e2_t *a, p32e2_t *b, p32e2_t *c)` **res <- -(a * b) - c**
 * fas     - _fused add/scale_
 * fcp     - _fused cross product_
 * fdp     - _fused dot product_
 * dpi     - _initialize dot product accumulator_
-* `status_t p32e2_sqrt(p32e2_t *res p32e2_t *arg)`                        **res <- sqrt(arg)**
-* `status_t p32e2_log1p(p32e2_t *res p32e2_t *arg)`                       **res <- ln(arg + 1)**
-* `status_t p32e2_log(p32e2_t *res p32e2_t *arg)`                         **res <- ln(arg)**
-* `status_t p32e2_log10(p32e2_t *res p32e2_t *arg)`                       **res <- log10(arg)**
-* `status_t p32e2_exp(p32e2_t *res p32e2_t *arg)`                         **res <- e^(arg)**
-* `status_t p32e2_pow(p32e2_t *res p32e2_t *lhs, p32e2_t *rhs)`           **res <- (lhs)^(rhs)**
-* `status_t p32e2_logx(p32e2_t *res p32e2_t *lhs, p32e2_t *rhs)`          **res <- log_lhs(rhs)**
-* `status_t p32e2_sin(p32e2_t *res p32e2_t *arg)`                         **res <- sin(arg)**
-* `status_t p32e2_cos(p32e2_t *res p32e2_t *arg)`                         **res <- cos(arg)**
-* `status_t p32e2_atan(p32e2_t *res p32e2_t *arg)`                        **res <- atan(arg)**
-* `status_t p32e2_atan2(p32e2_t *res p32e2_t *y, p32e2_t *x)`             **res <- atan(y/x)**
+* `int p32e2_sqrt(p32e2_t *res p32e2_t *arg)`                        **res <- sqrt(arg)**
+* `int p32e2_log1p(p32e2_t *res p32e2_t *arg)`                       **res <- ln(arg + 1)**
+* `int p32e2_log(p32e2_t *res p32e2_t *arg)`                         **res <- ln(arg)**
+* `int p32e2_log10(p32e2_t *res p32e2_t *arg)`                       **res <- log10(arg)**
+* `int p32e2_exp(p32e2_t *res p32e2_t *arg)`                         **res <- e^(arg)**
+* `int p32e2_pow(p32e2_t *res p32e2_t *lhs, p32e2_t *rhs)`           **res <- (lhs)^(rhs)**
+* `int p32e2_logx(p32e2_t *res p32e2_t *lhs, p32e2_t *rhs)`          **res <- log_lhs(rhs)**
+* `int p32e2_sin(p32e2_t *res p32e2_t *arg)`                         **res <- sin(arg)**
+* `int p32e2_cos(p32e2_t *res p32e2_t *arg)`                         **res <- cos(arg)**
+* `int p32e2_atan(p32e2_t *res p32e2_t *arg)`                        **res <- atan(arg)**
+* `int p32e2_atan2(p32e2_t *res p32e2_t *y, p32e2_t *x)`             **res <- atan(y/x)**
 
 _italic_ functions are not currently implemented.
 
-**NaN Exceptions** are implemented by returning EDOM (33) as a status_t value for all
-functions which return a status_t.  Functions which do not return status_t are
+**NaN Exceptions** are implemented by returning EDOM (33) as a int value for all
+functions which return a int.  Functions which do not return int are
 well-defined over all possible inputs.  If you prefer using setjmp/longjmp error
 handling, the following functions are defined which will pass control to the jump
 point defined by the function `set_nan_jmp()`.  To use these functions, `#include "posit_ops_status.h"`

@@ -8,10 +8,10 @@ include("generate_posit_conv.h.jl")
 include("generate_posit_ops.h.jl")
 
 #c library source files
-#include("generate_posit_err.cpp.jl")
+include("generate_posit_err.cpp.jl")
 include("generate_posit_conv.cpp.jl")
-#include("generate_posit_basics.cpp.jl")
-#include("generate_posit_full.cpp.jl")
+include("generate_posit_basics.cpp.jl")
+include("generate_posit_full.cpp.jl")
 #include("generate_posit_extended.cpp.jl")
 
 doc"""
@@ -65,9 +65,9 @@ function generate_fastsigmoid_c_library(posit_defs, d::AbstractString = normpath
 
   filelist = Dict("posit_err"      => generate_posit_err_cpp,
                   "posit_conv"     => generate_posit_conv_cpp,
-                  )#"posit_basics"   => generate_posit_basics_c,
-                  #"posit_full"     => generate_posit_full_c,
-                  #"posit_extended" => generate_posit_extended_c)
+                  "posit_basics"   => generate_posit_basics_cpp,
+                  "posit_full"     => generate_posit_full_cpp,
+                  )#"posit_extended" => generate_posit_extended_c)
 
   for file in keys(filelist)
     posit_file_path = normpath(d, string(file,".cpp"))

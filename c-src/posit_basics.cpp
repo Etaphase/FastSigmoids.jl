@@ -1,920 +1,1317 @@
 #include "include/posit.h"
 #include "include/posit_conv.h"
-#include <stdio.h>
+#include <errno.h>
+///////////////////////////////////////////////////////////////
+//  posit_8 section, add sanitizers
+///////////////////////////////////////////////////////////////
 
-extern "C" void p8e0_add(p8e0_t *res, p8e0_t *lhs, p8e0_t *rhs){
-    bool lhs_inf = (lhs->udata == P8INF);
-    bool rhs_inf = (rhs->udata == P8INF);
-
-    if (lhs_inf || rhs_inf) {
-      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
-      res->udata = P8INF;
-      return;
-    }
-
-    //throw or long jump with the global NaNJump on addition of two infinities.
-
-    float fres = p8e0_to_f(*lhs) + p8e0_to_f(*rhs);
-
-    //check to see if we became infinity.
-    if (!isfinite(fres)){
-      //turn it into infinity.
-      if (lhs_inf || rhs_inf) { res->udata = P8INF; }
-      //check the sign and assign maxreal/minreal
-      res->udata = (fres > 0) ? P8MAXREAL : P8MINREAL;
-    };
-
-    //in the basic case, just output the result.
-    *res = f_to_p8e0(fres);
-}
-extern "C" void p8e1_add(p8e1_t *res, p8e1_t *lhs, p8e1_t *rhs){
-    bool lhs_inf = (lhs->udata == P8INF);
-    bool rhs_inf = (rhs->udata == P8INF);
-
-    if (lhs_inf || rhs_inf) {
-      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
-      res->udata = P8INF;
-      return;
-    }
-
-    //throw or long jump with the global NaNJump on addition of two infinities.
-
-    float fres = p8e1_to_f(*lhs) + p8e1_to_f(*rhs);
-
-    //check to see if we became infinity.
-    if (!isfinite(fres)){
-      //turn it into infinity.
-      if (lhs_inf || rhs_inf) { res->udata = P8INF; }
-      //check the sign and assign maxreal/minreal
-      res->udata = (fres > 0) ? P8MAXREAL : P8MINREAL;
-    };
-
-    //in the basic case, just output the result.
-    *res = f_to_p8e1(fres);
-}
-extern "C" void p8e2_add(p8e2_t *res, p8e2_t *lhs, p8e2_t *rhs){
-    bool lhs_inf = (lhs->udata == P8INF);
-    bool rhs_inf = (rhs->udata == P8INF);
-
-    if (lhs_inf || rhs_inf) {
-      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
-      res->udata = P8INF;
-      return;
-    }
-
-    //throw or long jump with the global NaNJump on addition of two infinities.
-
-    float fres = p8e2_to_f(*lhs) + p8e2_to_f(*rhs);
-
-    //check to see if we became infinity.
-    if (!isfinite(fres)){
-      //turn it into infinity.
-      if (lhs_inf || rhs_inf) { res->udata = P8INF; }
-      //check the sign and assign maxreal/minreal
-      res->udata = (fres > 0) ? P8MAXREAL : P8MINREAL;
-    };
-
-    //in the basic case, just output the result.
-    *res = f_to_p8e2(fres);
-}
-extern "C" void p16e0_add(p16e0_t *res, p16e0_t *lhs, p16e0_t *rhs){
-    bool lhs_inf = (lhs->udata == P16INF);
-    bool rhs_inf = (rhs->udata == P16INF);
-
-    if (lhs_inf || rhs_inf) {
-      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
-      res->udata = P16INF;
-      return;
-    }
-
-    //throw or long jump with the global NaNJump on addition of two infinities.
-
-    float fres = p16e0_to_f(*lhs) + p16e0_to_f(*rhs);
-
-    //check to see if we became infinity.
-    if (!isfinite(fres)){
-      //turn it into infinity.
-      if (lhs_inf || rhs_inf) { res->udata = P16INF; }
-      //check the sign and assign maxreal/minreal
-      res->udata = (fres > 0) ? P16MAXREAL : P16MINREAL;
-    };
-
-    //in the basic case, just output the result.
-    *res = f_to_p16e0(fres);
-}
-extern "C" void p16e1_add(p16e1_t *res, p16e1_t *lhs, p16e1_t *rhs){
-    bool lhs_inf = (lhs->udata == P16INF);
-    bool rhs_inf = (rhs->udata == P16INF);
-
-    if (lhs_inf || rhs_inf) {
-      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
-      res->udata = P16INF;
-      return;
-    }
-
-    //throw or long jump with the global NaNJump on addition of two infinities.
-
-    float fres = p16e1_to_f(*lhs) + p16e1_to_f(*rhs);
-
-    //check to see if we became infinity.
-    if (!isfinite(fres)){
-      //turn it into infinity.
-      if (lhs_inf || rhs_inf) { res->udata = P16INF; }
-      //check the sign and assign maxreal/minreal
-      res->udata = (fres > 0) ? P16MAXREAL : P16MINREAL;
-    };
-
-    //in the basic case, just output the result.
-    *res = f_to_p16e1(fres);
-}
-extern "C" void p16e2_add(p16e2_t *res, p16e2_t *lhs, p16e2_t *rhs){
-    bool lhs_inf = (lhs->udata == P16INF);
-    bool rhs_inf = (rhs->udata == P16INF);
-
-    if (lhs_inf || rhs_inf) {
-      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
-      res->udata = P16INF;
-      return;
-    }
-
-    //throw or long jump with the global NaNJump on addition of two infinities.
-
-    float fres = p16e2_to_f(*lhs) + p16e2_to_f(*rhs);
-
-    //check to see if we became infinity.
-    if (!isfinite(fres)){
-      //turn it into infinity.
-      if (lhs_inf || rhs_inf) { res->udata = P16INF; }
-      //check the sign and assign maxreal/minreal
-      res->udata = (fres > 0) ? P16MAXREAL : P16MINREAL;
-    };
-
-    //in the basic case, just output the result.
-    *res = f_to_p16e2(fres);
-}
-extern "C" void p32e0_add(p32e0_t *res, p32e0_t *lhs, p32e0_t *rhs){
-    bool lhs_inf = (lhs->udata == P32INF);
-    bool rhs_inf = (rhs->udata == P32INF);
-
-    if (lhs_inf || rhs_inf) {
-      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
-      res->udata = P32INF;
-      return;
-    }
-
-    //throw or long jump with the global NaNJump on addition of two infinities.
-
-    double fres = p32e0_to_f(*lhs) + p32e0_to_f(*rhs);
-
-    //check to see if we became infinity.
-    if (!isfinite(fres)){
-      //turn it into infinity.
-      if (lhs_inf || rhs_inf) { res->udata = P32INF; }
-      //check the sign and assign maxreal/minreal
-      res->udata = (fres > 0) ? P32MAXREAL : P32MINREAL;
-    };
-
-    //in the basic case, just output the result.
-    *res = f_to_p32e0(fres);
-}
-extern "C" void p32e1_add(p32e1_t *res, p32e1_t *lhs, p32e1_t *rhs){
-    bool lhs_inf = (lhs->udata == P32INF);
-    bool rhs_inf = (rhs->udata == P32INF);
-
-    if (lhs_inf || rhs_inf) {
-      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
-      res->udata = P32INF;
-      return;
-    }
-
-    //throw or long jump with the global NaNJump on addition of two infinities.
-
-    double fres = p32e1_to_f(*lhs) + p32e1_to_f(*rhs);
-
-    //check to see if we became infinity.
-    if (!isfinite(fres)){
-      //turn it into infinity.
-      if (lhs_inf || rhs_inf) { res->udata = P32INF; }
-      //check the sign and assign maxreal/minreal
-      res->udata = (fres > 0) ? P32MAXREAL : P32MINREAL;
-    };
-
-    //in the basic case, just output the result.
-    *res = f_to_p32e1(fres);
-}
-extern "C" void p32e2_add(p32e2_t *res, p32e2_t *lhs, p32e2_t *rhs){
-    bool lhs_inf = (lhs->udata == P32INF);
-    bool rhs_inf = (rhs->udata == P32INF);
-
-    if (lhs_inf || rhs_inf) {
-      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
-      res->udata = P32INF;
-      return;
-    }
-
-    //throw or long jump with the global NaNJump on addition of two infinities.
-
-    double fres = p32e2_to_f(*lhs) + p32e2_to_f(*rhs);
-
-    //check to see if we became infinity.
-    if (!isfinite(fres)){
-      //turn it into infinity.
-      if (lhs_inf || rhs_inf) { res->udata = P32INF; }
-      //check the sign and assign maxreal/minreal
-      res->udata = (fres > 0) ? P32MAXREAL : P32MINREAL;
-    };
-
-    //in the basic case, just output the result.
-    *res = f_to_p32e2(fres);
-}
-extern "C" void p32e3_add(p32e3_t *res, p32e3_t *lhs, p32e3_t *rhs){
-    bool lhs_inf = (lhs->udata == P32INF);
-    bool rhs_inf = (rhs->udata == P32INF);
-
-    if (lhs_inf || rhs_inf) {
-      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
-      res->udata = P32INF;
-      return;
-    }
-
-    //throw or long jump with the global NaNJump on addition of two infinities.
-
-    double fres = p32e3_to_f(*lhs) + p32e3_to_f(*rhs);
-
-    //check to see if we became infinity.
-    if (!isfinite(fres)){
-      //turn it into infinity.
-      if (lhs_inf || rhs_inf) { res->udata = P32INF; }
-      //check the sign and assign maxreal/minreal
-      res->udata = (fres > 0) ? P32MAXREAL : P32MINREAL;
-    };
-
-    //in the basic case, just output the result.
-    *res = f_to_p32e3(fres);
+static int sanitize_add_8(uint8_t lhs, uint8_t rhs){
+  if (lhs == P8INF) {
+    if (rhs == P8INF) { return 3; }
+    return 2;
+  }
+  if (rhs == P8INF) { return 2; }
+  if (lhs == -rhs) { return 1; }
+  return 0;
 }
 
-extern "C" void p8e0_mul(p8e0_t *res, p8e0_t *lhs, p8e0_t *rhs){
-    bool lhs_inf = (lhs->udata == P8INF);
-    bool rhs_inf = (rhs->udata == P8INF);
-    bool lhs_zer = (lhs->udata == P8ZER);
-    bool rhs_zer = (rhs->udata == P8ZER);
 
-    //long jump on multiplication of infinity times zero.
-    if ( (lhs_inf && rhs_zer) || (rhs_inf && lhs_zer)) { throw_nan_jmp(); }
 
-    float fres = p8e0_to_f(*lhs) * p8e0_to_f(*rhs);
+///////////////////////////////////////////////////////////////
+//  posit_8 section, variable ES adapters for add
+///////////////////////////////////////////////////////////////
+extern "C"    int p8e0_add(p8e0_t *res, p8e0_t *a, p8e0_t *b) {
+  p8e0_t pres;
+  int status = sanitize_add_8((*a).udata, (*b).udata);
+  switch (status){
+   case 1: pres.udata = P8ZER; res->udata = pres.udata; return 0;
+   case 2: pres.udata = P8INF; res->udata = pres.udata; return 0;
+   case 3: return EDOM;
+  }
 
-    //check to see if we became infinity correctly.
-    if (!isfinite(fres)){
-      if (lhs_inf || rhs_inf) { res->udata = P8INF; }
-      else {res->udata = (fres > 0) ? P8MAXREAL : P8MINREAL;}
-      return;
-    };
-
-    //IEEE numbers underflow to zero.  sad!
-    if (fres == 0){
-      if (lhs_zer || rhs_zer) { res->udata = 0; }
-      else {res->udata = (((lhs->udata & P8INF) ^ (rhs->udata & P8INF)) != 0) ? P8NEGSMALL : P8POSSMALL;}
-      return;
-    };
-
-    //in the basic case, just output the result.
-    *res = f_to_p8e0(fres);
-}
-extern "C" void p8e1_mul(p8e1_t *res, p8e1_t *lhs, p8e1_t *rhs){
-    bool lhs_inf = (lhs->udata == P8INF);
-    bool rhs_inf = (rhs->udata == P8INF);
-    bool lhs_zer = (lhs->udata == P8ZER);
-    bool rhs_zer = (rhs->udata == P8ZER);
-
-    //long jump on multiplication of infinity times zero.
-    if ( (lhs_inf && rhs_zer) || (rhs_inf && lhs_zer)) { throw_nan_jmp(); }
-
-    float fres = p8e1_to_f(*lhs) * p8e1_to_f(*rhs);
-
-    //check to see if we became infinity correctly.
-    if (!isfinite(fres)){
-      if (lhs_inf || rhs_inf) { res->udata = P8INF; }
-      else {res->udata = (fres > 0) ? P8MAXREAL : P8MINREAL;}
-      return;
-    };
-
-    //IEEE numbers underflow to zero.  sad!
-    if (fres == 0){
-      if (lhs_zer || rhs_zer) { res->udata = 0; }
-      else {res->udata = (((lhs->udata & P8INF) ^ (rhs->udata & P8INF)) != 0) ? P8NEGSMALL : P8POSSMALL;}
-      return;
-    };
-
-    //in the basic case, just output the result.
-    *res = f_to_p8e1(fres);
-}
-extern "C" void p8e2_mul(p8e2_t *res, p8e2_t *lhs, p8e2_t *rhs){
-    bool lhs_inf = (lhs->udata == P8INF);
-    bool rhs_inf = (rhs->udata == P8INF);
-    bool lhs_zer = (lhs->udata == P8ZER);
-    bool rhs_zer = (rhs->udata == P8ZER);
-
-    //long jump on multiplication of infinity times zero.
-    if ( (lhs_inf && rhs_zer) || (rhs_inf && lhs_zer)) { throw_nan_jmp(); }
-
-    float fres = p8e2_to_f(*lhs) * p8e2_to_f(*rhs);
-
-    //check to see if we became infinity correctly.
-    if (!isfinite(fres)){
-      if (lhs_inf || rhs_inf) { res->udata = P8INF; }
-      else {res->udata = (fres > 0) ? P8MAXREAL : P8MINREAL;}
-      return;
-    };
-
-    //IEEE numbers underflow to zero.  sad!
-    if (fres == 0){
-      if (lhs_zer || rhs_zer) { res->udata = 0; }
-      else {res->udata = (((lhs->udata & P8INF) ^ (rhs->udata & P8INF)) != 0) ? P8NEGSMALL : P8POSSMALL;}
-      return;
-    };
-
-    //in the basic case, just output the result.
-    *res = f_to_p8e2(fres);
-}
-extern "C" void p16e0_mul(p16e0_t *res, p16e0_t *lhs, p16e0_t *rhs){
-    bool lhs_inf = (lhs->udata == P16INF);
-    bool rhs_inf = (rhs->udata == P16INF);
-    bool lhs_zer = (lhs->udata == P16ZER);
-    bool rhs_zer = (rhs->udata == P16ZER);
-
-    //long jump on multiplication of infinity times zero.
-    if ( (lhs_inf && rhs_zer) || (rhs_inf && lhs_zer)) { throw_nan_jmp(); }
-
-    float fres = p16e0_to_f(*lhs) * p16e0_to_f(*rhs);
-
-    //check to see if we became infinity correctly.
-    if (!isfinite(fres)){
-      if (lhs_inf || rhs_inf) { res->udata = P16INF; }
-      else {res->udata = (fres > 0) ? P16MAXREAL : P16MINREAL;}
-      return;
-    };
-
-    //IEEE numbers underflow to zero.  sad!
-    if (fres == 0){
-      if (lhs_zer || rhs_zer) { res->udata = 0; }
-      else {res->udata = (((lhs->udata & P16INF) ^ (rhs->udata & P16INF)) != 0) ? P16NEGSMALL : P16POSSMALL;}
-      return;
-    };
-
-    //in the basic case, just output the result.
-    *res = f_to_p16e0(fres);
-}
-extern "C" void p16e1_mul(p16e1_t *res, p16e1_t *lhs, p16e1_t *rhs){
-    bool lhs_inf = (lhs->udata == P16INF);
-    bool rhs_inf = (rhs->udata == P16INF);
-    bool lhs_zer = (lhs->udata == P16ZER);
-    bool rhs_zer = (rhs->udata == P16ZER);
-
-    //long jump on multiplication of infinity times zero.
-    if ( (lhs_inf && rhs_zer) || (rhs_inf && lhs_zer)) { throw_nan_jmp(); }
-
-    float fres = p16e1_to_f(*lhs) * p16e1_to_f(*rhs);
-
-    //check to see if we became infinity correctly.
-    if (!isfinite(fres)){
-      if (lhs_inf || rhs_inf) { res->udata = P16INF; }
-      else {res->udata = (fres > 0) ? P16MAXREAL : P16MINREAL;}
-      return;
-    };
-
-    //IEEE numbers underflow to zero.  sad!
-    if (fres == 0){
-      if (lhs_zer || rhs_zer) { res->udata = 0; }
-      else {res->udata = (((lhs->udata & P16INF) ^ (rhs->udata & P16INF)) != 0) ? P16NEGSMALL : P16POSSMALL;}
-      return;
-    };
-
-    //in the basic case, just output the result.
-    *res = f_to_p16e1(fres);
-}
-extern "C" void p16e2_mul(p16e2_t *res, p16e2_t *lhs, p16e2_t *rhs){
-    bool lhs_inf = (lhs->udata == P16INF);
-    bool rhs_inf = (rhs->udata == P16INF);
-    bool lhs_zer = (lhs->udata == P16ZER);
-    bool rhs_zer = (rhs->udata == P16ZER);
-
-    //long jump on multiplication of infinity times zero.
-    if ( (lhs_inf && rhs_zer) || (rhs_inf && lhs_zer)) { throw_nan_jmp(); }
-
-    float fres = p16e2_to_f(*lhs) * p16e2_to_f(*rhs);
-
-    //check to see if we became infinity correctly.
-    if (!isfinite(fres)){
-      if (lhs_inf || rhs_inf) { res->udata = P16INF; }
-      else {res->udata = (fres > 0) ? P16MAXREAL : P16MINREAL;}
-      return;
-    };
-
-    //IEEE numbers underflow to zero.  sad!
-    if (fres == 0){
-      if (lhs_zer || rhs_zer) { res->udata = 0; }
-      else {res->udata = (((lhs->udata & P16INF) ^ (rhs->udata & P16INF)) != 0) ? P16NEGSMALL : P16POSSMALL;}
-      return;
-    };
-
-    //in the basic case, just output the result.
-    *res = f_to_p16e2(fres);
-}
-extern "C" void p32e0_mul(p32e0_t *res, p32e0_t *lhs, p32e0_t *rhs){
-    bool lhs_inf = (lhs->udata == P32INF);
-    bool rhs_inf = (rhs->udata == P32INF);
-    bool lhs_zer = (lhs->udata == P32ZER);
-    bool rhs_zer = (rhs->udata == P32ZER);
-
-    //long jump on multiplication of infinity times zero.
-    if ( (lhs_inf && rhs_zer) || (rhs_inf && lhs_zer)) { throw_nan_jmp(); }
-
-    double fres = p32e0_to_f(*lhs) * p32e0_to_f(*rhs);
-
-    //check to see if we became infinity correctly.
-    if (!isfinite(fres)){
-      if (lhs_inf || rhs_inf) { res->udata = P32INF; }
-      else {res->udata = (fres > 0) ? P32MAXREAL : P32MINREAL;}
-      return;
-    };
-
-    //IEEE numbers underflow to zero.  sad!
-    if (fres == 0){
-      if (lhs_zer || rhs_zer) { res->udata = 0; }
-      else {res->udata = (((lhs->udata & P32INF) ^ (rhs->udata & P32INF)) != 0) ? P32NEGSMALL : P32POSSMALL;}
-      return;
-    };
-
-    //in the basic case, just output the result.
-    *res = f_to_p32e0(fres);
-}
-extern "C" void p32e1_mul(p32e1_t *res, p32e1_t *lhs, p32e1_t *rhs){
-    bool lhs_inf = (lhs->udata == P32INF);
-    bool rhs_inf = (rhs->udata == P32INF);
-    bool lhs_zer = (lhs->udata == P32ZER);
-    bool rhs_zer = (rhs->udata == P32ZER);
-
-    //long jump on multiplication of infinity times zero.
-    if ( (lhs_inf && rhs_zer) || (rhs_inf && lhs_zer)) { throw_nan_jmp(); }
-
-    double fres = p32e1_to_f(*lhs) * p32e1_to_f(*rhs);
-
-    //check to see if we became infinity correctly.
-    if (!isfinite(fres)){
-      if (lhs_inf || rhs_inf) { res->udata = P32INF; }
-      else {res->udata = (fres > 0) ? P32MAXREAL : P32MINREAL;}
-      return;
-    };
-
-    //IEEE numbers underflow to zero.  sad!
-    if (fres == 0){
-      if (lhs_zer || rhs_zer) { res->udata = 0; }
-      else {res->udata = (((lhs->udata & P32INF) ^ (rhs->udata & P32INF)) != 0) ? P32NEGSMALL : P32POSSMALL;}
-      return;
-    };
-
-    //in the basic case, just output the result.
-    *res = f_to_p32e1(fres);
-}
-extern "C" void p32e2_mul(p32e2_t *res, p32e2_t *lhs, p32e2_t *rhs){
-    bool lhs_inf = (lhs->udata == P32INF);
-    bool rhs_inf = (rhs->udata == P32INF);
-    bool lhs_zer = (lhs->udata == P32ZER);
-    bool rhs_zer = (rhs->udata == P32ZER);
-
-    //long jump on multiplication of infinity times zero.
-    if ( (lhs_inf && rhs_zer) || (rhs_inf && lhs_zer)) { throw_nan_jmp(); }
-
-    double fres = p32e2_to_f(*lhs) * p32e2_to_f(*rhs);
-
-    //check to see if we became infinity correctly.
-    if (!isfinite(fres)){
-      if (lhs_inf || rhs_inf) { res->udata = P32INF; }
-      else {res->udata = (fres > 0) ? P32MAXREAL : P32MINREAL;}
-      return;
-    };
-
-    //IEEE numbers underflow to zero.  sad!
-    if (fres == 0){
-      if (lhs_zer || rhs_zer) { res->udata = 0; }
-      else {res->udata = (((lhs->udata & P32INF) ^ (rhs->udata & P32INF)) != 0) ? P32NEGSMALL : P32POSSMALL;}
-      return;
-    };
-
-    //in the basic case, just output the result.
-    *res = f_to_p32e2(fres);
-}
-extern "C" void p32e3_mul(p32e3_t *res, p32e3_t *lhs, p32e3_t *rhs){
-    bool lhs_inf = (lhs->udata == P32INF);
-    bool rhs_inf = (rhs->udata == P32INF);
-    bool lhs_zer = (lhs->udata == P32ZER);
-    bool rhs_zer = (rhs->udata == P32ZER);
-
-    //long jump on multiplication of infinity times zero.
-    if ( (lhs_inf && rhs_zer) || (rhs_inf && lhs_zer)) { throw_nan_jmp(); }
-
-    double fres = p32e3_to_f(*lhs) * p32e3_to_f(*rhs);
-
-    //check to see if we became infinity correctly.
-    if (!isfinite(fres)){
-      if (lhs_inf || rhs_inf) { res->udata = P32INF; }
-      else {res->udata = (fres > 0) ? P32MAXREAL : P32MINREAL;}
-      return;
-    };
-
-    //IEEE numbers underflow to zero.  sad!
-    if (fres == 0){
-      if (lhs_zer || rhs_zer) { res->udata = 0; }
-      else {res->udata = (((lhs->udata & P32INF) ^ (rhs->udata & P32INF)) != 0) ? P32NEGSMALL : P32POSSMALL;}
-      return;
-    };
-
-    //in the basic case, just output the result.
-    *res = f_to_p32e3(fres);
+  float fres = p8e0_to_f(*a) + p8e0_to_f(*b);
+  pres = f_to_p8e0(fres);
+  res->udata = pres.udata; return 0;
 }
 
-extern "C" void p8e0_sub(p8e0_t *res, p8e0_t *lhs, p8e0_t *rhs){
-    bool lhs_inf = (lhs->udata == P8INF);
-    bool rhs_inf = (rhs->udata == P8INF);
+extern "C"    p8e0_t p8e0_add_j(p8e0_t a, p8e0_t b) {
+  p8e0_t pres;
+  int status = sanitize_add_8((a).udata, (b).udata);
+  switch (status){
+   case 1: pres.udata = P8ZER; return pres;
+   case 2: pres.udata = P8INF; return pres;
+   case 3: throw_nan_jmp();
+  }
 
-    if (lhs_inf || rhs_inf) {
-      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
-      res->udata = P8INF;
-      return;
-    }
-
-    //throw or long jump with the global NaNJump on addition of two infinities.
-
-    float fres = p8e0_to_f(*lhs) - p8e0_to_f(*rhs);
-
-    //check to see if we became infinity.
-    if (!isfinite(fres)){
-      //turn it into infinity.
-      if (lhs_inf || rhs_inf) { res->udata = P8INF; }
-      //check the sign and assign maxreal/minreal
-      res->udata = (fres > 0) ? P8MAXREAL : P8MINREAL;
-    };
-
-    //in the basic case, just output the result.
-    *res = f_to_p8e0(fres);
-}
-extern "C" void p8e1_sub(p8e1_t *res, p8e1_t *lhs, p8e1_t *rhs){
-    bool lhs_inf = (lhs->udata == P8INF);
-    bool rhs_inf = (rhs->udata == P8INF);
-
-    if (lhs_inf || rhs_inf) {
-      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
-      res->udata = P8INF;
-      return;
-    }
-
-    //throw or long jump with the global NaNJump on addition of two infinities.
-
-    float fres = p8e1_to_f(*lhs) - p8e1_to_f(*rhs);
-
-    //check to see if we became infinity.
-    if (!isfinite(fres)){
-      //turn it into infinity.
-      if (lhs_inf || rhs_inf) { res->udata = P8INF; }
-      //check the sign and assign maxreal/minreal
-      res->udata = (fres > 0) ? P8MAXREAL : P8MINREAL;
-    };
-
-    //in the basic case, just output the result.
-    *res = f_to_p8e1(fres);
-}
-extern "C" void p8e2_sub(p8e2_t *res, p8e2_t *lhs, p8e2_t *rhs){
-    bool lhs_inf = (lhs->udata == P8INF);
-    bool rhs_inf = (rhs->udata == P8INF);
-
-    if (lhs_inf || rhs_inf) {
-      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
-      res->udata = P8INF;
-      return;
-    }
-
-    //throw or long jump with the global NaNJump on addition of two infinities.
-
-    float fres = p8e2_to_f(*lhs) - p8e2_to_f(*rhs);
-
-    //check to see if we became infinity.
-    if (!isfinite(fres)){
-      //turn it into infinity.
-      if (lhs_inf || rhs_inf) { res->udata = P8INF; }
-      //check the sign and assign maxreal/minreal
-      res->udata = (fres > 0) ? P8MAXREAL : P8MINREAL;
-    };
-
-    //in the basic case, just output the result.
-    *res = f_to_p8e2(fres);
-}
-extern "C" void p16e0_sub(p16e0_t *res, p16e0_t *lhs, p16e0_t *rhs){
-    bool lhs_inf = (lhs->udata == P16INF);
-    bool rhs_inf = (rhs->udata == P16INF);
-
-    if (lhs_inf || rhs_inf) {
-      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
-      res->udata = P16INF;
-      return;
-    }
-
-    //throw or long jump with the global NaNJump on addition of two infinities.
-
-    float fres = p16e0_to_f(*lhs) - p16e0_to_f(*rhs);
-
-    //check to see if we became infinity.
-    if (!isfinite(fres)){
-      //turn it into infinity.
-      if (lhs_inf || rhs_inf) { res->udata = P16INF; }
-      //check the sign and assign maxreal/minreal
-      res->udata = (fres > 0) ? P16MAXREAL : P16MINREAL;
-    };
-
-    //in the basic case, just output the result.
-    *res = f_to_p16e0(fres);
-}
-extern "C" void p16e1_sub(p16e1_t *res, p16e1_t *lhs, p16e1_t *rhs){
-    bool lhs_inf = (lhs->udata == P16INF);
-    bool rhs_inf = (rhs->udata == P16INF);
-
-    if (lhs_inf || rhs_inf) {
-      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
-      res->udata = P16INF;
-      return;
-    }
-
-    //throw or long jump with the global NaNJump on addition of two infinities.
-
-    float fres = p16e1_to_f(*lhs) - p16e1_to_f(*rhs);
-
-    //check to see if we became infinity.
-    if (!isfinite(fres)){
-      //turn it into infinity.
-      if (lhs_inf || rhs_inf) { res->udata = P16INF; }
-      //check the sign and assign maxreal/minreal
-      res->udata = (fres > 0) ? P16MAXREAL : P16MINREAL;
-    };
-
-    //in the basic case, just output the result.
-    *res = f_to_p16e1(fres);
-}
-extern "C" void p16e2_sub(p16e2_t *res, p16e2_t *lhs, p16e2_t *rhs){
-    bool lhs_inf = (lhs->udata == P16INF);
-    bool rhs_inf = (rhs->udata == P16INF);
-
-    if (lhs_inf || rhs_inf) {
-      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
-      res->udata = P16INF;
-      return;
-    }
-
-    //throw or long jump with the global NaNJump on addition of two infinities.
-
-    float fres = p16e2_to_f(*lhs) - p16e2_to_f(*rhs);
-
-    //check to see if we became infinity.
-    if (!isfinite(fres)){
-      //turn it into infinity.
-      if (lhs_inf || rhs_inf) { res->udata = P16INF; }
-      //check the sign and assign maxreal/minreal
-      res->udata = (fres > 0) ? P16MAXREAL : P16MINREAL;
-    };
-
-    //in the basic case, just output the result.
-    *res = f_to_p16e2(fres);
-}
-extern "C" void p32e0_sub(p32e0_t *res, p32e0_t *lhs, p32e0_t *rhs){
-    bool lhs_inf = (lhs->udata == P32INF);
-    bool rhs_inf = (rhs->udata == P32INF);
-
-    if (lhs_inf || rhs_inf) {
-      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
-      res->udata = P32INF;
-      return;
-    }
-
-    //throw or long jump with the global NaNJump on addition of two infinities.
-
-    double fres = p32e0_to_f(*lhs) - p32e0_to_f(*rhs);
-
-    //check to see if we became infinity.
-    if (!isfinite(fres)){
-      //turn it into infinity.
-      if (lhs_inf || rhs_inf) { res->udata = P32INF; }
-      //check the sign and assign maxreal/minreal
-      res->udata = (fres > 0) ? P32MAXREAL : P32MINREAL;
-    };
-
-    //in the basic case, just output the result.
-    *res = f_to_p32e0(fres);
-}
-extern "C" void p32e1_sub(p32e1_t *res, p32e1_t *lhs, p32e1_t *rhs){
-    bool lhs_inf = (lhs->udata == P32INF);
-    bool rhs_inf = (rhs->udata == P32INF);
-
-    if (lhs_inf || rhs_inf) {
-      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
-      res->udata = P32INF;
-      return;
-    }
-
-    //throw or long jump with the global NaNJump on addition of two infinities.
-
-    double fres = p32e1_to_f(*lhs) - p32e1_to_f(*rhs);
-
-    //check to see if we became infinity.
-    if (!isfinite(fres)){
-      //turn it into infinity.
-      if (lhs_inf || rhs_inf) { res->udata = P32INF; }
-      //check the sign and assign maxreal/minreal
-      res->udata = (fres > 0) ? P32MAXREAL : P32MINREAL;
-    };
-
-    //in the basic case, just output the result.
-    *res = f_to_p32e1(fres);
-}
-extern "C" void p32e2_sub(p32e2_t *res, p32e2_t *lhs, p32e2_t *rhs){
-    bool lhs_inf = (lhs->udata == P32INF);
-    bool rhs_inf = (rhs->udata == P32INF);
-
-    if (lhs_inf || rhs_inf) {
-      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
-      res->udata = P32INF;
-      return;
-    }
-
-    //throw or long jump with the global NaNJump on addition of two infinities.
-
-    double fres = p32e2_to_f(*lhs) - p32e2_to_f(*rhs);
-
-    //check to see if we became infinity.
-    if (!isfinite(fres)){
-      //turn it into infinity.
-      if (lhs_inf || rhs_inf) { res->udata = P32INF; }
-      //check the sign and assign maxreal/minreal
-      res->udata = (fres > 0) ? P32MAXREAL : P32MINREAL;
-    };
-
-    //in the basic case, just output the result.
-    *res = f_to_p32e2(fres);
-}
-extern "C" void p32e3_sub(p32e3_t *res, p32e3_t *lhs, p32e3_t *rhs){
-    bool lhs_inf = (lhs->udata == P32INF);
-    bool rhs_inf = (rhs->udata == P32INF);
-
-    if (lhs_inf || rhs_inf) {
-      if (lhs_inf && rhs_inf) { throw_nan_jmp(); }
-      res->udata = P32INF;
-      return;
-    }
-
-    //throw or long jump with the global NaNJump on addition of two infinities.
-
-    double fres = p32e3_to_f(*lhs) - p32e3_to_f(*rhs);
-
-    //check to see if we became infinity.
-    if (!isfinite(fres)){
-      //turn it into infinity.
-      if (lhs_inf || rhs_inf) { res->udata = P32INF; }
-      //check the sign and assign maxreal/minreal
-      res->udata = (fres > 0) ? P32MAXREAL : P32MINREAL;
-    };
-
-    //in the basic case, just output the result.
-    *res = f_to_p32e3(fres);
+  float fres = p8e0_to_f(a) + p8e0_to_f(b);
+  pres = f_to_p8e0(fres);
+  return pres;
 }
 
-extern "C" p8e0_t p8e0_addinv(p8e0_t x){
+
+extern "C"    int p8e1_add(p8e1_t *res, p8e1_t *a, p8e1_t *b) {
+  p8e1_t pres;
+  int status = sanitize_add_8((*a).udata, (*b).udata);
+  switch (status){
+   case 1: pres.udata = P8ZER; res->udata = pres.udata; return 0;
+   case 2: pres.udata = P8INF; res->udata = pres.udata; return 0;
+   case 3: return EDOM;
+  }
+
+  float fres = p8e1_to_f(*a) + p8e1_to_f(*b);
+  pres = f_to_p8e1(fres);
+  res->udata = pres.udata; return 0;
+}
+
+extern "C"    p8e1_t p8e1_add_j(p8e1_t a, p8e1_t b) {
+  p8e1_t pres;
+  int status = sanitize_add_8((a).udata, (b).udata);
+  switch (status){
+   case 1: pres.udata = P8ZER; return pres;
+   case 2: pres.udata = P8INF; return pres;
+   case 3: throw_nan_jmp();
+  }
+
+  float fres = p8e1_to_f(a) + p8e1_to_f(b);
+  pres = f_to_p8e1(fres);
+  return pres;
+}
+
+
+extern "C"    int p8e2_add(p8e2_t *res, p8e2_t *a, p8e2_t *b) {
+  p8e2_t pres;
+  int status = sanitize_add_8((*a).udata, (*b).udata);
+  switch (status){
+   case 1: pres.udata = P8ZER; res->udata = pres.udata; return 0;
+   case 2: pres.udata = P8INF; res->udata = pres.udata; return 0;
+   case 3: return EDOM;
+  }
+
+  float fres = p8e2_to_f(*a) + p8e2_to_f(*b);
+  pres = f_to_p8e2(fres);
+  res->udata = pres.udata; return 0;
+}
+
+extern "C"    p8e2_t p8e2_add_j(p8e2_t a, p8e2_t b) {
+  p8e2_t pres;
+  int status = sanitize_add_8((a).udata, (b).udata);
+  switch (status){
+   case 1: pres.udata = P8ZER; return pres;
+   case 2: pres.udata = P8INF; return pres;
+   case 3: throw_nan_jmp();
+  }
+
+  float fres = p8e2_to_f(a) + p8e2_to_f(b);
+  pres = f_to_p8e2(fres);
+  return pres;
+}
+
+
+///////////////////////////////////////////////////////////////
+//  posit_16 section, add sanitizers
+///////////////////////////////////////////////////////////////
+
+static int sanitize_add_16(uint16_t lhs, uint16_t rhs){
+  if (lhs == P16INF) {
+    if (rhs == P16INF) { return 3; }
+    return 2;
+  }
+  if (rhs == P16INF) { return 2; }
+  if (lhs == -rhs) { return 1; }
+  return 0;
+}
+
+
+
+///////////////////////////////////////////////////////////////
+//  posit_16 section, variable ES adapters for add
+///////////////////////////////////////////////////////////////
+extern "C"    int p16e0_add(p16e0_t *res, p16e0_t *a, p16e0_t *b) {
+  p16e0_t pres;
+  int status = sanitize_add_16((*a).udata, (*b).udata);
+  switch (status){
+   case 1: pres.udata = P16ZER; res->udata = pres.udata; return 0;
+   case 2: pres.udata = P16INF; res->udata = pres.udata; return 0;
+   case 3: return EDOM;
+  }
+
+  float fres = p16e0_to_f(*a) + p16e0_to_f(*b);
+  pres = f_to_p16e0(fres);
+  res->udata = pres.udata; return 0;
+}
+
+extern "C"    p16e0_t p16e0_add_j(p16e0_t a, p16e0_t b) {
+  p16e0_t pres;
+  int status = sanitize_add_16((a).udata, (b).udata);
+  switch (status){
+   case 1: pres.udata = P16ZER; return pres;
+   case 2: pres.udata = P16INF; return pres;
+   case 3: throw_nan_jmp();
+  }
+
+  float fres = p16e0_to_f(a) + p16e0_to_f(b);
+  pres = f_to_p16e0(fres);
+  return pres;
+}
+
+
+extern "C"    int p16e1_add(p16e1_t *res, p16e1_t *a, p16e1_t *b) {
+  p16e1_t pres;
+  int status = sanitize_add_16((*a).udata, (*b).udata);
+  switch (status){
+   case 1: pres.udata = P16ZER; res->udata = pres.udata; return 0;
+   case 2: pres.udata = P16INF; res->udata = pres.udata; return 0;
+   case 3: return EDOM;
+  }
+
+  float fres = p16e1_to_f(*a) + p16e1_to_f(*b);
+  pres = f_to_p16e1(fres);
+  res->udata = pres.udata; return 0;
+}
+
+extern "C"    p16e1_t p16e1_add_j(p16e1_t a, p16e1_t b) {
+  p16e1_t pres;
+  int status = sanitize_add_16((a).udata, (b).udata);
+  switch (status){
+   case 1: pres.udata = P16ZER; return pres;
+   case 2: pres.udata = P16INF; return pres;
+   case 3: throw_nan_jmp();
+  }
+
+  float fres = p16e1_to_f(a) + p16e1_to_f(b);
+  pres = f_to_p16e1(fres);
+  return pres;
+}
+
+
+extern "C"    int p16e2_add(p16e2_t *res, p16e2_t *a, p16e2_t *b) {
+  p16e2_t pres;
+  int status = sanitize_add_16((*a).udata, (*b).udata);
+  switch (status){
+   case 1: pres.udata = P16ZER; res->udata = pres.udata; return 0;
+   case 2: pres.udata = P16INF; res->udata = pres.udata; return 0;
+   case 3: return EDOM;
+  }
+
+  float fres = p16e2_to_f(*a) + p16e2_to_f(*b);
+  pres = f_to_p16e2(fres);
+  res->udata = pres.udata; return 0;
+}
+
+extern "C"    p16e2_t p16e2_add_j(p16e2_t a, p16e2_t b) {
+  p16e2_t pres;
+  int status = sanitize_add_16((a).udata, (b).udata);
+  switch (status){
+   case 1: pres.udata = P16ZER; return pres;
+   case 2: pres.udata = P16INF; return pres;
+   case 3: throw_nan_jmp();
+  }
+
+  float fres = p16e2_to_f(a) + p16e2_to_f(b);
+  pres = f_to_p16e2(fres);
+  return pres;
+}
+
+
+///////////////////////////////////////////////////////////////
+//  posit_32 section, add sanitizers
+///////////////////////////////////////////////////////////////
+
+static int sanitize_add_32(uint32_t lhs, uint32_t rhs){
+  if (lhs == P32INF) {
+    if (rhs == P32INF) { return 3; }
+    return 2;
+  }
+  if (rhs == P32INF) { return 2; }
+  if (lhs == -rhs) { return 1; }
+  return 0;
+}
+
+
+
+///////////////////////////////////////////////////////////////
+//  posit_32 section, variable ES adapters for add
+///////////////////////////////////////////////////////////////
+extern "C"    int p32e0_add(p32e0_t *res, p32e0_t *a, p32e0_t *b) {
+  p32e0_t pres;
+  int status = sanitize_add_32((*a).udata, (*b).udata);
+  switch (status){
+   case 1: pres.udata = P32ZER; res->udata = pres.udata; return 0;
+   case 2: pres.udata = P32INF; res->udata = pres.udata; return 0;
+   case 3: return EDOM;
+  }
+
+  double fres = p32e0_to_f(*a) + p32e0_to_f(*b);
+  pres = f_to_p32e0(fres);
+  res->udata = pres.udata; return 0;
+}
+
+extern "C"    p32e0_t p32e0_add_j(p32e0_t a, p32e0_t b) {
+  p32e0_t pres;
+  int status = sanitize_add_32((a).udata, (b).udata);
+  switch (status){
+   case 1: pres.udata = P32ZER; return pres;
+   case 2: pres.udata = P32INF; return pres;
+   case 3: throw_nan_jmp();
+  }
+
+  double fres = p32e0_to_f(a) + p32e0_to_f(b);
+  pres = f_to_p32e0(fres);
+  return pres;
+}
+
+
+extern "C"    int p32e1_add(p32e1_t *res, p32e1_t *a, p32e1_t *b) {
+  p32e1_t pres;
+  int status = sanitize_add_32((*a).udata, (*b).udata);
+  switch (status){
+   case 1: pres.udata = P32ZER; res->udata = pres.udata; return 0;
+   case 2: pres.udata = P32INF; res->udata = pres.udata; return 0;
+   case 3: return EDOM;
+  }
+
+  double fres = p32e1_to_f(*a) + p32e1_to_f(*b);
+  pres = f_to_p32e1(fres);
+  res->udata = pres.udata; return 0;
+}
+
+extern "C"    p32e1_t p32e1_add_j(p32e1_t a, p32e1_t b) {
+  p32e1_t pres;
+  int status = sanitize_add_32((a).udata, (b).udata);
+  switch (status){
+   case 1: pres.udata = P32ZER; return pres;
+   case 2: pres.udata = P32INF; return pres;
+   case 3: throw_nan_jmp();
+  }
+
+  double fres = p32e1_to_f(a) + p32e1_to_f(b);
+  pres = f_to_p32e1(fres);
+  return pres;
+}
+
+
+extern "C"    int p32e2_add(p32e2_t *res, p32e2_t *a, p32e2_t *b) {
+  p32e2_t pres;
+  int status = sanitize_add_32((*a).udata, (*b).udata);
+  switch (status){
+   case 1: pres.udata = P32ZER; res->udata = pres.udata; return 0;
+   case 2: pres.udata = P32INF; res->udata = pres.udata; return 0;
+   case 3: return EDOM;
+  }
+
+  double fres = p32e2_to_f(*a) + p32e2_to_f(*b);
+  pres = f_to_p32e2(fres);
+  res->udata = pres.udata; return 0;
+}
+
+extern "C"    p32e2_t p32e2_add_j(p32e2_t a, p32e2_t b) {
+  p32e2_t pres;
+  int status = sanitize_add_32((a).udata, (b).udata);
+  switch (status){
+   case 1: pres.udata = P32ZER; return pres;
+   case 2: pres.udata = P32INF; return pres;
+   case 3: throw_nan_jmp();
+  }
+
+  double fres = p32e2_to_f(a) + p32e2_to_f(b);
+  pres = f_to_p32e2(fres);
+  return pres;
+}
+
+
+extern "C"    int p32e3_add(p32e3_t *res, p32e3_t *a, p32e3_t *b) {
+  p32e3_t pres;
+  int status = sanitize_add_32((*a).udata, (*b).udata);
+  switch (status){
+   case 1: pres.udata = P32ZER; res->udata = pres.udata; return 0;
+   case 2: pres.udata = P32INF; res->udata = pres.udata; return 0;
+   case 3: return EDOM;
+  }
+
+  double fres = p32e3_to_f(*a) + p32e3_to_f(*b);
+  pres = f_to_p32e3(fres);
+  res->udata = pres.udata; return 0;
+}
+
+extern "C"    p32e3_t p32e3_add_j(p32e3_t a, p32e3_t b) {
+  p32e3_t pres;
+  int status = sanitize_add_32((a).udata, (b).udata);
+  switch (status){
+   case 1: pres.udata = P32ZER; return pres;
+   case 2: pres.udata = P32INF; return pres;
+   case 3: throw_nan_jmp();
+  }
+
+  double fres = p32e3_to_f(a) + p32e3_to_f(b);
+  pres = f_to_p32e3(fres);
+  return pres;
+}
+
+
+
+///////////////////////////////////////////////////////////////
+//  posit_8 section, mul sanitizers
+///////////////////////////////////////////////////////////////
+
+static int sanitize_mul_8(uint8_t lhs, uint8_t rhs){
+  if (lhs == P8ZER) {
+    if (rhs == P8INF) { return 3; }
+    return 1;
+  }
+  if (rhs == P8ZER) {
+    if (lhs == P8INF) { return 3; }
+    return 1;
+  }
+  if (lhs == P8INF) { return 2; }
+  if (rhs == P8INF) { return 2; }
+  return 0;
+}
+
+
+
+///////////////////////////////////////////////////////////////
+//  posit_8 section, variable ES adapters for mul
+///////////////////////////////////////////////////////////////
+extern "C"    int p8e0_mul(p8e0_t *res, p8e0_t *a, p8e0_t *b) {
+  p8e0_t pres;
+  int status = sanitize_mul_8((*a).udata, (*b).udata);
+  switch (status){
+   case 1: pres.udata = P8ZER; res->udata = pres.udata; return 0;
+   case 2: pres.udata = P8INF; res->udata = pres.udata; return 0;
+   case 3: return EDOM;
+  }
+
+  float fres = p8e0_to_f(*a) * p8e0_to_f(*b);
+  pres = f_to_p8e0(fres);
+  res->udata = pres.udata; return 0;
+}
+
+extern "C"    p8e0_t p8e0_mul_j(p8e0_t a, p8e0_t b) {
+  p8e0_t pres;
+  int status = sanitize_mul_8((a).udata, (b).udata);
+  switch (status){
+   case 1: pres.udata = P8ZER; return pres;
+   case 2: pres.udata = P8INF; return pres;
+   case 3: throw_nan_jmp();
+  }
+
+  float fres = p8e0_to_f(a) * p8e0_to_f(b);
+  pres = f_to_p8e0(fres);
+  return pres;
+}
+
+
+extern "C"    int p8e1_mul(p8e1_t *res, p8e1_t *a, p8e1_t *b) {
+  p8e1_t pres;
+  int status = sanitize_mul_8((*a).udata, (*b).udata);
+  switch (status){
+   case 1: pres.udata = P8ZER; res->udata = pres.udata; return 0;
+   case 2: pres.udata = P8INF; res->udata = pres.udata; return 0;
+   case 3: return EDOM;
+  }
+
+  float fres = p8e1_to_f(*a) * p8e1_to_f(*b);
+  pres = f_to_p8e1(fres);
+  res->udata = pres.udata; return 0;
+}
+
+extern "C"    p8e1_t p8e1_mul_j(p8e1_t a, p8e1_t b) {
+  p8e1_t pres;
+  int status = sanitize_mul_8((a).udata, (b).udata);
+  switch (status){
+   case 1: pres.udata = P8ZER; return pres;
+   case 2: pres.udata = P8INF; return pres;
+   case 3: throw_nan_jmp();
+  }
+
+  float fres = p8e1_to_f(a) * p8e1_to_f(b);
+  pres = f_to_p8e1(fres);
+  return pres;
+}
+
+
+extern "C"    int p8e2_mul(p8e2_t *res, p8e2_t *a, p8e2_t *b) {
+  p8e2_t pres;
+  int status = sanitize_mul_8((*a).udata, (*b).udata);
+  switch (status){
+   case 1: pres.udata = P8ZER; res->udata = pres.udata; return 0;
+   case 2: pres.udata = P8INF; res->udata = pres.udata; return 0;
+   case 3: return EDOM;
+  }
+
+  float fres = p8e2_to_f(*a) * p8e2_to_f(*b);
+  pres = f_to_p8e2(fres);
+  res->udata = pres.udata; return 0;
+}
+
+extern "C"    p8e2_t p8e2_mul_j(p8e2_t a, p8e2_t b) {
+  p8e2_t pres;
+  int status = sanitize_mul_8((a).udata, (b).udata);
+  switch (status){
+   case 1: pres.udata = P8ZER; return pres;
+   case 2: pres.udata = P8INF; return pres;
+   case 3: throw_nan_jmp();
+  }
+
+  float fres = p8e2_to_f(a) * p8e2_to_f(b);
+  pres = f_to_p8e2(fres);
+  return pres;
+}
+
+
+///////////////////////////////////////////////////////////////
+//  posit_16 section, mul sanitizers
+///////////////////////////////////////////////////////////////
+
+static int sanitize_mul_16(uint16_t lhs, uint16_t rhs){
+  if (lhs == P16ZER) {
+    if (rhs == P16INF) { return 3; }
+    return 1;
+  }
+  if (rhs == P16ZER) {
+    if (lhs == P16INF) { return 3; }
+    return 1;
+  }
+  if (lhs == P16INF) { return 2; }
+  if (rhs == P16INF) { return 2; }
+  return 0;
+}
+
+
+
+///////////////////////////////////////////////////////////////
+//  posit_16 section, variable ES adapters for mul
+///////////////////////////////////////////////////////////////
+extern "C"    int p16e0_mul(p16e0_t *res, p16e0_t *a, p16e0_t *b) {
+  p16e0_t pres;
+  int status = sanitize_mul_16((*a).udata, (*b).udata);
+  switch (status){
+   case 1: pres.udata = P16ZER; res->udata = pres.udata; return 0;
+   case 2: pres.udata = P16INF; res->udata = pres.udata; return 0;
+   case 3: return EDOM;
+  }
+
+  float fres = p16e0_to_f(*a) * p16e0_to_f(*b);
+  pres = f_to_p16e0(fres);
+  res->udata = pres.udata; return 0;
+}
+
+extern "C"    p16e0_t p16e0_mul_j(p16e0_t a, p16e0_t b) {
+  p16e0_t pres;
+  int status = sanitize_mul_16((a).udata, (b).udata);
+  switch (status){
+   case 1: pres.udata = P16ZER; return pres;
+   case 2: pres.udata = P16INF; return pres;
+   case 3: throw_nan_jmp();
+  }
+
+  float fres = p16e0_to_f(a) * p16e0_to_f(b);
+  pres = f_to_p16e0(fres);
+  return pres;
+}
+
+
+extern "C"    int p16e1_mul(p16e1_t *res, p16e1_t *a, p16e1_t *b) {
+  p16e1_t pres;
+  int status = sanitize_mul_16((*a).udata, (*b).udata);
+  switch (status){
+   case 1: pres.udata = P16ZER; res->udata = pres.udata; return 0;
+   case 2: pres.udata = P16INF; res->udata = pres.udata; return 0;
+   case 3: return EDOM;
+  }
+
+  float fres = p16e1_to_f(*a) * p16e1_to_f(*b);
+  pres = f_to_p16e1(fres);
+  res->udata = pres.udata; return 0;
+}
+
+extern "C"    p16e1_t p16e1_mul_j(p16e1_t a, p16e1_t b) {
+  p16e1_t pres;
+  int status = sanitize_mul_16((a).udata, (b).udata);
+  switch (status){
+   case 1: pres.udata = P16ZER; return pres;
+   case 2: pres.udata = P16INF; return pres;
+   case 3: throw_nan_jmp();
+  }
+
+  float fres = p16e1_to_f(a) * p16e1_to_f(b);
+  pres = f_to_p16e1(fres);
+  return pres;
+}
+
+
+extern "C"    int p16e2_mul(p16e2_t *res, p16e2_t *a, p16e2_t *b) {
+  p16e2_t pres;
+  int status = sanitize_mul_16((*a).udata, (*b).udata);
+  switch (status){
+   case 1: pres.udata = P16ZER; res->udata = pres.udata; return 0;
+   case 2: pres.udata = P16INF; res->udata = pres.udata; return 0;
+   case 3: return EDOM;
+  }
+
+  float fres = p16e2_to_f(*a) * p16e2_to_f(*b);
+  pres = f_to_p16e2(fres);
+  res->udata = pres.udata; return 0;
+}
+
+extern "C"    p16e2_t p16e2_mul_j(p16e2_t a, p16e2_t b) {
+  p16e2_t pres;
+  int status = sanitize_mul_16((a).udata, (b).udata);
+  switch (status){
+   case 1: pres.udata = P16ZER; return pres;
+   case 2: pres.udata = P16INF; return pres;
+   case 3: throw_nan_jmp();
+  }
+
+  float fres = p16e2_to_f(a) * p16e2_to_f(b);
+  pres = f_to_p16e2(fres);
+  return pres;
+}
+
+
+///////////////////////////////////////////////////////////////
+//  posit_32 section, mul sanitizers
+///////////////////////////////////////////////////////////////
+
+static int sanitize_mul_32(uint32_t lhs, uint32_t rhs){
+  if (lhs == P32ZER) {
+    if (rhs == P32INF) { return 3; }
+    return 1;
+  }
+  if (rhs == P32ZER) {
+    if (lhs == P32INF) { return 3; }
+    return 1;
+  }
+  if (lhs == P32INF) { return 2; }
+  if (rhs == P32INF) { return 2; }
+  return 0;
+}
+
+
+
+///////////////////////////////////////////////////////////////
+//  posit_32 section, variable ES adapters for mul
+///////////////////////////////////////////////////////////////
+extern "C"    int p32e0_mul(p32e0_t *res, p32e0_t *a, p32e0_t *b) {
+  p32e0_t pres;
+  int status = sanitize_mul_32((*a).udata, (*b).udata);
+  switch (status){
+   case 1: pres.udata = P32ZER; res->udata = pres.udata; return 0;
+   case 2: pres.udata = P32INF; res->udata = pres.udata; return 0;
+   case 3: return EDOM;
+  }
+
+  double fres = p32e0_to_f(*a) * p32e0_to_f(*b);
+  pres = f_to_p32e0(fres);
+  res->udata = pres.udata; return 0;
+}
+
+extern "C"    p32e0_t p32e0_mul_j(p32e0_t a, p32e0_t b) {
+  p32e0_t pres;
+  int status = sanitize_mul_32((a).udata, (b).udata);
+  switch (status){
+   case 1: pres.udata = P32ZER; return pres;
+   case 2: pres.udata = P32INF; return pres;
+   case 3: throw_nan_jmp();
+  }
+
+  double fres = p32e0_to_f(a) * p32e0_to_f(b);
+  pres = f_to_p32e0(fres);
+  return pres;
+}
+
+
+extern "C"    int p32e1_mul(p32e1_t *res, p32e1_t *a, p32e1_t *b) {
+  p32e1_t pres;
+  int status = sanitize_mul_32((*a).udata, (*b).udata);
+  switch (status){
+   case 1: pres.udata = P32ZER; res->udata = pres.udata; return 0;
+   case 2: pres.udata = P32INF; res->udata = pres.udata; return 0;
+   case 3: return EDOM;
+  }
+
+  double fres = p32e1_to_f(*a) * p32e1_to_f(*b);
+  pres = f_to_p32e1(fres);
+  res->udata = pres.udata; return 0;
+}
+
+extern "C"    p32e1_t p32e1_mul_j(p32e1_t a, p32e1_t b) {
+  p32e1_t pres;
+  int status = sanitize_mul_32((a).udata, (b).udata);
+  switch (status){
+   case 1: pres.udata = P32ZER; return pres;
+   case 2: pres.udata = P32INF; return pres;
+   case 3: throw_nan_jmp();
+  }
+
+  double fres = p32e1_to_f(a) * p32e1_to_f(b);
+  pres = f_to_p32e1(fres);
+  return pres;
+}
+
+
+extern "C"    int p32e2_mul(p32e2_t *res, p32e2_t *a, p32e2_t *b) {
+  p32e2_t pres;
+  int status = sanitize_mul_32((*a).udata, (*b).udata);
+  switch (status){
+   case 1: pres.udata = P32ZER; res->udata = pres.udata; return 0;
+   case 2: pres.udata = P32INF; res->udata = pres.udata; return 0;
+   case 3: return EDOM;
+  }
+
+  double fres = p32e2_to_f(*a) * p32e2_to_f(*b);
+  pres = f_to_p32e2(fres);
+  res->udata = pres.udata; return 0;
+}
+
+extern "C"    p32e2_t p32e2_mul_j(p32e2_t a, p32e2_t b) {
+  p32e2_t pres;
+  int status = sanitize_mul_32((a).udata, (b).udata);
+  switch (status){
+   case 1: pres.udata = P32ZER; return pres;
+   case 2: pres.udata = P32INF; return pres;
+   case 3: throw_nan_jmp();
+  }
+
+  double fres = p32e2_to_f(a) * p32e2_to_f(b);
+  pres = f_to_p32e2(fres);
+  return pres;
+}
+
+
+extern "C"    int p32e3_mul(p32e3_t *res, p32e3_t *a, p32e3_t *b) {
+  p32e3_t pres;
+  int status = sanitize_mul_32((*a).udata, (*b).udata);
+  switch (status){
+   case 1: pres.udata = P32ZER; res->udata = pres.udata; return 0;
+   case 2: pres.udata = P32INF; res->udata = pres.udata; return 0;
+   case 3: return EDOM;
+  }
+
+  double fres = p32e3_to_f(*a) * p32e3_to_f(*b);
+  pres = f_to_p32e3(fres);
+  res->udata = pres.udata; return 0;
+}
+
+extern "C"    p32e3_t p32e3_mul_j(p32e3_t a, p32e3_t b) {
+  p32e3_t pres;
+  int status = sanitize_mul_32((a).udata, (b).udata);
+  switch (status){
+   case 1: pres.udata = P32ZER; return pres;
+   case 2: pres.udata = P32INF; return pres;
+   case 3: throw_nan_jmp();
+  }
+
+  double fres = p32e3_to_f(a) * p32e3_to_f(b);
+  pres = f_to_p32e3(fres);
+  return pres;
+}
+
+
+
+///////////////////////////////////////////////////////////////
+//  posit_8 section, sub sanitizers
+///////////////////////////////////////////////////////////////
+
+static int sanitize_sub_8(uint8_t lhs, uint8_t rhs){
+  if (lhs == P8INF) {
+    if (rhs == P8INF) { return 3; }
+    return 2;
+  }
+  if (rhs == P8INF) { return 2; }
+  if (lhs == -rhs) { return 1; }
+  return 0;
+}
+
+
+
+///////////////////////////////////////////////////////////////
+//  posit_8 section, variable ES adapters for sub
+///////////////////////////////////////////////////////////////
+extern "C"    int p8e0_sub(p8e0_t *res, p8e0_t *a, p8e0_t *b) {
+  p8e0_t pres;
+  int status = sanitize_sub_8((*a).udata, (*b).udata);
+  switch (status){
+   case 1: pres.udata = P8ZER; res->udata = pres.udata; return 0;
+   case 2: pres.udata = P8INF; res->udata = pres.udata; return 0;
+   case 3: return EDOM;
+  }
+
+  float fres = p8e0_to_f(*a) - p8e0_to_f(*b);
+  pres = f_to_p8e0(fres);
+  res->udata = pres.udata; return 0;
+}
+
+extern "C"    p8e0_t p8e0_sub_j(p8e0_t a, p8e0_t b) {
+  p8e0_t pres;
+  int status = sanitize_sub_8((a).udata, (b).udata);
+  switch (status){
+   case 1: pres.udata = P8ZER; return pres;
+   case 2: pres.udata = P8INF; return pres;
+   case 3: throw_nan_jmp();
+  }
+
+  float fres = p8e0_to_f(a) - p8e0_to_f(b);
+  pres = f_to_p8e0(fres);
+  return pres;
+}
+
+
+extern "C"    int p8e1_sub(p8e1_t *res, p8e1_t *a, p8e1_t *b) {
+  p8e1_t pres;
+  int status = sanitize_sub_8((*a).udata, (*b).udata);
+  switch (status){
+   case 1: pres.udata = P8ZER; res->udata = pres.udata; return 0;
+   case 2: pres.udata = P8INF; res->udata = pres.udata; return 0;
+   case 3: return EDOM;
+  }
+
+  float fres = p8e1_to_f(*a) - p8e1_to_f(*b);
+  pres = f_to_p8e1(fres);
+  res->udata = pres.udata; return 0;
+}
+
+extern "C"    p8e1_t p8e1_sub_j(p8e1_t a, p8e1_t b) {
+  p8e1_t pres;
+  int status = sanitize_sub_8((a).udata, (b).udata);
+  switch (status){
+   case 1: pres.udata = P8ZER; return pres;
+   case 2: pres.udata = P8INF; return pres;
+   case 3: throw_nan_jmp();
+  }
+
+  float fres = p8e1_to_f(a) - p8e1_to_f(b);
+  pres = f_to_p8e1(fres);
+  return pres;
+}
+
+
+extern "C"    int p8e2_sub(p8e2_t *res, p8e2_t *a, p8e2_t *b) {
+  p8e2_t pres;
+  int status = sanitize_sub_8((*a).udata, (*b).udata);
+  switch (status){
+   case 1: pres.udata = P8ZER; res->udata = pres.udata; return 0;
+   case 2: pres.udata = P8INF; res->udata = pres.udata; return 0;
+   case 3: return EDOM;
+  }
+
+  float fres = p8e2_to_f(*a) - p8e2_to_f(*b);
+  pres = f_to_p8e2(fres);
+  res->udata = pres.udata; return 0;
+}
+
+extern "C"    p8e2_t p8e2_sub_j(p8e2_t a, p8e2_t b) {
+  p8e2_t pres;
+  int status = sanitize_sub_8((a).udata, (b).udata);
+  switch (status){
+   case 1: pres.udata = P8ZER; return pres;
+   case 2: pres.udata = P8INF; return pres;
+   case 3: throw_nan_jmp();
+  }
+
+  float fres = p8e2_to_f(a) - p8e2_to_f(b);
+  pres = f_to_p8e2(fres);
+  return pres;
+}
+
+
+///////////////////////////////////////////////////////////////
+//  posit_16 section, sub sanitizers
+///////////////////////////////////////////////////////////////
+
+static int sanitize_sub_16(uint16_t lhs, uint16_t rhs){
+  if (lhs == P16INF) {
+    if (rhs == P16INF) { return 3; }
+    return 2;
+  }
+  if (rhs == P16INF) { return 2; }
+  if (lhs == -rhs) { return 1; }
+  return 0;
+}
+
+
+
+///////////////////////////////////////////////////////////////
+//  posit_16 section, variable ES adapters for sub
+///////////////////////////////////////////////////////////////
+extern "C"    int p16e0_sub(p16e0_t *res, p16e0_t *a, p16e0_t *b) {
+  p16e0_t pres;
+  int status = sanitize_sub_16((*a).udata, (*b).udata);
+  switch (status){
+   case 1: pres.udata = P16ZER; res->udata = pres.udata; return 0;
+   case 2: pres.udata = P16INF; res->udata = pres.udata; return 0;
+   case 3: return EDOM;
+  }
+
+  float fres = p16e0_to_f(*a) - p16e0_to_f(*b);
+  pres = f_to_p16e0(fres);
+  res->udata = pres.udata; return 0;
+}
+
+extern "C"    p16e0_t p16e0_sub_j(p16e0_t a, p16e0_t b) {
+  p16e0_t pres;
+  int status = sanitize_sub_16((a).udata, (b).udata);
+  switch (status){
+   case 1: pres.udata = P16ZER; return pres;
+   case 2: pres.udata = P16INF; return pres;
+   case 3: throw_nan_jmp();
+  }
+
+  float fres = p16e0_to_f(a) - p16e0_to_f(b);
+  pres = f_to_p16e0(fres);
+  return pres;
+}
+
+
+extern "C"    int p16e1_sub(p16e1_t *res, p16e1_t *a, p16e1_t *b) {
+  p16e1_t pres;
+  int status = sanitize_sub_16((*a).udata, (*b).udata);
+  switch (status){
+   case 1: pres.udata = P16ZER; res->udata = pres.udata; return 0;
+   case 2: pres.udata = P16INF; res->udata = pres.udata; return 0;
+   case 3: return EDOM;
+  }
+
+  float fres = p16e1_to_f(*a) - p16e1_to_f(*b);
+  pres = f_to_p16e1(fres);
+  res->udata = pres.udata; return 0;
+}
+
+extern "C"    p16e1_t p16e1_sub_j(p16e1_t a, p16e1_t b) {
+  p16e1_t pres;
+  int status = sanitize_sub_16((a).udata, (b).udata);
+  switch (status){
+   case 1: pres.udata = P16ZER; return pres;
+   case 2: pres.udata = P16INF; return pres;
+   case 3: throw_nan_jmp();
+  }
+
+  float fres = p16e1_to_f(a) - p16e1_to_f(b);
+  pres = f_to_p16e1(fres);
+  return pres;
+}
+
+
+extern "C"    int p16e2_sub(p16e2_t *res, p16e2_t *a, p16e2_t *b) {
+  p16e2_t pres;
+  int status = sanitize_sub_16((*a).udata, (*b).udata);
+  switch (status){
+   case 1: pres.udata = P16ZER; res->udata = pres.udata; return 0;
+   case 2: pres.udata = P16INF; res->udata = pres.udata; return 0;
+   case 3: return EDOM;
+  }
+
+  float fres = p16e2_to_f(*a) - p16e2_to_f(*b);
+  pres = f_to_p16e2(fres);
+  res->udata = pres.udata; return 0;
+}
+
+extern "C"    p16e2_t p16e2_sub_j(p16e2_t a, p16e2_t b) {
+  p16e2_t pres;
+  int status = sanitize_sub_16((a).udata, (b).udata);
+  switch (status){
+   case 1: pres.udata = P16ZER; return pres;
+   case 2: pres.udata = P16INF; return pres;
+   case 3: throw_nan_jmp();
+  }
+
+  float fres = p16e2_to_f(a) - p16e2_to_f(b);
+  pres = f_to_p16e2(fres);
+  return pres;
+}
+
+
+///////////////////////////////////////////////////////////////
+//  posit_32 section, sub sanitizers
+///////////////////////////////////////////////////////////////
+
+static int sanitize_sub_32(uint32_t lhs, uint32_t rhs){
+  if (lhs == P32INF) {
+    if (rhs == P32INF) { return 3; }
+    return 2;
+  }
+  if (rhs == P32INF) { return 2; }
+  if (lhs == -rhs) { return 1; }
+  return 0;
+}
+
+
+
+///////////////////////////////////////////////////////////////
+//  posit_32 section, variable ES adapters for sub
+///////////////////////////////////////////////////////////////
+extern "C"    int p32e0_sub(p32e0_t *res, p32e0_t *a, p32e0_t *b) {
+  p32e0_t pres;
+  int status = sanitize_sub_32((*a).udata, (*b).udata);
+  switch (status){
+   case 1: pres.udata = P32ZER; res->udata = pres.udata; return 0;
+   case 2: pres.udata = P32INF; res->udata = pres.udata; return 0;
+   case 3: return EDOM;
+  }
+
+  double fres = p32e0_to_f(*a) - p32e0_to_f(*b);
+  pres = f_to_p32e0(fres);
+  res->udata = pres.udata; return 0;
+}
+
+extern "C"    p32e0_t p32e0_sub_j(p32e0_t a, p32e0_t b) {
+  p32e0_t pres;
+  int status = sanitize_sub_32((a).udata, (b).udata);
+  switch (status){
+   case 1: pres.udata = P32ZER; return pres;
+   case 2: pres.udata = P32INF; return pres;
+   case 3: throw_nan_jmp();
+  }
+
+  double fres = p32e0_to_f(a) - p32e0_to_f(b);
+  pres = f_to_p32e0(fres);
+  return pres;
+}
+
+
+extern "C"    int p32e1_sub(p32e1_t *res, p32e1_t *a, p32e1_t *b) {
+  p32e1_t pres;
+  int status = sanitize_sub_32((*a).udata, (*b).udata);
+  switch (status){
+   case 1: pres.udata = P32ZER; res->udata = pres.udata; return 0;
+   case 2: pres.udata = P32INF; res->udata = pres.udata; return 0;
+   case 3: return EDOM;
+  }
+
+  double fres = p32e1_to_f(*a) - p32e1_to_f(*b);
+  pres = f_to_p32e1(fres);
+  res->udata = pres.udata; return 0;
+}
+
+extern "C"    p32e1_t p32e1_sub_j(p32e1_t a, p32e1_t b) {
+  p32e1_t pres;
+  int status = sanitize_sub_32((a).udata, (b).udata);
+  switch (status){
+   case 1: pres.udata = P32ZER; return pres;
+   case 2: pres.udata = P32INF; return pres;
+   case 3: throw_nan_jmp();
+  }
+
+  double fres = p32e1_to_f(a) - p32e1_to_f(b);
+  pres = f_to_p32e1(fres);
+  return pres;
+}
+
+
+extern "C"    int p32e2_sub(p32e2_t *res, p32e2_t *a, p32e2_t *b) {
+  p32e2_t pres;
+  int status = sanitize_sub_32((*a).udata, (*b).udata);
+  switch (status){
+   case 1: pres.udata = P32ZER; res->udata = pres.udata; return 0;
+   case 2: pres.udata = P32INF; res->udata = pres.udata; return 0;
+   case 3: return EDOM;
+  }
+
+  double fres = p32e2_to_f(*a) - p32e2_to_f(*b);
+  pres = f_to_p32e2(fres);
+  res->udata = pres.udata; return 0;
+}
+
+extern "C"    p32e2_t p32e2_sub_j(p32e2_t a, p32e2_t b) {
+  p32e2_t pres;
+  int status = sanitize_sub_32((a).udata, (b).udata);
+  switch (status){
+   case 1: pres.udata = P32ZER; return pres;
+   case 2: pres.udata = P32INF; return pres;
+   case 3: throw_nan_jmp();
+  }
+
+  double fres = p32e2_to_f(a) - p32e2_to_f(b);
+  pres = f_to_p32e2(fres);
+  return pres;
+}
+
+
+extern "C"    int p32e3_sub(p32e3_t *res, p32e3_t *a, p32e3_t *b) {
+  p32e3_t pres;
+  int status = sanitize_sub_32((*a).udata, (*b).udata);
+  switch (status){
+   case 1: pres.udata = P32ZER; res->udata = pres.udata; return 0;
+   case 2: pres.udata = P32INF; res->udata = pres.udata; return 0;
+   case 3: return EDOM;
+  }
+
+  double fres = p32e3_to_f(*a) - p32e3_to_f(*b);
+  pres = f_to_p32e3(fres);
+  res->udata = pres.udata; return 0;
+}
+
+extern "C"    p32e3_t p32e3_sub_j(p32e3_t a, p32e3_t b) {
+  p32e3_t pres;
+  int status = sanitize_sub_32((a).udata, (b).udata);
+  switch (status){
+   case 1: pres.udata = P32ZER; return pres;
+   case 2: pres.udata = P32INF; return pres;
+   case 3: throw_nan_jmp();
+  }
+
+  double fres = p32e3_to_f(a) - p32e3_to_f(b);
+  pres = f_to_p32e3(fres);
+  return pres;
+}
+
+
+
+
+
+///////////////////////////////////////////////////////////////
+//  posit_8 section, variable ES adapters for addinv
+///////////////////////////////////////////////////////////////
+extern "C"    p8e0_t p8e0_addinv_j(p8e0_t a) {
   p8e0_t res;
-  res.udata = -x.udata;
+  res.udata = -(a.udata);
   return res;
 }
-extern "C" p8e1_t p8e1_addinv(p8e1_t x){
+
+extern "C"    int p8e0_addinv(p8e0_t *res, p8e0_t *a) {
+  res->udata = -(a->udata);
+  return 0;
+}
+
+extern "C"    p8e1_t p8e1_addinv_j(p8e1_t a) {
   p8e1_t res;
-  res.udata = -x.udata;
+  res.udata = -(a.udata);
   return res;
 }
-extern "C" p8e2_t p8e2_addinv(p8e2_t x){
+
+extern "C"    int p8e1_addinv(p8e1_t *res, p8e1_t *a) {
+  res->udata = -(a->udata);
+  return 0;
+}
+
+extern "C"    p8e2_t p8e2_addinv_j(p8e2_t a) {
   p8e2_t res;
-  res.udata = -x.udata;
+  res.udata = -(a.udata);
   return res;
 }
-extern "C" p16e0_t p16e0_addinv(p16e0_t x){
+
+extern "C"    int p8e2_addinv(p8e2_t *res, p8e2_t *a) {
+  res->udata = -(a->udata);
+  return 0;
+}
+
+
+
+///////////////////////////////////////////////////////////////
+//  posit_16 section, variable ES adapters for addinv
+///////////////////////////////////////////////////////////////
+extern "C"    p16e0_t p16e0_addinv_j(p16e0_t a) {
   p16e0_t res;
-  res.udata = -x.udata;
+  res.udata = -(a.udata);
   return res;
 }
-extern "C" p16e1_t p16e1_addinv(p16e1_t x){
+
+extern "C"    int p16e0_addinv(p16e0_t *res, p16e0_t *a) {
+  res->udata = -(a->udata);
+  return 0;
+}
+
+extern "C"    p16e1_t p16e1_addinv_j(p16e1_t a) {
   p16e1_t res;
-  res.udata = -x.udata;
+  res.udata = -(a.udata);
   return res;
 }
-extern "C" p16e2_t p16e2_addinv(p16e2_t x){
+
+extern "C"    int p16e1_addinv(p16e1_t *res, p16e1_t *a) {
+  res->udata = -(a->udata);
+  return 0;
+}
+
+extern "C"    p16e2_t p16e2_addinv_j(p16e2_t a) {
   p16e2_t res;
-  res.udata = -x.udata;
+  res.udata = -(a.udata);
   return res;
 }
-extern "C" p32e0_t p32e0_addinv(p32e0_t x){
+
+extern "C"    int p16e2_addinv(p16e2_t *res, p16e2_t *a) {
+  res->udata = -(a->udata);
+  return 0;
+}
+
+
+
+///////////////////////////////////////////////////////////////
+//  posit_32 section, variable ES adapters for addinv
+///////////////////////////////////////////////////////////////
+extern "C"    p32e0_t p32e0_addinv_j(p32e0_t a) {
   p32e0_t res;
-  res.udata = -x.udata;
+  res.udata = -(a.udata);
   return res;
 }
-extern "C" p32e1_t p32e1_addinv(p32e1_t x){
+
+extern "C"    int p32e0_addinv(p32e0_t *res, p32e0_t *a) {
+  res->udata = -(a->udata);
+  return 0;
+}
+
+extern "C"    p32e1_t p32e1_addinv_j(p32e1_t a) {
   p32e1_t res;
-  res.udata = -x.udata;
+  res.udata = -(a.udata);
   return res;
 }
-extern "C" p32e2_t p32e2_addinv(p32e2_t x){
+
+extern "C"    int p32e1_addinv(p32e1_t *res, p32e1_t *a) {
+  res->udata = -(a->udata);
+  return 0;
+}
+
+extern "C"    p32e2_t p32e2_addinv_j(p32e2_t a) {
   p32e2_t res;
-  res.udata = -x.udata;
+  res.udata = -(a.udata);
   return res;
 }
-extern "C" p32e3_t p32e3_addinv(p32e3_t x){
+
+extern "C"    int p32e2_addinv(p32e2_t *res, p32e2_t *a) {
+  res->udata = -(a->udata);
+  return 0;
+}
+
+extern "C"    p32e3_t p32e3_addinv_j(p32e3_t a) {
   p32e3_t res;
-  res.udata = -x.udata;
+  res.udata = -(a.udata);
   return res;
 }
 
-extern "C" bool p8e0_lt(p8e0_t lhs, p8e0_t rhs){
-  if ((lhs.udata == P8INF) || (rhs.udata == P8INF)) { return true; }
-  return (lhs.sdata < rhs.sdata);
-}
-extern "C" bool p8e1_lt(p8e1_t lhs, p8e1_t rhs){
-  if ((lhs.udata == P8INF) || (rhs.udata == P8INF)) { return true; }
-  return (lhs.sdata < rhs.sdata);
-}
-extern "C" bool p8e2_lt(p8e2_t lhs, p8e2_t rhs){
-  if ((lhs.udata == P8INF) || (rhs.udata == P8INF)) { return true; }
-  return (lhs.sdata < rhs.sdata);
-}
-extern "C" bool p16e0_lt(p16e0_t lhs, p16e0_t rhs){
-  if ((lhs.udata == P16INF) || (rhs.udata == P16INF)) { return true; }
-  return (lhs.sdata < rhs.sdata);
-}
-extern "C" bool p16e1_lt(p16e1_t lhs, p16e1_t rhs){
-  if ((lhs.udata == P16INF) || (rhs.udata == P16INF)) { return true; }
-  return (lhs.sdata < rhs.sdata);
-}
-extern "C" bool p16e2_lt(p16e2_t lhs, p16e2_t rhs){
-  if ((lhs.udata == P16INF) || (rhs.udata == P16INF)) { return true; }
-  return (lhs.sdata < rhs.sdata);
-}
-extern "C" bool p32e0_lt(p32e0_t lhs, p32e0_t rhs){
-  if ((lhs.udata == P32INF) || (rhs.udata == P32INF)) { return true; }
-  return (lhs.sdata < rhs.sdata);
-}
-extern "C" bool p32e1_lt(p32e1_t lhs, p32e1_t rhs){
-  if ((lhs.udata == P32INF) || (rhs.udata == P32INF)) { return true; }
-  return (lhs.sdata < rhs.sdata);
-}
-extern "C" bool p32e2_lt(p32e2_t lhs, p32e2_t rhs){
-  if ((lhs.udata == P32INF) || (rhs.udata == P32INF)) { return true; }
-  return (lhs.sdata < rhs.sdata);
-}
-extern "C" bool p32e3_lt(p32e3_t lhs, p32e3_t rhs){
-  if ((lhs.udata == P32INF) || (rhs.udata == P32INF)) { return true; }
-  return (lhs.sdata < rhs.sdata);
+extern "C"    int p32e3_addinv(p32e3_t *res, p32e3_t *a) {
+  res->udata = -(a->udata);
+  return 0;
 }
 
-extern "C" bool p8e0_lte(p8e0_t lhs, p8e0_t rhs){
-  if ((lhs.udata == P8INF) || (rhs.udata == P8INF)) { return true; }
-  return (lhs.sdata <= rhs.sdata);
+
+
+
+///////////////////////////////////////////////////////////////
+//  posit_8 section, variable ES adapters for lt
+///////////////////////////////////////////////////////////////
+extern "C"   bool p8e0_lt(p8e0_t a, p8e0_t b) {
+  p8e0_t res;
+  return (res.sdata < -a.sdata);
 }
-extern "C" bool p8e1_lte(p8e1_t lhs, p8e1_t rhs){
-  if ((lhs.udata == P8INF) || (rhs.udata == P8INF)) { return true; }
-  return (lhs.sdata <= rhs.sdata);
+
+extern "C"   bool p8e1_lt(p8e1_t a, p8e1_t b) {
+  p8e1_t res;
+  return (res.sdata < -a.sdata);
 }
-extern "C" bool p8e2_lte(p8e2_t lhs, p8e2_t rhs){
-  if ((lhs.udata == P8INF) || (rhs.udata == P8INF)) { return true; }
-  return (lhs.sdata <= rhs.sdata);
+
+extern "C"   bool p8e2_lt(p8e2_t a, p8e2_t b) {
+  p8e2_t res;
+  return (res.sdata < -a.sdata);
 }
-extern "C" bool p16e0_lte(p16e0_t lhs, p16e0_t rhs){
-  if ((lhs.udata == P16INF) || (rhs.udata == P16INF)) { return true; }
-  return (lhs.sdata <= rhs.sdata);
+
+
+
+///////////////////////////////////////////////////////////////
+//  posit_16 section, variable ES adapters for lt
+///////////////////////////////////////////////////////////////
+extern "C"   bool p16e0_lt(p16e0_t a, p16e0_t b) {
+  p16e0_t res;
+  return (res.sdata < -a.sdata);
 }
-extern "C" bool p16e1_lte(p16e1_t lhs, p16e1_t rhs){
-  if ((lhs.udata == P16INF) || (rhs.udata == P16INF)) { return true; }
-  return (lhs.sdata <= rhs.sdata);
+
+extern "C"   bool p16e1_lt(p16e1_t a, p16e1_t b) {
+  p16e1_t res;
+  return (res.sdata < -a.sdata);
 }
-extern "C" bool p16e2_lte(p16e2_t lhs, p16e2_t rhs){
-  if ((lhs.udata == P16INF) || (rhs.udata == P16INF)) { return true; }
-  return (lhs.sdata <= rhs.sdata);
+
+extern "C"   bool p16e2_lt(p16e2_t a, p16e2_t b) {
+  p16e2_t res;
+  return (res.sdata < -a.sdata);
 }
-extern "C" bool p32e0_lte(p32e0_t lhs, p32e0_t rhs){
-  if ((lhs.udata == P32INF) || (rhs.udata == P32INF)) { return true; }
-  return (lhs.sdata <= rhs.sdata);
+
+
+
+///////////////////////////////////////////////////////////////
+//  posit_32 section, variable ES adapters for lt
+///////////////////////////////////////////////////////////////
+extern "C"   bool p32e0_lt(p32e0_t a, p32e0_t b) {
+  p32e0_t res;
+  return (res.sdata < -a.sdata);
 }
-extern "C" bool p32e1_lte(p32e1_t lhs, p32e1_t rhs){
-  if ((lhs.udata == P32INF) || (rhs.udata == P32INF)) { return true; }
-  return (lhs.sdata <= rhs.sdata);
+
+extern "C"   bool p32e1_lt(p32e1_t a, p32e1_t b) {
+  p32e1_t res;
+  return (res.sdata < -a.sdata);
 }
-extern "C" bool p32e2_lte(p32e2_t lhs, p32e2_t rhs){
-  if ((lhs.udata == P32INF) || (rhs.udata == P32INF)) { return true; }
-  return (lhs.sdata <= rhs.sdata);
+
+extern "C"   bool p32e2_lt(p32e2_t a, p32e2_t b) {
+  p32e2_t res;
+  return (res.sdata < -a.sdata);
 }
-extern "C" bool p32e3_lte(p32e3_t lhs, p32e3_t rhs){
-  if ((lhs.udata == P32INF) || (rhs.udata == P32INF)) { return true; }
-  return (lhs.sdata <= rhs.sdata);
+
+extern "C"   bool p32e3_lt(p32e3_t a, p32e3_t b) {
+  p32e3_t res;
+  return (res.sdata < -a.sdata);
 }
+
+
+
+
+///////////////////////////////////////////////////////////////
+//  posit_8 section, variable ES adapters for lte
+///////////////////////////////////////////////////////////////
+extern "C"   bool p8e0_lte(p8e0_t a, p8e0_t b) {
+  p8e0_t res;
+  return (res.sdata <= -a.sdata);
+}
+
+extern "C"   bool p8e1_lte(p8e1_t a, p8e1_t b) {
+  p8e1_t res;
+  return (res.sdata <= -a.sdata);
+}
+
+extern "C"   bool p8e2_lte(p8e2_t a, p8e2_t b) {
+  p8e2_t res;
+  return (res.sdata <= -a.sdata);
+}
+
+
+
+///////////////////////////////////////////////////////////////
+//  posit_16 section, variable ES adapters for lte
+///////////////////////////////////////////////////////////////
+extern "C"   bool p16e0_lte(p16e0_t a, p16e0_t b) {
+  p16e0_t res;
+  return (res.sdata <= -a.sdata);
+}
+
+extern "C"   bool p16e1_lte(p16e1_t a, p16e1_t b) {
+  p16e1_t res;
+  return (res.sdata <= -a.sdata);
+}
+
+extern "C"   bool p16e2_lte(p16e2_t a, p16e2_t b) {
+  p16e2_t res;
+  return (res.sdata <= -a.sdata);
+}
+
+
+
+///////////////////////////////////////////////////////////////
+//  posit_32 section, variable ES adapters for lte
+///////////////////////////////////////////////////////////////
+extern "C"   bool p32e0_lte(p32e0_t a, p32e0_t b) {
+  p32e0_t res;
+  return (res.sdata <= -a.sdata);
+}
+
+extern "C"   bool p32e1_lte(p32e1_t a, p32e1_t b) {
+  p32e1_t res;
+  return (res.sdata <= -a.sdata);
+}
+
+extern "C"   bool p32e2_lte(p32e2_t a, p32e2_t b) {
+  p32e2_t res;
+  return (res.sdata <= -a.sdata);
+}
+
+extern "C"   bool p32e3_lte(p32e3_t a, p32e3_t b) {
+  p32e3_t res;
+  return (res.sdata <= -a.sdata);
+}
+
 
