@@ -36,6 +36,7 @@ for x = 0x00:0xFF, y = 0x00:0xFF
     @test (x,y,padd(x, y)) == (x,y,reinterpret(UInt8, (reinterpret(Posit{8,1}, x) + reinterpret(Posit{8,1}, y))))
   end
 end
+
 @linklibrary_add(8,2)
 for x = 0x00:0xFF, y = 0x00:0xFF
   if (x != 0x80 || y != 0x80) #ignore the one corner case that doesn't work.
@@ -43,76 +44,40 @@ for x = 0x00:0xFF, y = 0x00:0xFF
   end
 end
 
+# testing 16-bit number types.
+
+macro test_big_bittype_add(N, ES)
+  quote
+    @linklibrary_add($N, $ES)
+
+    println("testing addition on p$($N)e$($ES)")
+
+    UType = UIntLookup[$N]
+
+    for idx = 1:10000
+      x = rand(UType)
+      y = rand(UType)
+      if (x != topbits($N) || y != topbits($N)) #ignore the one corner case that doesn't work.
+        @test (x,y,padd(x, y)) == (x,y,reinterpret(UType, (reinterpret(Posit{$N,$ES}, x) + reinterpret(Posit{$N,$ES}, y))))
+      end
+    end
+
+    #=
+    for idx = 1:1000
+      x = rand(UType)
+      y = zero(UType)
+      @test padd(x, y) == x
+      @test padd(y, x) == x
+    end
+    =#
+  end
+end
 #=
-commented out because of random errors.
-@linklibrary_add(16,0)
-for idx = 1:10000
-  x = rand(UInt16)
-  y = rand(UInt16)
-  if (x != 0x80 || y != 0x80) #ignore the one corner case that doesn't work.
-    @test (x,y,padd(x, y)) == (x,y,reinterpret(UInt8, (reinterpret(Posit{8,2}, x) + reinterpret(Posit{8,2}, y))))
-  end
-end
+@test_big_bittype_add(16,0)
+@test_big_bittype_add(16,1)
+@test_big_bittype_add(16,2)
 =#
-
-@linklibrary_add(32,0)
-for idx = 1:10000
-  x = rand(UInt32)
-  y = rand(UInt32)
-  if (x != 0x8000_0000 || y != 0x8000_0000) #ignore the one corner case that doesn't work.
-    @test (x,y,padd(x, y)) == (x,y,reinterpret(UInt32, (reinterpret(Posit{32,0}, x) + reinterpret(Posit{32,0}, y))))
-  end
-end
-
-for idx = 1:1000
-  x = rand(UInt32)
-  y = 0x0000_0000
-  if (x != 0x8000_0000 || y != 0x8000_0000) #ignore the one corner case that doesn't work.
-    @test (x,y,padd(x, y)) == (x,y,reinterpret(UInt32, (reinterpret(Posit{32,0}, x) + reinterpret(Posit{32,0}, y))))
-  end
-end
-
-@linklibrary_add(32,0)
-for idx = 1:10000
-  x = rand(UInt32)
-  y = rand(UInt32)
-  if (x != 0x8000_0000 || y != 0x8000_0000) #ignore the one corner case that doesn't work.
-    @test (x,y,padd(x, y)) == (x,y,reinterpret(UInt32, (reinterpret(Posit{32,0}, x) + reinterpret(Posit{32,0}, y))))
-  end
-end
-
-for idx = 1:1000
-  x = rand(UInt32)
-  y = 0x0000_0000
-  @test (x,y,padd(x, y)) == (x,y,reinterpret(UInt32, (reinterpret(Posit{32,0}, x) + reinterpret(Posit{32,0}, y))))
-end
-
-@linklibrary_add(32,1)
-for idx = 1:10000
-  x = rand(UInt32)
-  y = rand(UInt32)
-  if (x != 0x8000_0000 || y != 0x8000_0000) #ignore the one corner case that doesn't work.
-    @test (x,y,padd(x, y)) == (x,y,reinterpret(UInt32, (reinterpret(Posit{32,1}, x) + reinterpret(Posit{32,1}, y))))
-  end
-end
-
-for idx = 1:1000
-  x = rand(UInt32)
-  y = 0x0000_0000
-  @test (x,y,padd(x, y)) == (x,y,reinterpret(UInt32, (reinterpret(Posit{32,1}, x) + reinterpret(Posit{32,1}, y))))
-end
-
-@linklibrary_add(32,2)
-for idx = 1:10000
-  x = rand(UInt32)
-  y = rand(UInt32)
-  if (x != 0x8000_0000 || y != 0x8000_0000) #ignore the one corner case that doesn't work.
-    @test (x,y,padd(x, y)) == (x,y,reinterpret(UInt32, (reinterpret(Posit{32,2}, x) + reinterpret(Posit{32,2}, y))))
-  end
-end
-
-for idx = 1:1000
-  x = rand(UInt32)
-  y = 0x0000_0000
-  @test (x,y,padd(x, y)) == (x,y,reinterpret(UInt32, (reinterpret(Posit{32,2}, x) + reinterpret(Posit{32,2}, y))))
-end
+@test_big_bittype_add(32,0)
+@test_big_bittype_add(32,1)
+@test_big_bittype_add(32,2)
+@test_big_bittype_add(32,3)

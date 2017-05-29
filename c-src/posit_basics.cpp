@@ -1189,18 +1189,18 @@ extern "C"    int p32e3_addinv(p32e3_t *res, p32e3_t *a) {
 //  posit_8 section, variable ES adapters for lt
 ///////////////////////////////////////////////////////////////
 extern "C"   bool p8e0_lt(p8e0_t a, p8e0_t b) {
-  p8e0_t res;
-  return (res.sdata < -a.sdata);
+  if (b.udata == P8INF) { return true; }
+  return (a.sdata < b.sdata);
 }
 
 extern "C"   bool p8e1_lt(p8e1_t a, p8e1_t b) {
-  p8e1_t res;
-  return (res.sdata < -a.sdata);
+  if (b.udata == P8INF) { return true; }
+  return (a.sdata < b.sdata);
 }
 
 extern "C"   bool p8e2_lt(p8e2_t a, p8e2_t b) {
-  p8e2_t res;
-  return (res.sdata < -a.sdata);
+  if (b.udata == P8INF) { return true; }
+  return (a.sdata < b.sdata);
 }
 
 
@@ -1209,18 +1209,18 @@ extern "C"   bool p8e2_lt(p8e2_t a, p8e2_t b) {
 //  posit_16 section, variable ES adapters for lt
 ///////////////////////////////////////////////////////////////
 extern "C"   bool p16e0_lt(p16e0_t a, p16e0_t b) {
-  p16e0_t res;
-  return (res.sdata < -a.sdata);
+  if (b.udata == P16INF) { return true; }
+  return (a.sdata < b.sdata);
 }
 
 extern "C"   bool p16e1_lt(p16e1_t a, p16e1_t b) {
-  p16e1_t res;
-  return (res.sdata < -a.sdata);
+  if (b.udata == P16INF) { return true; }
+  return (a.sdata < b.sdata);
 }
 
 extern "C"   bool p16e2_lt(p16e2_t a, p16e2_t b) {
-  p16e2_t res;
-  return (res.sdata < -a.sdata);
+  if (b.udata == P16INF) { return true; }
+  return (a.sdata < b.sdata);
 }
 
 
@@ -1229,23 +1229,23 @@ extern "C"   bool p16e2_lt(p16e2_t a, p16e2_t b) {
 //  posit_32 section, variable ES adapters for lt
 ///////////////////////////////////////////////////////////////
 extern "C"   bool p32e0_lt(p32e0_t a, p32e0_t b) {
-  p32e0_t res;
-  return (res.sdata < -a.sdata);
+  if (b.udata == P32INF) { return true; }
+  return (a.sdata < b.sdata);
 }
 
 extern "C"   bool p32e1_lt(p32e1_t a, p32e1_t b) {
-  p32e1_t res;
-  return (res.sdata < -a.sdata);
+  if (b.udata == P32INF) { return true; }
+  return (a.sdata < b.sdata);
 }
 
 extern "C"   bool p32e2_lt(p32e2_t a, p32e2_t b) {
-  p32e2_t res;
-  return (res.sdata < -a.sdata);
+  if (b.udata == P32INF) { return true; }
+  return (a.sdata < b.sdata);
 }
 
 extern "C"   bool p32e3_lt(p32e3_t a, p32e3_t b) {
-  p32e3_t res;
-  return (res.sdata < -a.sdata);
+  if (b.udata == P32INF) { return true; }
+  return (a.sdata < b.sdata);
 }
 
 
@@ -1255,18 +1255,18 @@ extern "C"   bool p32e3_lt(p32e3_t a, p32e3_t b) {
 //  posit_8 section, variable ES adapters for lte
 ///////////////////////////////////////////////////////////////
 extern "C"   bool p8e0_lte(p8e0_t a, p8e0_t b) {
-  p8e0_t res;
-  return (res.sdata <= -a.sdata);
+  if (b.udata == P8INF) { return true; }
+  return (a.sdata <= b.sdata);
 }
 
 extern "C"   bool p8e1_lte(p8e1_t a, p8e1_t b) {
-  p8e1_t res;
-  return (res.sdata <= -a.sdata);
+  if (b.udata == P8INF) { return true; }
+  return (a.sdata <= b.sdata);
 }
 
 extern "C"   bool p8e2_lte(p8e2_t a, p8e2_t b) {
-  p8e2_t res;
-  return (res.sdata <= -a.sdata);
+  if (b.udata == P8INF) { return true; }
+  return (a.sdata <= b.sdata);
 }
 
 
@@ -1275,18 +1275,18 @@ extern "C"   bool p8e2_lte(p8e2_t a, p8e2_t b) {
 //  posit_16 section, variable ES adapters for lte
 ///////////////////////////////////////////////////////////////
 extern "C"   bool p16e0_lte(p16e0_t a, p16e0_t b) {
-  p16e0_t res;
-  return (res.sdata <= -a.sdata);
+  if (b.udata == P16INF) { return true; }
+  return (a.sdata <= b.sdata);
 }
 
 extern "C"   bool p16e1_lte(p16e1_t a, p16e1_t b) {
-  p16e1_t res;
-  return (res.sdata <= -a.sdata);
+  if (b.udata == P16INF) { return true; }
+  return (a.sdata <= b.sdata);
 }
 
 extern "C"   bool p16e2_lte(p16e2_t a, p16e2_t b) {
-  p16e2_t res;
-  return (res.sdata <= -a.sdata);
+  if (b.udata == P16INF) { return true; }
+  return (a.sdata <= b.sdata);
 }
 
 
@@ -1295,23 +1295,155 @@ extern "C"   bool p16e2_lte(p16e2_t a, p16e2_t b) {
 //  posit_32 section, variable ES adapters for lte
 ///////////////////////////////////////////////////////////////
 extern "C"   bool p32e0_lte(p32e0_t a, p32e0_t b) {
-  p32e0_t res;
-  return (res.sdata <= -a.sdata);
+  if (b.udata == P32INF) { return true; }
+  return (a.sdata <= b.sdata);
 }
 
 extern "C"   bool p32e1_lte(p32e1_t a, p32e1_t b) {
-  p32e1_t res;
-  return (res.sdata <= -a.sdata);
+  if (b.udata == P32INF) { return true; }
+  return (a.sdata <= b.sdata);
 }
 
 extern "C"   bool p32e2_lte(p32e2_t a, p32e2_t b) {
-  p32e2_t res;
-  return (res.sdata <= -a.sdata);
+  if (b.udata == P32INF) { return true; }
+  return (a.sdata <= b.sdata);
 }
 
 extern "C"   bool p32e3_lte(p32e3_t a, p32e3_t b) {
-  p32e3_t res;
-  return (res.sdata <= -a.sdata);
+  if (b.udata == P32INF) { return true; }
+  return (a.sdata <= b.sdata);
+}
+
+
+
+
+///////////////////////////////////////////////////////////////
+//  posit_8 section, variable ES adapters for gt
+///////////////////////////////////////////////////////////////
+extern "C"   bool p8e0_gt(p8e0_t a, p8e0_t b) {
+  if (a.udata == P8INF) { return true; }
+  return (a.sdata > b.sdata);
+}
+
+extern "C"   bool p8e1_gt(p8e1_t a, p8e1_t b) {
+  if (a.udata == P8INF) { return true; }
+  return (a.sdata > b.sdata);
+}
+
+extern "C"   bool p8e2_gt(p8e2_t a, p8e2_t b) {
+  if (a.udata == P8INF) { return true; }
+  return (a.sdata > b.sdata);
+}
+
+
+
+///////////////////////////////////////////////////////////////
+//  posit_16 section, variable ES adapters for gt
+///////////////////////////////////////////////////////////////
+extern "C"   bool p16e0_gt(p16e0_t a, p16e0_t b) {
+  if (a.udata == P16INF) { return true; }
+  return (a.sdata > b.sdata);
+}
+
+extern "C"   bool p16e1_gt(p16e1_t a, p16e1_t b) {
+  if (a.udata == P16INF) { return true; }
+  return (a.sdata > b.sdata);
+}
+
+extern "C"   bool p16e2_gt(p16e2_t a, p16e2_t b) {
+  if (a.udata == P16INF) { return true; }
+  return (a.sdata > b.sdata);
+}
+
+
+
+///////////////////////////////////////////////////////////////
+//  posit_32 section, variable ES adapters for gt
+///////////////////////////////////////////////////////////////
+extern "C"   bool p32e0_gt(p32e0_t a, p32e0_t b) {
+  if (a.udata == P32INF) { return true; }
+  return (a.sdata > b.sdata);
+}
+
+extern "C"   bool p32e1_gt(p32e1_t a, p32e1_t b) {
+  if (a.udata == P32INF) { return true; }
+  return (a.sdata > b.sdata);
+}
+
+extern "C"   bool p32e2_gt(p32e2_t a, p32e2_t b) {
+  if (a.udata == P32INF) { return true; }
+  return (a.sdata > b.sdata);
+}
+
+extern "C"   bool p32e3_gt(p32e3_t a, p32e3_t b) {
+  if (a.udata == P32INF) { return true; }
+  return (a.sdata > b.sdata);
+}
+
+
+
+
+///////////////////////////////////////////////////////////////
+//  posit_8 section, variable ES adapters for gte
+///////////////////////////////////////////////////////////////
+extern "C"   bool p8e0_gte(p8e0_t a, p8e0_t b) {
+  if (a.udata == P8INF) { return true; }
+  return (a.sdata >= b.sdata);
+}
+
+extern "C"   bool p8e1_gte(p8e1_t a, p8e1_t b) {
+  if (a.udata == P8INF) { return true; }
+  return (a.sdata >= b.sdata);
+}
+
+extern "C"   bool p8e2_gte(p8e2_t a, p8e2_t b) {
+  if (a.udata == P8INF) { return true; }
+  return (a.sdata >= b.sdata);
+}
+
+
+
+///////////////////////////////////////////////////////////////
+//  posit_16 section, variable ES adapters for gte
+///////////////////////////////////////////////////////////////
+extern "C"   bool p16e0_gte(p16e0_t a, p16e0_t b) {
+  if (a.udata == P16INF) { return true; }
+  return (a.sdata >= b.sdata);
+}
+
+extern "C"   bool p16e1_gte(p16e1_t a, p16e1_t b) {
+  if (a.udata == P16INF) { return true; }
+  return (a.sdata >= b.sdata);
+}
+
+extern "C"   bool p16e2_gte(p16e2_t a, p16e2_t b) {
+  if (a.udata == P16INF) { return true; }
+  return (a.sdata >= b.sdata);
+}
+
+
+
+///////////////////////////////////////////////////////////////
+//  posit_32 section, variable ES adapters for gte
+///////////////////////////////////////////////////////////////
+extern "C"   bool p32e0_gte(p32e0_t a, p32e0_t b) {
+  if (a.udata == P32INF) { return true; }
+  return (a.sdata >= b.sdata);
+}
+
+extern "C"   bool p32e1_gte(p32e1_t a, p32e1_t b) {
+  if (a.udata == P32INF) { return true; }
+  return (a.sdata >= b.sdata);
+}
+
+extern "C"   bool p32e2_gte(p32e2_t a, p32e2_t b) {
+  if (a.udata == P32INF) { return true; }
+  return (a.sdata >= b.sdata);
+}
+
+extern "C"   bool p32e3_gte(p32e3_t a, p32e3_t b) {
+  if (a.udata == P32INF) { return true; }
+  return (a.sdata >= b.sdata);
 }
 
 

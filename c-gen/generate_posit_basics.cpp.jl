@@ -1,4 +1,4 @@
-const BASICS_FNS = [:add, :mul, :sub, :addinv, :lt, :lte]
+const BASICS_FNS = [:add, :mul, :sub, :addinv, :lt, :lte, :gt, :gte]
 const TPTR_TO_BINF = Dict(:add => "+", :mul => "*", :sub => "-", :div => "/")
 const ftype = Dict(8 => :float, 16 => :float, 32 => :double)
 
@@ -12,6 +12,8 @@ function binop_fn(n::Integer ,es::Integer, op::Symbol, status::Bool)
   rhs = status ? "*b" : "b"
   err = status ? "return EDOM" : "throw_nan_jmp()"
   ret = status ? "res->udata = pres.udata; return 0" : "return pres"
+  fexpr = haskey(TPTR_TO_BINF, op) ? "$(to_f(n,es,lhs)) $(TPTR_TO_BINF[op]) $(to_f(n,es,rhs))" :
+    "$(op)($(to_f(n,es,lhs)), $(to_f(n,es,rhs)))"
 
 """
 extern "C" $(opfn(n,es)) {
@@ -23,7 +25,7 @@ extern "C" $(opfn(n,es)) {
    case 3: $err;
   }
 
-  $(ftype[n]) fres = $(to_f(n,es,lhs)) $(TPTR_TO_BINF[op]) $(to_f(n,es,rhs));
+  $(ftype[n]) fres = $(fexpr);
   pres = $(to_p(n,es,:fres));
   $ret;
 }
@@ -97,15 +99,29 @@ const basics_code = Dict(
 
   :lt => (n, es) -> """
   extern "C" $(ops[:lt][2](n,es)) {
-    $(p(n,es)) res;
-    return (res.sdata < -a.sdata);
+    if (b.udata == P$(n)INF) { return true; }
+    return (a.sdata < b.sdata);
   }
   """,
 
   :lte => (n, es) -> """
   extern "C" $(ops[:lte][2](n,es)) {
-    $(p(n,es)) res;
-    return (res.sdata <= -a.sdata);
+    if (b.udata == P$(n)INF) { return true; }
+    return (a.sdata <= b.sdata);
+  }
+  """,
+
+  :gt => (n, es) -> """
+  extern "C" $(ops[:gt][2](n,es)) {
+    if (a.udata == P$(n)INF) { return true; }
+    return (a.sdata > b.sdata);
+  }
+  """,
+
+  :gte => (n, es) -> """
+  extern "C" $(ops[:gte][2](n,es)) {
+    if (a.udata == P$(n)INF) { return true; }
+    return (a.sdata >= b.sdata);
   }
   """)
 

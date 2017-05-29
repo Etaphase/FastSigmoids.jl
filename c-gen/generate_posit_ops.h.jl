@@ -50,6 +50,8 @@ const ops = Dict(#required for all posit implementations
                  :addinv => header_set(:addinv, 1),
                  :lt     => [nothing, boolean_header_c(:lt)],
                  :lte    => [nothing, boolean_header_c(:lte)],
+                 :gt     => [nothing, boolean_header_c(:gt)],
+                 :gte    => [nothing, boolean_header_c(:gte)],
                  #full posit required functions
                  :div    => header_set(:div, 2),
                  :mulinv => header_set(:mulinv, 1),

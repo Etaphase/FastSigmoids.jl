@@ -14,6 +14,8 @@ using Base.Test
 @test Posit{8,1}(0.000244140625) == reinterpret(Posit{8,1}, 0x01)
 @test Posit{8,1}(0.0009765625) == reinterpret(Posit{8,1}, 0x02)
 
+const UIntLookup = Dict(8 => UInt8, 16 => UInt16, 32 => UInt32, 64 => UInt64)
+topbits(N) = one(UIntLookup[N]) << (N - 1)
 
 #conversion and deconversion of 8-bit posits
 for fs_val = 0x00:0xFF
