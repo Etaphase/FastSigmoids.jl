@@ -1,18 +1,10 @@
 macro linklibrary_add(n, es)
   path = normpath(Pkg.dir("FastSigmoid"),"c-src","libfastposit.so")
-  fnname = QuoteNode(Symbol(:p, n, :e, es, :_add))
+  fnname = QuoteNode(Symbol(:p, n, :e, es, :_add_j))
 
   posittype = Symbol(:UInt, n)
 
-  esc(quote
-    padd = (a, b) -> begin
-      res = zero($posittype)
-      ccall( ($fnname, $path), Void,
-        (Ptr{$posittype}, Ptr{$posittype}, Ptr{$posittype}),
-        pointer_from_objref(res), pointer_from_objref(a), pointer_from_objref(b) )
-      res
-    end
-  end)
+  esc(:(padd = (a, b) -> ccall( ($fnname, $path), $posittype, ($posittype, $posittype), a, b )))
 end
 
 #spot unit testing
@@ -61,22 +53,13 @@ macro test_big_bittype_add(N, ES)
         @test (x,y,padd(x, y)) == (x,y,reinterpret(UType, (reinterpret(Posit{$N,$ES}, x) + reinterpret(Posit{$N,$ES}, y))))
       end
     end
-
-    #=
-    for idx = 1:1000
-      x = rand(UType)
-      y = zero(UType)
-      @test padd(x, y) == x
-      @test padd(y, x) == x
-    end
-    =#
   end
 end
-#=
+
 @test_big_bittype_add(16,0)
 @test_big_bittype_add(16,1)
 @test_big_bittype_add(16,2)
-=#
+
 @test_big_bittype_add(32,0)
 @test_big_bittype_add(32,1)
 @test_big_bittype_add(32,2)

@@ -1,18 +1,10 @@
 macro linklibrary_div(n, es)
   path = normpath(Pkg.dir("FastSigmoid"),"c-src","libfastposit.so")
-  fnname = QuoteNode(Symbol(:p, n, :e, es, :_div))
+  fnname = QuoteNode(Symbol(:p, n, :e, es, :_div_j))
 
   posittype = Symbol(:UInt, n)
 
-  esc(quote
-    pdiv = (a, b) -> begin
-      res = zero($posittype)
-      ccall( ($fnname, $path), Void,
-        (Ptr{$posittype}, Ptr{$posittype}, Ptr{$posittype}),
-        pointer_from_objref(res), pointer_from_objref(a), pointer_from_objref(b) )
-      res
-    end
-  end)
+  esc(:(pdiv = (a, b) -> ccall( ($fnname, $path), $posittype, ($posittype, $posittype), a, b )))
 end
 
 #comprehensive integration testing
@@ -73,11 +65,11 @@ macro test_big_bittype_div(N, ES)
     end
   end
 end
-#=
+
 @test_big_bittype_div(16,0)
 @test_big_bittype_div(16,1)
 @test_big_bittype_div(16,2)
-=#
+
 @test_big_bittype_div(32,0)
 @test_big_bittype_div(32,1)
 @test_big_bittype_div(32,2)

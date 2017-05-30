@@ -33,7 +33,7 @@ const exts_sanitizers = Dict(:sqrt => (n) -> """
     if (arg == P$(n)INF) { return 3; }  //only infinity is indeterminate
     return 0;
   }
-  """, :pow => (n) -> """
+  """, #=:pow => (n) -> """
   static int sanitize_pow_$(n)(const uint$(n)_t a, const uint$(n)_t b){
     if (a == P$(n)INF) {
       if (b == P$(n)ZER) {return 3;}  //inf^0 is NaN.
@@ -45,7 +45,7 @@ const exts_sanitizers = Dict(:sqrt => (n) -> """
     }
     return 0;
   }
-  """, :sin => (n) -> """
+  """,=# :sin => (n) -> """
   static int sanitize_sin_$(n)(const uint$(n)_t a){
     if (a == P$(n)INF) {return 3;}  //inf^0 is NaN
     return 0;
@@ -60,13 +60,13 @@ const exts_sanitizers = Dict(:sqrt => (n) -> """
     if (a == P$(n)INF) {return 3;}  //inf^0 is NaN
     return 0;
   }
-  """, :atan2 => (n) -> """
+  """,#= :atan2 => (n) -> """
   static int sanitize_atan2_$(n)(const uint$(n)_t a, const uint$(n)_t b){
     if ((a == P$(n)INF) && (b == P$(n)INF)) { return 3; }
     if ((a == P$(n)ZER) && (b == P$(n)ZER)) { return 3; }
     return 0;
   }
-  """, )
+  """, =#)
 
 
 const exts_code = Dict(

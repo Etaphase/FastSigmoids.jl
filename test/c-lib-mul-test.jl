@@ -1,18 +1,10 @@
 macro linklibrary_mul(n, es)
   path = normpath(Pkg.dir("FastSigmoid"),"c-src","libfastposit.so")
-  fnname = QuoteNode(Symbol(:p, n, :e, es, :_mul))
+  fnname = QuoteNode(Symbol(:p, n, :e, es, :_mul_j))
 
   posittype = Symbol(:UInt, n)
 
-  esc(quote
-    pmul = (a, b) -> begin
-      res = zero($posittype)
-      ccall( ($fnname, $path), Void,
-        (Ptr{$posittype}, Ptr{$posittype}, Ptr{$posittype}),
-        pointer_from_objref(res), pointer_from_objref(a), pointer_from_objref(b) )
-      res
-    end
-  end)
+  esc(:(pmul = (a, b) -> ccall( ($fnname, $path), $posittype, ($posittype, $posittype), a, b )))
 end
 
 #comprehensive integration testing
@@ -72,11 +64,11 @@ macro test_big_bittype_mul(N, ES)
     end
   end
 end
-#=
+
 @test_big_bittype_mul(16,0)
 @test_big_bittype_mul(16,1)
 @test_big_bittype_mul(16,2)
-=#
+
 @test_big_bittype_mul(32,0)
 @test_big_bittype_mul(32,1)
 @test_big_bittype_mul(32,2)

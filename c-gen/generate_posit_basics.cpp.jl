@@ -7,66 +7,36 @@ doc"""
 """
 function binop_fn(n::Integer ,es::Integer, op::Symbol, status::Bool)
   opfn = ops[op][status + 1]
-  val = status ? "int" : p(n,es)
-  lhs = status ? "*a" : "a"
-  rhs = status ? "*b" : "b"
-  err = status ? "return EDOM" : "throw_nan_jmp()"
+
+  #build up the assignment expression.  Start with the basics:  decide if the
+  #main is going to be a C operator or a function call.
+  fexpr = haskey(TPTR_TO_BINF, op) ? "$(to_f(n,es,:a)) $(TPTR_TO_BINF[op]) $(to_f(n,es,:b))" :
+    "$(op)($(to_f(n,es,:a)), $(to_f(n,es,:b)))"
+
+  #finally wrap it in a jump call detection if we're returning status_t.
+  fexpr = status ? """
+    $(ftype[n]) fres;
+    if (set_nan_jmp()){
+      fres = $fexpr;
+    } else {
+      return EDOM;
+    }
+  """ : "$(ftype[n]) fres = $(fexpr)"
+
+  #generate the return statement, which depends on whether or not we're status or jump.
   ret = status ? "res->udata = pres.udata; return 0" : "return pres"
-  fexpr = haskey(TPTR_TO_BINF, op) ? "$(to_f(n,es,lhs)) $(TPTR_TO_BINF[op]) $(to_f(n,es,rhs))" :
-    "$(op)($(to_f(n,es,lhs)), $(to_f(n,es,rhs)))"
 
 """
 extern "C" $(opfn(n,es)) {
   $(p(n,es)) pres;
-  int status = sanitize_$(op)\_$(n)(($lhs).udata, ($rhs).udata);
-  switch (status){
-   case 1: pres.udata = P$(n)ZER; $ret;
-   case 2: pres.udata = P$(n)INF; $ret;
-   case 3: $err;
-  }
 
-  $(ftype[n]) fres = $(fexpr);
+  $(fexpr);
+
   pres = $(to_p(n,es,:fres));
   $ret;
 }
 """
 end
-
-const basics_sanitizer = Dict(:add => (n) -> """
-  static int sanitize_add_$(n)(uint$(n)_t lhs, uint$(n)_t rhs){
-    if (lhs == P$(n)INF) {
-      if (rhs == P$(n)INF) { return 3; }
-      return 2;
-    }
-    if (rhs == P$(n)INF) { return 2; }
-    if (lhs == -rhs) { return 1; }
-    return 0;
-  }
-  """, :sub => (n) -> """
-  static int sanitize_sub_$(n)(uint$(n)_t lhs, uint$(n)_t rhs){
-    if (lhs == P$(n)INF) {
-      if (rhs == P$(n)INF) { return 3; }
-      return 2;
-    }
-    if (rhs == P$(n)INF) { return 2; }
-    if (lhs == -rhs) { return 1; }
-    return 0;
-  }
-  """, :mul => (n) -> """
-  static int sanitize_mul_$(n)(uint$(n)_t lhs, uint$(n)_t rhs){
-    if (lhs == P$(n)ZER) {
-      if (rhs == P$(n)INF) { return 3; }
-      return 1;
-    }
-    if (rhs == P$(n)ZER) {
-      if (lhs == P$(n)INF) { return 3; }
-      return 1;
-    }
-    if (lhs == P$(n)INF) { return 2; }
-    if (rhs == P$(n)INF) { return 2; }
-    return 0;
-  }
-  """)
 
 const basics_code = Dict(
   :add => (n, es) -> """
@@ -92,7 +62,7 @@ const basics_code = Dict(
   }
 
   extern "C" $(ops[:addinv][2](n,es)) {
-    res->udata = -(a->udata);
+    res->udata = -(a.udata);
     return 0;
   }
   """,
@@ -136,16 +106,7 @@ function generate_posit_basics_cpp(io, posit_defs)
   for fn in BASICS_FNS
     for n in sort(collect(keys(posit_defs)))
 
-      sanitizer = haskey(basics_sanitizer, fn) ? """
-      ///////////////////////////////////////////////////////////////
-      //  posit_$(n) section, $(fn) sanitizers
-      ///////////////////////////////////////////////////////////////
-
-      $(basics_sanitizer[fn](n))
-      """ : ""
-
       write(io, """
-      $sanitizer
 
       ///////////////////////////////////////////////////////////////
       //  posit_$(n) section, variable ES adapters for $(fn)

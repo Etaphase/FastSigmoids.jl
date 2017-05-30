@@ -2,9 +2,8 @@
 #define POSIT_32_3_H
 
 class P32e3{
-  private:
-    uint32_t data;
   public:
+    uint32_t data;
 
     //various public constructors
     P32e3();             //defaults to zero
@@ -26,38 +25,12 @@ class P32e3{
     bool operator >=(const P32e3 rhs);
     P32e3 operator /(const P32e3 rhs);
     P32e3 &operator /=(const P32e3 rhs);
-
-    //external friended operators
-    friend P32e3 operator -(const P32e3 rhs);
-    friend P32e3 operator float(const P32e3 rhs);
-    friend P32e3 operator double(const P32e3 rhs);
-
-    //friended functions
-    friend P32e3 mulinv(const P32e3 arg);
-    friend P32e3 log2(const P32e3 arg);
-    friend P32e3 exp2(const P32e3 arg);
-    friend P32e3 fma(const P32e3 a, const P32e3 b, const P32e3 c);
-    friend P32e3 fms(const P32e3 a, const P32e3 b, const P32e3 c);
-    friend P32e3 nfma(const P32e3 a, const P32e3 b, const P32e3 c);
-    friend P32e3 nfms(const P32e3 a, const P32e3 b, const P32e3 c);
-    friend P32e3 sqrt(const P32e3 arg);
-    friend P32e3 log1p(const P32e3 arg);
-    friend P32e3 log(const P32e3 arg);
-    friend P32e3 log10(const P32e3 arg);
-    friend P32e3 exp(const P32e3 arg);
-    friend P32e3 pow(const P32e3 lhs, const P32e3 rhs);
-    friend P32e3 sin(const P32e3 arg);
-    friend P32e3 cos(const P32e3 arg);
-    friend P32e3 atan(const P32e3 arg);
-    friend P32e3 atan2(const P32e3 y, const P32e3 x);
 }
 
 //redeclaration of the functions that were just friended
 P32e3 operator -(const P32e3 rhs);
 P32e3 operator float(const P32e3 rhs);
 P32e3 operator double(const P32e3 rhs);
-
-
 
 P32e3 mulinv(const P32e3 arg);
 P32e3 log2(const P32e3 arg);

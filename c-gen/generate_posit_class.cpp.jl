@@ -37,22 +37,22 @@ function arith_operators(n,es)
       $(p(n,es)) lhs;          //create an lhs on the stack.
       lhs.udata = this->data;   //set it to the value of the current item.
 
-      if (set_nan_jmp()) {
-        $(p(n,es,op))_j(($(p(n,es)) *) this, &lhs, &rhs);
-      } else {
-        throw domain_error("NaN value obtained in operator $assn_opsymbol");
-      }
+      int status = $(p(n,es,op))(($(p(n,es)) *) this, lhs, ($(p(n,es))) rhs);
+      if (status != 0){ throw domain_error("NaN value obtained in operator $assn_opsymbol"); }
+
       return (*this);
     }
 
     $(c(n,es)) $(c(n,es))::operator $(arith_opsymbol)(const $(c(n,es)) rhs){
       $(p(n,es)) res;          //create a return value on the stack.
+
       if (set_nan_jmp()){
-        $(p(n,es,op))(&res, ($(p(n,es)) *) this, &rhs);
+        $(p(n,es,op))(&res, ($(p(n,es))) (*this), ($(p(n,es))) rhs);
       } else {
         throw domain_error("NaN value obtained in operator $arith_opsymbol");
       }
-      return res;
+      
+      return $(c(n,es))(res);
     }
     """)
   end
@@ -90,7 +90,7 @@ doc"""
 function generate_posit_class_cpp(io, n, es)
   write(io, """
 
-  #include "$(c(n,es)).h"
+  #include "include/$(c(n,es)).h"
 
   $(constructors(n,es))
 

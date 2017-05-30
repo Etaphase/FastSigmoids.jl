@@ -3,10 +3,9 @@ function general_header(op::Symbol, n::Integer, es::Integer, arity::Integer, sta
   prefix = "  "
   output = status ? "int" : p(n,es)
   ident  = string(p(n,es,op), status ? "" : "_j")
-  statusarg = status ? ["$(p(n,es)) *res"] : []
-  pointer = status ? "*" : ""
+  statusarg = status ? ["$(p(n,es)) * res"] : []
 
-  args   = join(vcat(statusarg, ["$(p(n,es)) $pointer$(sym[idx])" for idx = 1:arity]),", ")
+  args   = join(vcat(statusarg, ["const $(p(n,es)) $(sym[idx])" for idx = 1:arity]),", ")
   "$prefix $output $ident($args)"
 end
 
@@ -26,11 +25,11 @@ end
 header_set(op::Symbol, arity::Integer) = [(n, es) -> general_header(op, n, es, arity),
                                           (n, es) -> general_header(op, n, es, arity, true)]
 #headers for special functions
-boolean_header_c(op::Symbol) =   (n, es) -> "  bool $(p(n,es,op))($(p(n,es)) a, $(p(n,es)) b)"
-boolean_header_cpp(op::Symbol) = (n, es) -> "extern bool operator $(binops[op])($(c(n,es)) a, $(c(n,es)) b)"
+boolean_header_c(op::Symbol) =   (n, es) -> "  bool $(p(n,es,op))(const $(p(n,es)) a,const  $(p(n,es)) b)"
+boolean_header_cpp(op::Symbol) = (n, es) -> "extern bool operator $(binops[op])(const $(c(n,es)) a, const $(c(n,es)) b)"
 
-fdp_header_c(op::Symbol) =       (n, es) -> "  $(p(n,es)) $(p(n,es,op))(fdp_cache$(n)e$(es)_t *fc, $(p(n,es)) a, $(p(n,es)) b)"
-fdp_header_cpp(op::Symbol) =     (n, es) -> "extern $(c(n,es)) fdp(fdp_cache$(n)e$(es) *fc, $(c(n,es)) a, $(c(n,es)) b)"
+fdp_header_c(op::Symbol) =       (n, es) -> "  $(p(n,es)) $(p(n,es,op))(fdp_cache$(n)e$(es)_t *fc, const $(p(n,es)) a, const $(p(n,es)) b)"
+fdp_header_cpp(op::Symbol) =     (n, es) -> "extern $(c(n,es)) fdp(fdp_cache$(n)e$(es) *fc, const $(c(n,es)) a, const $(c(n,es)) b)"
 
 dpi_header_c(op::Symbol) =       (n, es) -> "  void $(p(n,es,op))(fdp_cache$(n)e$(es)_t *fc)"
 dpi_header_cpp(op::Symbol) =     (n, es) -> "extern void dpi(fdp_cache$(n)e$(es) *fc)"

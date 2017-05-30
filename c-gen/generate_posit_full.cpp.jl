@@ -44,21 +44,20 @@ doc"""
 function unop_fn(n::Integer ,es::Integer, op::Symbol, status::Bool)
   opfn = ops[op][status + 1]
   val = status ? "int" : p(n,es)
-  arg = status ? "*a" : "a"
   err = status ? "return EDOM" : "throw_nan_jmp()"
   ret = status ? "res->udata = pres.udata; return 0" : "return pres"
 
 """
 extern "C" $(opfn(n,es)) {
   $(p(n,es)) pres;
-  int status = sanitize_$(op)\_$(n)(($arg).udata);
+  int status = sanitize_$(op)\_$(n)(a.udata);
   switch (status){
    case 1: pres.udata = P$(n)ZER; $ret;
    case 2: pres.udata = P$(n)INF; $ret;
    case 3: $err;
   }
 
-  $(ftype[n]) fres = $(op)($(to_f(n,es,arg)));
+  $(ftype[n]) fres = $(op)($(to_f(n,es,:a)));
   pres = $(to_p(n,es,:fres));
   $ret;
 }
@@ -71,40 +70,35 @@ doc"""
 function terop_fn(n::Integer, es::Integer, op::Symbol, status::Bool)
   opfn = ops[op][status + 1]
   quit = status ? "return EDOM" : "throw_nan_jmp()"
-  a = status ? "*a" : "a"
-  b = status ? "*b" : "b"
-  c = status ? "*c" : "c"
   retval = status ? "*res = result; return 0" : "return result"
   """
 $(opfn(n,es)){
     $(p(n,es)) result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
-    if ((($a).udata == P$(n)INF) || (($b).udata == P$(n)INF)){
-      if (($c).udata == P$(n)INF) { $quit; }
+    if ((a.udata == P$(n)INF) || (b.udata == P$(n)INF)){
+      if (c.udata == P$(n)INF) { $quit; }
       result.udata = P$(n)INF;
       $retval;
     }
-    if (($c).udata == P$(n)INF) {
+    if (c.udata == P$(n)INF) {
       result.udata = P$(n)INF;
       $retval;
     }  //or just be standard infinity if the adder is.
 
     //two ways to get zero:  one of the muliplicands is zero, add/sub is zero.
-    if ((($a).udata == P$(n)ZER) || (($b).udata == P$(n)ZER)){
-      if (($c).udata == P$(n)ZER) { result.udata = P$(n)ZER; $retval;}
+    if ((a.udata == P$(n)ZER) || (b.udata == P$(n)ZER)){
+      if (c.udata == P$(n)ZER) { result.udata = P$(n)ZER; $retval;}
       //here we can quit early.
-      result.udata = ($c).udata;
+      result.udata = c.udata;
       $retval;
     }
 
     //the other way to get zero is when the two values match exactly except for
     //sign
 
-
-
     //if it passes all the other tests, do the fma.
-    result = $(to_p(n,es,string("fma(",fmasig[op](n,es,a,b,c),")")));
+    result = $(to_p(n,es,string("fma(",fmasig[op](n,es,:a,:b,:c),")")));
 
     $retval;
   }
@@ -112,7 +106,7 @@ $(opfn(n,es)){
 end
 
 
-const fulls_sanitizers = Dict(:div => (n) -> """
+const fulls_sanitizers = Dict(#=:div => (n) -> """
   static int sanitize_div_$(n)(const uint$(n)_t lhs, const uint$(n)_t rhs){
     if (lhs == P$(n)INF) {
       if (rhs == P$(n)INF) { return 3; }
@@ -126,7 +120,7 @@ const fulls_sanitizers = Dict(:div => (n) -> """
     if (rhs == P$(n)ZER) { return 2; }
     return 0;
   }
-  """,
+  """,=#
   :log2 => (n) -> """
   static int sanitize_log2_$(n)(const uint$(n)_t arg){
     if (arg == P$(n)INF) { return 2; }
@@ -155,7 +149,7 @@ const fulls_code = Dict(
 
   extern "C" $(ops[:mulinv][2](n,es)) {
     $(p(n,es)) pres;
-    $(ftype[n]) fres = $(to_f(n,es,"*a"));
+    $(ftype[n]) fres = $(to_f(n,es,:a));
     pres = $(to_p(n,es,"1/fres"));
     res->udata = pres.udata;
     return 0;

@@ -2,9 +2,8 @@
 #define POSIT_16_2_H
 
 class P16e2{
-  private:
-    uint16_t data;
   public:
+    uint16_t data;
 
     //various public constructors
     P16e2();             //defaults to zero
@@ -26,38 +25,12 @@ class P16e2{
     bool operator >=(const P16e2 rhs);
     P16e2 operator /(const P16e2 rhs);
     P16e2 &operator /=(const P16e2 rhs);
-
-    //external friended operators
-    friend P16e2 operator -(const P16e2 rhs);
-    friend P16e2 operator float(const P16e2 rhs);
-    friend P16e2 operator double(const P16e2 rhs);
-
-    //friended functions
-    friend P16e2 mulinv(const P16e2 arg);
-    friend P16e2 log2(const P16e2 arg);
-    friend P16e2 exp2(const P16e2 arg);
-    friend P16e2 fma(const P16e2 a, const P16e2 b, const P16e2 c);
-    friend P16e2 fms(const P16e2 a, const P16e2 b, const P16e2 c);
-    friend P16e2 nfma(const P16e2 a, const P16e2 b, const P16e2 c);
-    friend P16e2 nfms(const P16e2 a, const P16e2 b, const P16e2 c);
-    friend P16e2 sqrt(const P16e2 arg);
-    friend P16e2 log1p(const P16e2 arg);
-    friend P16e2 log(const P16e2 arg);
-    friend P16e2 log10(const P16e2 arg);
-    friend P16e2 exp(const P16e2 arg);
-    friend P16e2 pow(const P16e2 lhs, const P16e2 rhs);
-    friend P16e2 sin(const P16e2 arg);
-    friend P16e2 cos(const P16e2 arg);
-    friend P16e2 atan(const P16e2 arg);
-    friend P16e2 atan2(const P16e2 y, const P16e2 x);
 }
 
 //redeclaration of the functions that were just friended
 P16e2 operator -(const P16e2 rhs);
 P16e2 operator float(const P16e2 rhs);
 P16e2 operator double(const P16e2 rhs);
-
-
 
 P16e2 mulinv(const P16e2 arg);
 P16e2 log2(const P16e2 arg);

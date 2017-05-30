@@ -180,35 +180,35 @@ static float p8_to_float(uint8_t pval, int16_t es, uint8_t es_mask){
 /*************************************************************/
 /*  posit_8 section, variable ES adapters                    */
 /*************************************************************/
-extern "C"   p8e0_t f_to_p8e0(float fval){
+extern "C"   p8e0_t f_to_p8e0(const float fval){
   p8e0_t res;
   res.udata = float_to_p8_zero_es(fval);
   return res;
 }
   
-extern "C"   float p8e0_to_f(p8e0_t pval){
+extern "C"   float p8e0_to_f(const p8e0_t pval){
   return p8_to_float(pval.udata, 0, ((uint8_t) 0x00));
 }
   
 
-extern "C"   p8e1_t f_to_p8e1(float fval){
+extern "C"   p8e1_t f_to_p8e1(const float fval){
   p8e1_t res;
   res.udata = float_to_p8(fval, 1, 12, -14);
   return res;
 }
   
-extern "C"   float p8e1_to_f(p8e1_t pval){
+extern "C"   float p8e1_to_f(const p8e1_t pval){
   return p8_to_float(pval.udata, 1, ((uint8_t) 0x80));
 }
   
 
-extern "C"   p8e2_t f_to_p8e2(float fval){
+extern "C"   p8e2_t f_to_p8e2(const float fval){
   p8e2_t res;
   res.udata = float_to_p8(fval, 2, 24, -28);
   return res;
 }
   
-extern "C"   float p8e2_to_f(p8e2_t pval){
+extern "C"   float p8e2_to_f(const p8e2_t pval){
   return p8_to_float(pval.udata, 2, ((uint8_t) 0xc0));
 }
   
@@ -395,35 +395,35 @@ static float p16_to_float(uint16_t pval, int16_t es, uint16_t es_mask){
 /*************************************************************/
 /*  posit_16 section, variable ES adapters                    */
 /*************************************************************/
-extern "C"   p16e0_t f_to_p16e0(float fval){
+extern "C"   p16e0_t f_to_p16e0(const float fval){
   p16e0_t res;
   res.udata = float_to_p16_zero_es(fval);
   return res;
 }
   
-extern "C"   float p16e0_to_f(p16e0_t pval){
+extern "C"   float p16e0_to_f(const p16e0_t pval){
   return p16_to_float(pval.udata, 0, ((uint16_t) 0x0000));
 }
   
 
-extern "C"   p16e1_t f_to_p16e1(float fval){
+extern "C"   p16e1_t f_to_p16e1(const float fval){
   p16e1_t res;
   res.udata = float_to_p16(fval, 1, 28, -30);
   return res;
 }
   
-extern "C"   float p16e1_to_f(p16e1_t pval){
+extern "C"   float p16e1_to_f(const p16e1_t pval){
   return p16_to_float(pval.udata, 1, ((uint16_t) 0x8000));
 }
   
 
-extern "C"   p16e2_t f_to_p16e2(float fval){
+extern "C"   p16e2_t f_to_p16e2(const float fval){
   p16e2_t res;
   res.udata = float_to_p16(fval, 2, 56, -60);
   return res;
 }
   
-extern "C"   float p16e2_to_f(p16e2_t pval){
+extern "C"   float p16e2_to_f(const p16e2_t pval){
   return p16_to_float(pval.udata, 2, ((uint16_t) 0xc000));
 }
   
@@ -610,46 +610,46 @@ static double p32_to_double(uint32_t pval, int16_t es, uint32_t es_mask){
 /*************************************************************/
 /*  posit_32 section, variable ES adapters                    */
 /*************************************************************/
-extern "C"   p32e0_t f_to_p32e0(double fval){
+extern "C"   p32e0_t f_to_p32e0(const double fval){
   p32e0_t res;
   res.udata = double_to_p32_zero_es(fval);
   return res;
 }
   
-extern "C"   double p32e0_to_f(p32e0_t pval){
+extern "C"   double p32e0_to_f(const p32e0_t pval){
   return p32_to_double(pval.udata, 0, 0x00000000L);
 }
   
 
-extern "C"   p32e1_t f_to_p32e1(double fval){
+extern "C"   p32e1_t f_to_p32e1(const double fval){
   p32e1_t res;
   res.udata = double_to_p32(fval, 1, 60, -62);
   return res;
 }
   
-extern "C"   double p32e1_to_f(p32e1_t pval){
+extern "C"   double p32e1_to_f(const p32e1_t pval){
   return p32_to_double(pval.udata, 1, 0x80000000L);
 }
   
 
-extern "C"   p32e2_t f_to_p32e2(double fval){
+extern "C"   p32e2_t f_to_p32e2(const double fval){
   p32e2_t res;
   res.udata = double_to_p32(fval, 2, 120, -124);
   return res;
 }
   
-extern "C"   double p32e2_to_f(p32e2_t pval){
+extern "C"   double p32e2_to_f(const p32e2_t pval){
   return p32_to_double(pval.udata, 2, 0xc0000000L);
 }
   
 
-extern "C"   p32e3_t f_to_p32e3(double fval){
+extern "C"   p32e3_t f_to_p32e3(const double fval){
   p32e3_t res;
   res.udata = double_to_p32(fval, 3, 240, -248);
   return res;
 }
   
-extern "C"   double p32e3_to_f(p32e3_t pval){
+extern "C"   double p32e3_to_f(const p32e3_t pval){
   return p32_to_double(pval.udata, 3, 0xe0000000L);
 }
   

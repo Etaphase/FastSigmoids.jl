@@ -5,7 +5,6 @@ include("posit_cgen_helpers.jl")
 
 #conversion headers
 include("generate_posit.h.jl")
-include("generate_posit.hpp.jl")
 include("generate_posit_conv.h.jl")
 include("generate_posit_ops.h.jl")
 
@@ -42,11 +41,6 @@ function generate_fastsigmoid_c_library(posit_defs, d::AbstractString = normpath
   posits_h = normpath(include_dir, "posit.h")
   open(posits_h, "w") do io
     generate_posit_h(io, posit_defs)
-  end
-
-  posits_hpp = normpath(include_dir, "posit.hpp")
-  open(posits_hpp, "w") do io
-    generate_posit_hpp(io, posit_defs)
   end
 
   #posit conversions
@@ -100,6 +94,11 @@ function generate_fastsigmoid_c_library(posit_defs, d::AbstractString = normpath
       open(posit_class_cpp, "w") do io
         generate_posit_class_cpp(io, n, es)
       end
+
+      posit_class_o = normpath(object_dir, "P$(n)e$(es).o")
+
+      #next, compile the files.
+      cc = run(`gcc -c -Wall -Werror -fpic $posit_class_cpp -o $posit_class_o`)
     end
   end
 

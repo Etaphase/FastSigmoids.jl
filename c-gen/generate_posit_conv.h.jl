@@ -1,11 +1,15 @@
 function p2fheader(n, es)
   ftype = c_ftype(float_for_posit_size(n))
-  "  $(ftype) $(to_f(n,es, string(p(n,es), " pval")))"
+
+  pterm = "const $(p(n,es)) pval"
+
+  "  $(ftype) $(to_f(n,es,pterm))"
 end
 
 function f2pheader(n, es)
   ftype = c_ftype(float_for_posit_size(n))
-  "  $(p(n,es)) $(to_p(n,es, string(ftype, " fval")))"
+  fterm = "const $ftype fval"
+  "  $(p(n,es)) $(to_p(n,es,fterm))"
 end
 
 function generate_posit_conv_h(io, posit_defs)

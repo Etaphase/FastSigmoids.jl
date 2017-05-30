@@ -19,7 +19,7 @@ P16e0 &P16e0::operator *=(const P16e0 rhs){
   lhs.udata = this->data;   //set it to the value of the current item.
 
   if (set_nan_jmp()) {
-    p16e0_mul_j((p16e0_t *) this, &lhs, &rhs);
+    p16e0_mul_j((p16e0_t *) this, lhs, (p16e0_t) rhs);
   } else {
     throw domain_error("NaN value obtained in operator *=");
   }
@@ -29,7 +29,7 @@ P16e0 &P16e0::operator *=(const P16e0 rhs){
 P16e0 P16e0::operator *(const P16e0 rhs){
   p16e0_t res;          //create a return value on the stack.
   if (set_nan_jmp()){
-    p16e0_mul(&res, (p16e0_t *) this, &rhs);
+    p16e0_mul(&res, (p16e0_t) (*this), (p16e0_t) rhs);
   } else {
     throw domain_error("NaN value obtained in operator *");
   }
@@ -41,7 +41,7 @@ P16e0 &P16e0::operator -=(const P16e0 rhs){
   lhs.udata = this->data;   //set it to the value of the current item.
 
   if (set_nan_jmp()) {
-    p16e0_sub_j((p16e0_t *) this, &lhs, &rhs);
+    p16e0_sub_j((p16e0_t *) this, lhs, (p16e0_t) rhs);
   } else {
     throw domain_error("NaN value obtained in operator -=");
   }
@@ -51,7 +51,7 @@ P16e0 &P16e0::operator -=(const P16e0 rhs){
 P16e0 P16e0::operator -(const P16e0 rhs){
   p16e0_t res;          //create a return value on the stack.
   if (set_nan_jmp()){
-    p16e0_sub(&res, (p16e0_t *) this, &rhs);
+    p16e0_sub(&res, (p16e0_t) (*this), (p16e0_t) rhs);
   } else {
     throw domain_error("NaN value obtained in operator -");
   }
@@ -63,7 +63,7 @@ P16e0 &P16e0::operator +=(const P16e0 rhs){
   lhs.udata = this->data;   //set it to the value of the current item.
 
   if (set_nan_jmp()) {
-    p16e0_add_j((p16e0_t *) this, &lhs, &rhs);
+    p16e0_add_j((p16e0_t *) this, lhs, (p16e0_t) rhs);
   } else {
     throw domain_error("NaN value obtained in operator +=");
   }
@@ -73,7 +73,7 @@ P16e0 &P16e0::operator +=(const P16e0 rhs){
 P16e0 P16e0::operator +(const P16e0 rhs){
   p16e0_t res;          //create a return value on the stack.
   if (set_nan_jmp()){
-    p16e0_add(&res, (p16e0_t *) this, &rhs);
+    p16e0_add(&res, (p16e0_t) (*this), (p16e0_t) rhs);
   } else {
     throw domain_error("NaN value obtained in operator +");
   }
@@ -85,7 +85,7 @@ P16e0 &P16e0::operator /=(const P16e0 rhs){
   lhs.udata = this->data;   //set it to the value of the current item.
 
   if (set_nan_jmp()) {
-    p16e0_div_j((p16e0_t *) this, &lhs, &rhs);
+    p16e0_div_j((p16e0_t *) this, lhs, (p16e0_t) rhs);
   } else {
     throw domain_error("NaN value obtained in operator /=");
   }
@@ -95,7 +95,7 @@ P16e0 &P16e0::operator /=(const P16e0 rhs){
 P16e0 P16e0::operator /(const P16e0 rhs){
   p16e0_t res;          //create a return value on the stack.
   if (set_nan_jmp()){
-    p16e0_div(&res, (p16e0_t *) this, &rhs);
+    p16e0_div(&res, (p16e0_t) (*this), (p16e0_t) rhs);
   } else {
     throw domain_error("NaN value obtained in operator /");
   }
