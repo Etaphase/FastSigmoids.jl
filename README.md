@@ -59,37 +59,37 @@ To use this these functions `#include "posit_ops.h"`
 
 Supported functions (described as p32e2_t but implemented for all types):
 
-* `int p32e2_add(p32e2_t *res, p32e2_t *lhs, p32e2_t *rhs)`          **res <- lhs + rhs**
-* `int p32e2_sub(p32e2_t *res, p32e2_t *lhs, p32e2_t *rhs)`          **res <- lhs - rhs**
-* `int p32e2_mul(p32e2_t *res, p32e2_t *lhs, p32e2_t *rhs)`          **res <- lhs * rhs**
-* `int p32e2_addinv(p32e2_t *res, p32e2_t *arg)`                     **res <- -arg**
-* `bool p32e2_lt(p32e2_t lhs, p32e2_t rhs)`                          **==> lhs < rhs**
-* `bool p32e2_lte(p32e2_t lhs, p32e2_t rhs)`                         **==> lhs <= rhs**
-* `bool p32e2_gt(p32e2_t lhs, p32e2_t rhs)`                          **==> lhs > rhs**
-* `bool p32e2_gte(p32e2_t lhs, p32e2_t rhs)`                         **==> lhs >= rhs**
-* `int p32e2_div(p32e2_t *res, p32e2_t *lhs, p32e2_t *rhs)`          **res <- lhs / rhs**
-* `int p32e2_mulinv(p32e2_t *res, p32e2_t *arg)`                     **res <- 1/arg**
-* `int p32e2_log2(p32e2_t *res, p32e2_t *arg)`                       **res <- log2(arg)**
-* `int p32e2_exp2(p32e2_t *res, p32e2_t *arg)`                       **res <- 2^(arg)**
-* `int p32e2_fma(p32e2_t *res, p32e2_t *a, p32e2_t *b, p32e2_t *c)`  **res <- a * b + c**
-* `int p32e2_fms(p32e2_t *res, p32e2_t *a, p32e2_t *b, p32e2_t *c)`  **res <- a * b - c**
-* `int p32e2_nfma(p32e2_t *res, p32e2_t *a, p32e2_t *b, p32e2_t *c)` **res <- -(a * b) + c**
-* `int p32e2_nfms(p32e2_t *res, p32e2_t *a, p32e2_t *b, p32e2_t *c)` **res <- -(a * b) - c**
+* `int p32e2_add(p32e2_t *res, const p32e2_t lhs, const p32e2_t rhs)`               **res <- lhs + rhs**
+* `int p32e2_sub(p32e2_t *res, const p32e2_t lhs, const p32e2_t rhs)`               **res <- lhs - rhs**
+* `int p32e2_mul(p32e2_t *res, const p32e2_t lhs, const p32e2_t rhs)`               **res <- lhs * rhs**
+* `int p32e2_addinv(p32e2_t *res, const p32e2_t arg)`                               **res <- -arg**
+* `bool p32e2_lt(const p32e2_t lhs, const p32e2_t rhs)`                             **==> lhs < rhs**
+* `bool p32e2_lte(const p32e2_t lhs, const p32e2_t rhs)`                            **==> lhs <= rhs**
+* `bool p32e2_gt(const p32e2_t lhs, const p32e2_t rhs)`                             **==> lhs > rhs**
+* `bool p32e2_gte(const p32e2_t lhs, const p32e2_t rhs)`                            **==> lhs >= rhs**
+* `int p32e2_div(p32e2_t *res, p32e2_t lhs, p32e2_t rhs)`                           **res <- lhs / rhs**
+* `int p32e2_mulinv(p32e2_t *res, const p32e2_t arg)`                               **res <- 1/arg**
+* `int p32e2_log2(p32e2_t *res, const p32e2_t arg)`                                 **res <- log2(arg)**
+* `int p32e2_exp2(p32e2_t *res, const p32e2_t arg)`                                 **res <- 2^(arg)**
+* `int p32e2_fma(p32e2_t *res, const p32e2_t a, const p32e2_t b, const p32e2_t c)`  **res <- a * b + c**
+* `int p32e2_fms(p32e2_t *res, const p32e2_t a, const p32e2_t b, const p32e2_t c)`  **res <- a * b - c**
+* `int p32e2_nfma(p32e2_t *res, const p32e2_t a, const p32e2_t b, const p32e2_t c)` **res <- -(a * b) + c**
+* `int p32e2_nfms(p32e2_t *res, const p32e2_t a, const p32e2_t b, const p32e2_t c)` **res <- -(a * b) - c**
 * fas     - _fused add/scale_
 * fcp     - _fused cross product_
 * fdp     - _fused dot product_
 * dpi     - _initialize dot product accumulator_
-* `int p32e2_sqrt(p32e2_t *res p32e2_t *arg)`                        **res <- sqrt(arg)**
-* `int p32e2_log1p(p32e2_t *res p32e2_t *arg)`                       **res <- ln(arg + 1)**
-* `int p32e2_log(p32e2_t *res p32e2_t *arg)`                         **res <- ln(arg)**
-* `int p32e2_log10(p32e2_t *res p32e2_t *arg)`                       **res <- log10(arg)**
-* `int p32e2_exp(p32e2_t *res p32e2_t *arg)`                         **res <- e^(arg)**
-* `int p32e2_pow(p32e2_t *res p32e2_t *lhs, p32e2_t *rhs)`           **res <- (lhs)^(rhs)**
+* `int p32e2_sqrt(p32e2_t *res, const p32e2_t arg)`                        **res <- sqrt(arg)**
+* `int p32e2_log1p(p32e2_t *res, const p32e2_t arg)`                       **res <- ln(arg + 1)**
+* `int p32e2_log(p32e2_t *res2, const p32e2_t arg)`                         **res <- ln(arg)**
+* `int p32e2_log10(p32e2_t *res, const p32e2_t arg)`                       **res <- log10(arg)**
+* `int p32e2_exp(p32e2_t *res, const p32e2_t arg)`                         **res <- e^(arg)**
+* `int p32e2_pow(p32e2_t *res, const p32e2_t lhs, const p32e2_t rhs)`           **res <- (lhs)^(rhs)**
 * logx    - _logarithm, arbitrary base_
-* `int p32e2_sin(p32e2_t *res p32e2_t *arg)`                         **res <- sin(arg)**
-* `int p32e2_cos(p32e2_t *res p32e2_t *arg)`                         **res <- cos(arg)**
-* `int p32e2_atan(p32e2_t *res p32e2_t *arg)`                        **res <- atan(arg)**
-* `int p32e2_atan2(p32e2_t *res p32e2_t *y, p32e2_t *x)`             **res <- atan(y/x)**
+* `int p32e2_sin(p32e2_t *res, const p32e2_t arg)`                         **res <- sin(arg)**
+* `int p32e2_cos(p32e2_t *res, const p32e2_t arg)`                         **res <- cos(arg)**
+* `int p32e2_atan(p32e2_t *res, const p32e2_t arg)`                        **res <- atan(arg)**
+* `int p32e2_atan2(p32e2_t *res, const p32e2_t y, const p32e2_t x)`             **res <- atan(y/x)**
 
 _italic_ functions are not currently implemented.
 
@@ -99,82 +99,87 @@ well-defined over all possible inputs.  If you prefer using setjmp/longjmp error
 handling, the following functions are defined which will pass control to the jump
 point defined by the function `set_nan_jmp()`.  To use these functions, `#include "posit_ops_status.h"`
 
-* `p32e2_t p32e2_add_j(p32e2_t lhs, p32e2_t rhs)`
-* `p32e2_t p32e2_sub_j(p32e2_t lhs, p32e2_t rhs)`
-* `p32e2_t p32e2_mul_j(p32e2_t lhs, p32e2_t rhs)`
-* `p32e2_t p32e2_addinv_j(p32e2_t arg)`
-* `p32e2_t p32e2_div_j(p32e2_t lhs, p32e2_t rhs)`
-* `p32e2_t p32e2_mulinv_j(p32e2_t arg)`
-* `p32e2_t p32e2_log2_j(p32e2_t arg)`
-* `p32e2_t p32e2_exp2_j(p32e2_t arg)`
-* `p32e2_t p32e2_fma_j(p32e2_t a, p32e2_t b, p32e2_t c)`
-* `p32e2_t p32e2_fms_j(p32e2_t a, p32e2_t b, p32e2_t c)`
-* `p32e2_t p32e2_nfma_j(p32e2_t a, p32e2_t b, p32e2_t c)`
-* `p32e2_t p32e2_nfms_j(p32e2_t a, p32e2_t b, p32e2_t c)`
+* `p32e2_t p32e2_add_j(const p32e2_t lhs, const p32e2_t rhs)`
+* `p32e2_t p32e2_sub_j(const p32e2_t lhs, const p32e2_t rhs)`
+* `p32e2_t p32e2_mul_j(const p32e2_t lhs, const p32e2_t rhs)`
+* `p32e2_t p32e2_addinv_j(const p32e2_t arg)`
+* `p32e2_t p32e2_div_j(const p32e2_t lhs, const p32e2_t rhs)`
+* `p32e2_t p32e2_mulinv_j(const p32e2_t arg)`
+* `p32e2_t p32e2_log2_j(const p32e2_t arg)`
+* `p32e2_t p32e2_exp2_j(const p32e2_t arg)`
+* `p32e2_t p32e2_fma_j(const p32e2_t a, const p32e2_t b, const p32e2_t c)`
+* `p32e2_t p32e2_fms_j(const p32e2_t a, const p32e2_t b, const p32e2_t c)`
+* `p32e2_t p32e2_nfma_j(const p32e2_t a, const p32e2_t b, const p32e2_t c)`
+* `p32e2_t p32e2_nfms_j(const p32e2_t a, const p32e2_t b, const p32e2_t c)`
 * fas     - _fused add/scale_
 * fcp     - _fused cross product_
 * fdp     - _fused dot product_
-* `p32e2_t p32e2_sqrt_j(p32e2_t arg)`
-* `p32e2_t p32e2_log1p_j(p32e2_t arg)`
-* `p32e2_t p32e2_log_j(p32e2_t arg)`
-* `p32e2_t p32e2_log10_j(p32e2_t arg)`
-* `p32e2_t p32e2_exp_j(p32e2_t arg)`
-* `p32e2_t p32e2_pow_j(p32e2_t lhs, p32e2_t rhs)`
-* `p32e2_t p32e2_logx_j(p32e2_t lhs, p32e2_t rhs)`
-* `p32e2_t p32e2_sin_j(p32e2_t arg)`               
-* `p32e2_t p32e2_cos_j(p32e2_t arg)`               
-* `p32e2_t p32e2_atan_j(p32e2_t arg)`
-* `p32e2_t p32e2_atan2_j(p32e2_t y, p32e2_t x)`
+* `p32e2_t p32e2_sqrt_j(const p32e2_t arg)`
+* `p32e2_t p32e2_log1p_j(const p32e2_t arg)`
+* `p32e2_t p32e2_log_j(const p32e2_t arg)`
+* `p32e2_t p32e2_log10_j(const p32e2_t arg)`
+* `p32e2_t p32e2_exp_j(const p32e2_t arg)`
+* `p32e2_t p32e2_pow_j(const p32e2_t lhs, const p32e2_t rhs)`
+* logx    - _arbitrary base logarithm_
+* `p32e2_t p32e2_sin_j(const p32e2_t arg)`               
+* `p32e2_t p32e2_cos_j(const p32e2_t arg)`               
+* `p32e2_t p32e2_atan_j(const p32e2_t arg)`
+* `p32e2_t p32e2_atan2_j(const p32e2_t y, const p32e2_t x)`
 
 USING C++ CLASSES
 -----------------
 
 The posit data type is also implemented as C++ classes.  These classes are given
-the labels P(N)e(ES).  The classes are available when you `#include "posit.hpp"`
-To use these functions, `#include "posit_ops.hpp"`.  The following functions are
+the labels P(N)e(ES).  If you wish to access the binary form of the posit, there
+is a public class member variable `data` which contains this information; it is
+of uint(n)\_t type.  These classes are available when you `#include "P32e3.h"`
+as an example, (substitute N and ES accordingly).  The following functions are
 functionally overloaded to support all posit classes:
 
-* `P32e2 mulinv(P32e2 arg)`                    **==> 1/arg**
-* `P32e2 log2(P32e2 arg)`                      **==> log2(arg)**
-* `P32e2 exp2(P32e2 arg)`                      **==> 2^(arg)**
-* `P32e2 fma(P32e2 a, P32e2 b, P32e2 c)`   **==> a * b + c**
-* `P32e2 fms(P32e2 a, P32e2 b, P32e2 c)`   **==> a * b - c**
-* `P32e2 nfma(P32e2 a, p32e2 b, P32e2 c)`  **==> -(a * b) + c**
-* `P32e2 nfms(P32e2 a, p32e2 b, P32e2 c)`  **==> -(a * b) - c**
+* `P32e2 mulinv(const P32e2 arg)`                    **==> 1/arg**
+* `P32e2 log2(const P32e2 arg)`                      **==> log2(arg)**
+* `P32e2 exp2(const P32e2 arg)`                      **==> 2^(arg)**
+* `P32e2 fma(const P32e2 a, const P32e2 b, const P32e2 c)`   **==> a * b + c**
+* `P32e2 fms(const P32e2 a, const P32e2 b, const P32e2 c)`   **==> a * b - c**
+* `P32e2 nfma(const P32e2 a, const P32e2 b, const P32e2 c)`  **==> -(a * b) + c**
+* `P32e2 nfms(const P32e2 a, const P32e2 b, const P32e2 c)`  **==> -(a * b) - c**
 * fas     - _fused add/scale_
 * fcp     - _fused cross product_
 * fdp     - _fused dot product_
 * dpi     - _initialize dot product accumulator_
-* `P32e2 sqrt(P32e2 arg)`                      **==> sqrt(arg)**
-* `P32e2 log1p(P32e2 arg)`                     **==> ln(arg + 1)**
-* `P32e2 log(P32e2 arg)`                       **==> ln(arg)**
-* `P32e2 log10(P32e2 arg)`                     **==> log10(arg)**
-* `P32e2 exp(P32e2 arg)`                       **==> e^(arg)**
-* `P32e2 pow(P32e2 lhs, P32e2 rhs)`            **==> (lhs)^(rhs)**
-* `P32e2 logx(P32e2 lhs, P32e2 rhs)`           **==> log_lhs(rhs)**
-* `P32e2 sin(P32e2 arg)`                       **==> sin(arg)**
-* `P32e2 cos(P32e2 arg)`                       **==> cos(arg)**
-* `P32e2 atan (P32e2 arg)`                     **==> atan(arg)**
-* `P32e2 atan2(P32e2 y, P32e2 x)`              **==> atan(y/x)**
+* `P32e2 sqrt(const P32e2 arg)`                      **==> sqrt(arg)**
+* `P32e2 log1p(const P32e2 arg)`                     **==> ln(arg + 1)**
+* `P32e2 log(const P32e2 arg)`                       **==> ln(arg)**
+* `P32e2 log10(const P32e2 arg)`                     **==> log10(arg)**
+* `P32e2 exp(const P32e2 arg)`                       **==> e^(arg)**
+* `P32e2 pow(const P32e2 lhs, const P32e2 rhs)`            **==> (lhs)^(rhs)**
+* logx    - _arbitrary base logarithm_
+* `P32e2 sin(const P32e2 arg)`                       **==> sin(arg)**
+* `P32e2 cos(const P32e2 arg)`                       **==> cos(arg)**
+* `P32e2 atan (const P32e2 arg)`                     **==> atan(arg)**
+* `P32e2 atan2(const P32e2 y, const P32e2 x)`              **==> atan(y/x)**
 
 The following class operators are overloaded for all posit classes:
 
-* `P32e2 operator +(P32e2 rhs)`                **==> this + rhs**
-* `P32e2 operator -(P32e2 rhs)`                **==> this - rhs**
-* `P32e2 operator *(P32e2 rhs)`                **==> this * rhs**
-* `P32e2 &operator +=(P32e2 rhs)`              **==> this += rhs**
-* `P32e2 &operator -=(P32e2 rhs)`              **==> this -= rhs**
-* `P32e2 &operator *=(P32e2 rhs)`              **==> this *= rhs**
-* `bool operator <(P32e2 rhs)`                 **==> this < rhs**
-* `bool operator <=(P32e2 rhs)`                **==> this <= rhs**
-* `bool operator >(P32e2 rhs)`                 **==> this > rhs**
-* `bool operator >=(P32e2 rhs)`                **==> this >= rhs**
-* `P32e2 operator /(P32e2 rhs)`                **==> this / rhs**
-* `P32e2 &operator /=(P32e2 rhs)`              **==> this /= rhs**
+* `P32e2 operator -()`                               **==> -this**
+* `P32e2 operator +(const P32e2 rhs)`                **==> this + rhs**
+* `P32e2 operator -(const P32e2 rhs)`                **==> this - rhs**
+* `P32e2 operator *(const P32e2 rhs)`                **==> this * rhs**
+* `P32e2 &operator +=(const P32e2 rhs)`              **==> this += rhs**
+* `P32e2 &operator -=(const P32e2 rhs)`              **==> this -= rhs**
+* `P32e2 &operator *=(const P32e2 rhs)`              **==> this *= rhs**
+* `bool operator <(const P32e2 rhs)`                 **==> this < rhs**
+* `bool operator <=(const P32e2 rhs)`                **==> this <= rhs**
+* `bool operator >(const P32e2 rhs)`                 **==> this > rhs**
+* `bool operator >=(const P32e2 rhs)`                **==> this >= rhs**
+* `P32e2 operator /(const P32e2 rhs)`                **==> this / rhs**
+* `P32e2 &operator /=(const P32e2 rhs)`              **==> this /= rhs**
 
-The following external operator is overloaded for all posit classes:
+The following class conversions are overloaded for all posit classes:
 
-* `P32e2 operator -(P32e2 arg)`                **==> -arg**
+* `operator float()`
+* `operator double()`
+* `operator p32_e2_t()`
 
 **NaN Exceptions** are implemented for the C++ library by throwing a
 domain_error object.  These should be caught using an outside try/catch block.
