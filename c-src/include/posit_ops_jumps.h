@@ -180,6 +180,17 @@
    p32e2_t p32e2_sqrt_j(const p32e2_t a);
    p32e3_t p32e3_sqrt_j(const p32e3_t a);
 
+   p8e0_t p8e0_log1p_j(const p8e0_t a);
+   p8e1_t p8e1_log1p_j(const p8e1_t a);
+   p8e2_t p8e2_log1p_j(const p8e2_t a);
+   p16e0_t p16e0_log1p_j(const p16e0_t a);
+   p16e1_t p16e1_log1p_j(const p16e1_t a);
+   p16e2_t p16e2_log1p_j(const p16e2_t a);
+   p32e0_t p32e0_log1p_j(const p32e0_t a);
+   p32e1_t p32e1_log1p_j(const p32e1_t a);
+   p32e2_t p32e2_log1p_j(const p32e2_t a);
+   p32e3_t p32e3_log1p_j(const p32e3_t a);
+
    p8e0_t p8e0_log10_j(const p8e0_t a);
    p8e1_t p8e1_log10_j(const p8e1_t a);
    p8e2_t p8e2_log10_j(const p8e2_t a);

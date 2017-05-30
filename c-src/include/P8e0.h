@@ -15,23 +15,23 @@ class P8e0{
     P8e0(const p8e0_t);   //bridge constructor from c functionality.
 
     //public operators
-    P8e0 operator -();
-    P8e0 operator +(const P8e0 rhs);
-    P8e0 operator -(const P8e0 rhs);
-    P8e0 operator *(const P8e0 rhs);
+    P8e0 operator -() const;
+    P8e0 operator +(const P8e0 rhs) const;
+    P8e0 operator -(const P8e0 rhs) const;
+    P8e0 operator *(const P8e0 rhs) const;
     P8e0 &operator +=(const P8e0 rhs);
     P8e0 &operator -=(const P8e0 rhs);
     P8e0 &operator *=(const P8e0 rhs);
-    bool operator <(const P8e0 rhs);
-    bool operator <=(const P8e0 rhs);
-    bool operator >(const P8e0 rhs);
-    bool operator >=(const P8e0 rhs);
-    P8e0 operator /(const P8e0 rhs);
+    bool operator <(const P8e0 rhs) const;
+    bool operator <=(const P8e0 rhs) const;
+    bool operator >(const P8e0 rhs) const;
+    bool operator >=(const P8e0 rhs) const;
+    P8e0 operator /(const P8e0 rhs) const;
     P8e0 &operator /=(const P8e0 rhs);
 
-    operator float();
-    operator double();
-    operator p8e0_t();
+    operator float() const;
+    operator double() const;
+    operator p8e0_t() const;
 };
 
 P8e0 mulinv(const P8e0 arg);

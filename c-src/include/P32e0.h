@@ -15,23 +15,23 @@ class P32e0{
     P32e0(const p32e0_t);   //bridge constructor from c functionality.
 
     //public operators
-    P32e0 operator -();
-    P32e0 operator +(const P32e0 rhs);
-    P32e0 operator -(const P32e0 rhs);
-    P32e0 operator *(const P32e0 rhs);
+    P32e0 operator -() const;
+    P32e0 operator +(const P32e0 rhs) const;
+    P32e0 operator -(const P32e0 rhs) const;
+    P32e0 operator *(const P32e0 rhs) const;
     P32e0 &operator +=(const P32e0 rhs);
     P32e0 &operator -=(const P32e0 rhs);
     P32e0 &operator *=(const P32e0 rhs);
-    bool operator <(const P32e0 rhs);
-    bool operator <=(const P32e0 rhs);
-    bool operator >(const P32e0 rhs);
-    bool operator >=(const P32e0 rhs);
-    P32e0 operator /(const P32e0 rhs);
+    bool operator <(const P32e0 rhs) const;
+    bool operator <=(const P32e0 rhs) const;
+    bool operator >(const P32e0 rhs) const;
+    bool operator >=(const P32e0 rhs) const;
+    P32e0 operator /(const P32e0 rhs) const;
     P32e0 &operator /=(const P32e0 rhs);
 
-    operator float();
-    operator double();
-    operator p32e0_t();
+    operator float() const;
+    operator double() const;
+    operator p32e0_t() const;
 };
 
 P32e0 mulinv(const P32e0 arg);

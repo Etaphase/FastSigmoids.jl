@@ -252,6 +252,17 @@
    int p32e2_sqrt(p32e2_t * res, const p32e2_t a);
    int p32e3_sqrt(p32e3_t * res, const p32e3_t a);
 
+   int p8e0_log1p(p8e0_t * res, const p8e0_t a);
+   int p8e1_log1p(p8e1_t * res, const p8e1_t a);
+   int p8e2_log1p(p8e2_t * res, const p8e2_t a);
+   int p16e0_log1p(p16e0_t * res, const p16e0_t a);
+   int p16e1_log1p(p16e1_t * res, const p16e1_t a);
+   int p16e2_log1p(p16e2_t * res, const p16e2_t a);
+   int p32e0_log1p(p32e0_t * res, const p32e0_t a);
+   int p32e1_log1p(p32e1_t * res, const p32e1_t a);
+   int p32e2_log1p(p32e2_t * res, const p32e2_t a);
+   int p32e3_log1p(p32e3_t * res, const p32e3_t a);
+
    int p8e0_log10(p8e0_t * res, const p8e0_t a);
    int p8e1_log10(p8e1_t * res, const p8e1_t a);
    int p8e2_log10(p8e2_t * res, const p8e2_t a);

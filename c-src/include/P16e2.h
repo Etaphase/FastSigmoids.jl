@@ -15,23 +15,23 @@ class P16e2{
     P16e2(const p16e2_t);   //bridge constructor from c functionality.
 
     //public operators
-    P16e2 operator -();
-    P16e2 operator +(const P16e2 rhs);
-    P16e2 operator -(const P16e2 rhs);
-    P16e2 operator *(const P16e2 rhs);
+    P16e2 operator -() const;
+    P16e2 operator +(const P16e2 rhs) const;
+    P16e2 operator -(const P16e2 rhs) const;
+    P16e2 operator *(const P16e2 rhs) const;
     P16e2 &operator +=(const P16e2 rhs);
     P16e2 &operator -=(const P16e2 rhs);
     P16e2 &operator *=(const P16e2 rhs);
-    bool operator <(const P16e2 rhs);
-    bool operator <=(const P16e2 rhs);
-    bool operator >(const P16e2 rhs);
-    bool operator >=(const P16e2 rhs);
-    P16e2 operator /(const P16e2 rhs);
+    bool operator <(const P16e2 rhs) const;
+    bool operator <=(const P16e2 rhs) const;
+    bool operator >(const P16e2 rhs) const;
+    bool operator >=(const P16e2 rhs) const;
+    P16e2 operator /(const P16e2 rhs) const;
     P16e2 &operator /=(const P16e2 rhs);
 
-    operator float();
-    operator double();
-    operator p16e2_t();
+    operator float() const;
+    operator double() const;
+    operator p16e2_t() const;
 };
 
 P16e2 mulinv(const P16e2 arg);

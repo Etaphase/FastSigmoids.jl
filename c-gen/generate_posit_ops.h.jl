@@ -38,7 +38,7 @@ newc_header(op::Symbol) =        (n, es) -> "  fdp_cache$(n)e$(es)_t* newcache$(
 
 const ordered_oplist =  [:add, :mul, :sub, :addinv, :lt, :lte, :gt, :gte, :div,
                          :mulinv, :log2, :exp2, :fma, :fms, :nfma, :nfms, :fas, :fcp, :fdp, :dpi, :newc,
-                         :sqrt, :log10, :log, :exp, :pow, :logx, :sin, :cos, :atan, :atan2]
+                         :sqrt, :log1p, :log10, :log, :exp, :pow, :logx, :sin, :cos, :atan, :atan2]
 
 #the ops dictionary lists
 

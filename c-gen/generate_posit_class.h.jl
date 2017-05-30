@@ -21,23 +21,23 @@ function generate_posit_class_h(io, n, es)
       $(c(n,es))(const $(p(n,es)));   //bridge constructor from c functionality.
 
       //public operators
-      $(c(n,es)) operator -();
-      $(c(n,es)) operator +(const $(c(n,es)) rhs);
-      $(c(n,es)) operator -(const $(c(n,es)) rhs);
-      $(c(n,es)) operator *(const $(c(n,es)) rhs);
+      $(c(n,es)) operator -() const;
+      $(c(n,es)) operator +(const $(c(n,es)) rhs) const;
+      $(c(n,es)) operator -(const $(c(n,es)) rhs) const;
+      $(c(n,es)) operator *(const $(c(n,es)) rhs) const;
       $(c(n,es)) &operator +=(const $(c(n,es)) rhs);
       $(c(n,es)) &operator -=(const $(c(n,es)) rhs);
       $(c(n,es)) &operator *=(const $(c(n,es)) rhs);
-      bool operator <(const $(c(n,es)) rhs);
-      bool operator <=(const $(c(n,es)) rhs);
-      bool operator >(const $(c(n,es)) rhs);
-      bool operator >=(const $(c(n,es)) rhs);
-      $(c(n,es)) operator /(const $(c(n,es)) rhs);
+      bool operator <(const $(c(n,es)) rhs) const;
+      bool operator <=(const $(c(n,es)) rhs) const;
+      bool operator >(const $(c(n,es)) rhs) const;
+      bool operator >=(const $(c(n,es)) rhs) const;
+      $(c(n,es)) operator /(const $(c(n,es)) rhs) const;
       $(c(n,es)) &operator /=(const $(c(n,es)) rhs);
 
-      operator float();
-      operator double();
-      operator $(p(n,es))();
+      operator float() const;
+      operator double() const;
+      operator $(p(n,es))() const;
   };
 
   $(c(n,es)) mulinv(const $(c(n,es)) arg);
