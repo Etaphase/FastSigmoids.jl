@@ -36,7 +36,7 @@ dpi_header_cpp(op::Symbol) =     (n, es) -> "extern void dpi(fdp_cache$(n)e$(es)
 
 newc_header(op::Symbol) =        (n, es) -> "  fdp_cache$(n)e$(es)_t* newcache$(n)e$(es)()"
 
-const ordered_oplist =  [:add, :mul, :sub, :addinv, :lt, :lte, :div,
+const ordered_oplist =  [:add, :mul, :sub, :addinv, :lt, :lte, :gt, :gte, :div,
                          :mulinv, :log2, :exp2, :fma, :fms, :nfma, :nfms, :fas, :fcp, :fdp, :dpi, :newc,
                          :sqrt, :log10, :log, :exp, :pow, :logx, :sin, :cos, :atan, :atan2]
 

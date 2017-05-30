@@ -10,15 +10,15 @@ function constructors(n, es)
 
   """
 
-  $(c(n,es))::$(c(n,es))(){ this.data = P$(n)ZER; }
+  $(c(n,es))::$(c(n,es))(){ this->data = P$(n)ZER; }
 
-  $(c(n,es))::$(c(n,es))(float a){ this.data = $floatdef.udata; }
+  $(c(n,es))::$(c(n,es))(const float a){ this->data = $floatdef.udata; }
 
-  $(c(n,es))::$(c(n,es))(double a){ this.data = $doubledef.udata; }
+  $(c(n,es))::$(c(n,es))(const double a){ this->data = $doubledef.udata; }
 
-  $(c(n,es))::$(c(n,es))($(c(n,es)) a){ this.data = a.udata; }
+  $(c(n,es))::$(c(n,es))(const $(c(n,es)) &a){ this->data = a.data; }
 
-  $(c(n,es))::$(c(n,es))($(p(n,es)) a){ this.data = a.udata; }
+  $(c(n,es))::$(c(n,es))(const $(p(n,es)) a){ this->data = a.udata; }
 
   """
 end
@@ -34,24 +34,32 @@ function arith_operators(n,es)
     #creates the reassignment binding then the arithmetic binding.
     push!(operator_code, """
     $(c(n,es)) &$(c(n,es))::operator $(assn_opsymbol)(const $(c(n,es)) rhs){
-      $(p(n,es)) lhs;          //create an lhs on the stack.
-      lhs.udata = this->data;   //set it to the value of the current item.
+      $(p(n,es)) lhs_p, rhs_p, res;      //create lhs and res values on the stack.
+      lhs_p.udata = this->data;   //set it to the value of the current item.
+      rhs_p.udata = rhs.data;
 
-      int status = $(p(n,es,op))(($(p(n,es)) *) this, lhs, ($(p(n,es))) rhs);
-      if (status != 0){ throw domain_error("NaN value obtained in operator $assn_opsymbol"); }
+      if (set_nan_jmp()){
+        res = $(p(n,es,op))_j(lhs_p, rhs_p);
+      } else {
+        throw std::domain_error("NaN value obtained in operator $assn_opsymbol");
+      }
 
+      this->data = res.udata;
       return (*this);
     }
 
     $(c(n,es)) $(c(n,es))::operator $(arith_opsymbol)(const $(c(n,es)) rhs){
-      $(p(n,es)) res;          //create a return value on the stack.
+      $(c(n,es)) res;          //create a return value on the stack.
+      $(p(n,es)) lhs_p, rhs_p;
+      lhs_p.udata = this->data;
+      rhs_p.udata = rhs.data;
 
       if (set_nan_jmp()){
-        $(p(n,es,op))(&res, ($(p(n,es))) (*this), ($(p(n,es))) rhs);
+        res = $(p(n,es))($(p(n,es,op))_j(lhs_p, rhs_p));
       } else {
-        throw domain_error("NaN value obtained in operator $arith_opsymbol");
+        throw std::domain_error("NaN value obtained in operator $arith_opsymbol");
       }
-      
+
       return $(c(n,es))(res);
     }
     """)
@@ -71,7 +79,11 @@ function bool_operators(n,es)
     #creates the reassignment binding then the arithmetic binding.
     push!(operator_code, """
     bool $(c(n,es))::operator $(bool_opsymbol)(const $(c(n,es)) rhs){
-      return $(p(n,es,op))(*this, rhs);
+      $(p(n,es)) lhs_p, rhs_p;
+      lhs_p.udata = this->data;
+      rhs_p.udata = rhs.data;
+
+      return $(p(n,es,op))(lhs_p, rhs_p);
     }
 
     """)
@@ -81,20 +93,23 @@ function bool_operators(n,es)
 end
 
 
-
-
-
 doc"""
   adlibbed- file which fills in the implementation of the functions
 """
 function generate_posit_class_cpp(io, n, es)
   write(io, """
 
+  #include "include/posit_conv.h"
+  #include "include/posit_ops.h"
+  #include "include/posit_ops_jumps.h"
   #include "include/$(c(n,es)).h"
+  #include <stdexcept>
 
   $(constructors(n,es))
 
   $(arith_operators(n,es))
+
+  $(bool_operators(n,es))
 
   """)
 

@@ -1,18 +1,21 @@
 #ifndef POSIT_16_2_H
 #define POSIT_16_2_H
 
+#include "posit.h"
+
 class P16e2{
   public:
     uint16_t data;
 
     //various public constructors
     P16e2();             //defaults to zero
-    P16e2(float);        //conversion constructor from IEEE32
-    P16e2(double);       //conversion constructor from IEEE64
-    P16e2(P16e2);   //copy constructor
-    P16e2(p16e2_t);   //bridge constructor from c functionality.
+    P16e2(const float);        //conversion constructor from IEEE32
+    P16e2(const double);       //conversion constructor from IEEE64
+    P16e2(const P16e2 &); //copy constructor
+    P16e2(const p16e2_t);   //bridge constructor from c functionality.
 
     //public operators
+    P16e2 operator -();
     P16e2 operator +(const P16e2 rhs);
     P16e2 operator -(const P16e2 rhs);
     P16e2 operator *(const P16e2 rhs);
@@ -25,12 +28,11 @@ class P16e2{
     bool operator >=(const P16e2 rhs);
     P16e2 operator /(const P16e2 rhs);
     P16e2 &operator /=(const P16e2 rhs);
-}
 
-//redeclaration of the functions that were just friended
-P16e2 operator -(const P16e2 rhs);
-P16e2 operator float(const P16e2 rhs);
-P16e2 operator double(const P16e2 rhs);
+    operator float();
+    operator double();
+    operator p16e2_t();
+};
 
 P16e2 mulinv(const P16e2 arg);
 P16e2 log2(const P16e2 arg);

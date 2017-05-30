@@ -54,6 +54,8 @@
 
 
 
+
+
    p8e0_t p8e0_div_j(const p8e0_t a, const p8e0_t b);
    p8e1_t p8e1_div_j(const p8e1_t a, const p8e1_t b);
    p8e2_t p8e2_div_j(const p8e2_t a, const p8e2_t b);

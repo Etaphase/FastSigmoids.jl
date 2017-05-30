@@ -76,6 +76,28 @@
   bool p32e2_lte(const p32e2_t a,const  p32e2_t b);
   bool p32e3_lte(const p32e3_t a,const  p32e3_t b);
 
+  bool p8e0_gt(const p8e0_t a,const  p8e0_t b);
+  bool p8e1_gt(const p8e1_t a,const  p8e1_t b);
+  bool p8e2_gt(const p8e2_t a,const  p8e2_t b);
+  bool p16e0_gt(const p16e0_t a,const  p16e0_t b);
+  bool p16e1_gt(const p16e1_t a,const  p16e1_t b);
+  bool p16e2_gt(const p16e2_t a,const  p16e2_t b);
+  bool p32e0_gt(const p32e0_t a,const  p32e0_t b);
+  bool p32e1_gt(const p32e1_t a,const  p32e1_t b);
+  bool p32e2_gt(const p32e2_t a,const  p32e2_t b);
+  bool p32e3_gt(const p32e3_t a,const  p32e3_t b);
+
+  bool p8e0_gte(const p8e0_t a,const  p8e0_t b);
+  bool p8e1_gte(const p8e1_t a,const  p8e1_t b);
+  bool p8e2_gte(const p8e2_t a,const  p8e2_t b);
+  bool p16e0_gte(const p16e0_t a,const  p16e0_t b);
+  bool p16e1_gte(const p16e1_t a,const  p16e1_t b);
+  bool p16e2_gte(const p16e2_t a,const  p16e2_t b);
+  bool p32e0_gte(const p32e0_t a,const  p32e0_t b);
+  bool p32e1_gte(const p32e1_t a,const  p32e1_t b);
+  bool p32e2_gte(const p32e2_t a,const  p32e2_t b);
+  bool p32e3_gte(const p32e3_t a,const  p32e3_t b);
+
    int p8e0_div(p8e0_t * res, const p8e0_t a, const p8e0_t b);
    int p8e1_div(p8e1_t * res, const p8e1_t a, const p8e1_t b);
    int p8e2_div(p8e2_t * res, const p8e2_t a, const p8e2_t b);

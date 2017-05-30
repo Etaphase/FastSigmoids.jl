@@ -1,18 +1,21 @@
 #ifndef POSIT_32_0_H
 #define POSIT_32_0_H
 
+#include "posit.h"
+
 class P32e0{
   public:
     uint32_t data;
 
     //various public constructors
     P32e0();             //defaults to zero
-    P32e0(float);        //conversion constructor from IEEE32
-    P32e0(double);       //conversion constructor from IEEE64
-    P32e0(P32e0);   //copy constructor
-    P32e0(p32e0_t);   //bridge constructor from c functionality.
+    P32e0(const float);        //conversion constructor from IEEE32
+    P32e0(const double);       //conversion constructor from IEEE64
+    P32e0(const P32e0 &); //copy constructor
+    P32e0(const p32e0_t);   //bridge constructor from c functionality.
 
     //public operators
+    P32e0 operator -();
     P32e0 operator +(const P32e0 rhs);
     P32e0 operator -(const P32e0 rhs);
     P32e0 operator *(const P32e0 rhs);
@@ -25,12 +28,11 @@ class P32e0{
     bool operator >=(const P32e0 rhs);
     P32e0 operator /(const P32e0 rhs);
     P32e0 &operator /=(const P32e0 rhs);
-}
 
-//redeclaration of the functions that were just friended
-P32e0 operator -(const P32e0 rhs);
-P32e0 operator float(const P32e0 rhs);
-P32e0 operator double(const P32e0 rhs);
+    operator float();
+    operator double();
+    operator p32e0_t();
+};
 
 P32e0 mulinv(const P32e0 arg);
 P32e0 log2(const P32e0 arg);

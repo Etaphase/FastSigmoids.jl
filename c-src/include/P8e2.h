@@ -1,18 +1,21 @@
 #ifndef POSIT_8_2_H
 #define POSIT_8_2_H
 
+#include "posit.h"
+
 class P8e2{
   public:
     uint8_t data;
 
     //various public constructors
     P8e2();             //defaults to zero
-    P8e2(float);        //conversion constructor from IEEE32
-    P8e2(double);       //conversion constructor from IEEE64
-    P8e2(P8e2);   //copy constructor
-    P8e2(p8e2_t);   //bridge constructor from c functionality.
+    P8e2(const float);        //conversion constructor from IEEE32
+    P8e2(const double);       //conversion constructor from IEEE64
+    P8e2(const P8e2 &); //copy constructor
+    P8e2(const p8e2_t);   //bridge constructor from c functionality.
 
     //public operators
+    P8e2 operator -();
     P8e2 operator +(const P8e2 rhs);
     P8e2 operator -(const P8e2 rhs);
     P8e2 operator *(const P8e2 rhs);
@@ -25,12 +28,11 @@ class P8e2{
     bool operator >=(const P8e2 rhs);
     P8e2 operator /(const P8e2 rhs);
     P8e2 &operator /=(const P8e2 rhs);
-}
 
-//redeclaration of the functions that were just friended
-P8e2 operator -(const P8e2 rhs);
-P8e2 operator float(const P8e2 rhs);
-P8e2 operator double(const P8e2 rhs);
+    operator float();
+    operator double();
+    operator p8e2_t();
+};
 
 P8e2 mulinv(const P8e2 arg);
 P8e2 log2(const P8e2 arg);

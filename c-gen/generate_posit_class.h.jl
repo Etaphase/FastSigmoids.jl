@@ -7,18 +7,21 @@ function generate_posit_class_h(io, n, es)
   #ifndef POSIT_$(n)_$(es)_H
   #define POSIT_$(n)_$(es)_H
 
+  #include "posit.h"
+
   class $(c(n,es)){
     public:
       uint$(n)_t data;
 
       //various public constructors
       $(c(n,es))();             //defaults to zero
-      $(c(n,es))(float);        //conversion constructor from IEEE32
-      $(c(n,es))(double);       //conversion constructor from IEEE64
-      $(c(n,es))($(c(n,es)));   //copy constructor
-      $(c(n,es))($(p(n,es)));   //bridge constructor from c functionality.
+      $(c(n,es))(const float);        //conversion constructor from IEEE32
+      $(c(n,es))(const double);       //conversion constructor from IEEE64
+      $(c(n,es))(const $(c(n,es)) &); //copy constructor
+      $(c(n,es))(const $(p(n,es)));   //bridge constructor from c functionality.
 
       //public operators
+      $(c(n,es)) operator -();
       $(c(n,es)) operator +(const $(c(n,es)) rhs);
       $(c(n,es)) operator -(const $(c(n,es)) rhs);
       $(c(n,es)) operator *(const $(c(n,es)) rhs);
@@ -31,12 +34,11 @@ function generate_posit_class_h(io, n, es)
       bool operator >=(const $(c(n,es)) rhs);
       $(c(n,es)) operator /(const $(c(n,es)) rhs);
       $(c(n,es)) &operator /=(const $(c(n,es)) rhs);
-  }
 
-  //redeclaration of the functions that were just friended
-  $(c(n,es)) operator -(const $(c(n,es)) rhs);
-  $(c(n,es)) operator float(const $(c(n,es)) rhs);
-  $(c(n,es)) operator double(const $(c(n,es)) rhs);
+      operator float();
+      operator double();
+      operator $(p(n,es))();
+  };
 
   $(c(n,es)) mulinv(const $(c(n,es)) arg);
   $(c(n,es)) log2(const $(c(n,es)) arg);
