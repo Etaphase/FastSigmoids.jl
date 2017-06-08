@@ -19,6 +19,9 @@ include("generate_posit_extended.cpp.jl")
 include("generate_posit_class.h.jl")
 include("generate_posit_class.cpp.jl")
 
+#makefile stuff
+include("generate_makefile.jl")
+
 
 doc"""
   generate_fastsigmoid_c_libary(directory)
@@ -100,6 +103,14 @@ function generate_fastsigmoid_c_library(posit_defs, d::AbstractString = normpath
       #next, compile the files.
       cc = run(`gcc -c -Wall -Werror -fpic $posit_class_cpp -o $posit_class_o`)
     end
+  end
+
+  ##############################################################################
+  # make makefile.
+
+  posit_makefile = normpath(d, "Makefile")
+  open(posit_makefile, "w") do io
+    generate_makefile(io, posit_defs)
   end
 
   #link all the files and combine them into libfastposit.so
