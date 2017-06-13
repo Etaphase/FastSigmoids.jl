@@ -9,7 +9,6 @@ include("generate_posit_conv.h.jl")
 include("generate_posit_ops.h.jl")
 
 #c library source files
-include("generate_posit_err.cpp.jl")
 include("generate_posit_conv.cpp.jl")
 include("generate_posit_basics.cpp.jl")
 include("generate_posit_full.cpp.jl")
@@ -22,6 +21,8 @@ include("generate_posit_class.cpp.jl")
 #makefile stuff
 include("generate_makefile.jl")
 
+#sample file
+include("generate_testfile.jl")
 
 doc"""
   generate_fastsigmoid_c_libary(directory)
@@ -58,16 +59,15 @@ function generate_fastsigmoid_c_library(posit_defs, d::AbstractString = normpath
     generate_posit_ops_status_h(io, posit_defs)
   end
 
-  posit_ops_jumps_h = normpath(include_dir, "posit_ops_jumps.h")
-  open(posit_ops_jumps_h, "w") do io
-    generate_posit_ops_jumps_h(io, posit_defs)
+  posit_ops_errno_h = normpath(include_dir, "posit_ops_errno.h")
+  open(posit_ops_errno_h, "w") do io
+    generate_posit_ops_errno_h(io, posit_defs)
   end
 
   ##############################################################################
   # "c" code files.
 
-  filelist = Dict("posit_err"      => generate_posit_err_cpp,
-                  "posit_conv"     => generate_posit_conv_cpp,
+  filelist = Dict("posit_conv"     => generate_posit_conv_cpp,
                   "posit_basics"   => generate_posit_basics_cpp,
                   "posit_full"     => generate_posit_full_cpp,
                   "posit_extended" => generate_posit_extended_cpp)
@@ -111,6 +111,11 @@ function generate_fastsigmoid_c_library(posit_defs, d::AbstractString = normpath
   posit_makefile = normpath(d, "Makefile")
   open(posit_makefile, "w") do io
     generate_makefile(io, posit_defs)
+  end
+
+  posit_testfile = normpath(d, "test.cpp")
+  open(posit_testfile, "w") do io
+    generate_testfile(io)
   end
 
   #link all the files and combine them into libfastposit.so

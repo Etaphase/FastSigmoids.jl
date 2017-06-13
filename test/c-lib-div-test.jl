@@ -1,6 +1,6 @@
 macro linklibrary_div(n, es)
   path = normpath(Pkg.dir("FastSigmoid"),"c-src","libfastposit.so")
-  fnname = QuoteNode(Symbol(:p, n, :e, es, :_div_j))
+  fnname = QuoteNode(Symbol(:p, n, :e, es, :_div_e))
 
   posittype = Symbol(:UInt, n)
 

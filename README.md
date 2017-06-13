@@ -23,13 +23,25 @@ library by importing the cgen spec in julia and generating a library as follows:
 
 ```julia
 julia> include("cgen.jl")
+```
 
+You may optionally generate a desired collection of posit environments by using
+the generate_fastsigmoid_c_library function, passed an suitable dict.
+
+```julia
 julia> generate_fastsigmoid_c_library(Dict(8=>[0,1,2],16=>[0,1,2],32=>[0,1,2,3]))
 ```
 
 If you have a suitable C compiler, this will automatically compile libfastposit.so
 into the ./c-src library.  The companion libfastvalid.so library is forthcoming.  You
-may also enter the ./c-src library and execute make to generate libfastposit.so.
+may also enter the ./c-src library and execute make commands to generate libfastposit.so.
+
+```bash
+> make clean
+> make build
+> sudo make install
+> make test              #optional
+```
 
 USING C FUNCTIONS
 -----------------
@@ -95,36 +107,37 @@ _italic_ functions are not currently implemented.
 
 **NaN Exceptions** are implemented by returning EDOM (33) as a int value for all
 functions which return a int.  Functions which do not return int are
-well-defined over all possible inputs.  If you prefer using setjmp/longjmp error
-handling, the following functions are defined which will pass control to the jump
-point defined by the function `set_nan_jmp()`.  To use these functions, `#include "posit_ops_status.h"`
+well-defined over all possible inputs.  If you prefer being able to chain
+functions instead of mutating the first argument, the following functions are
+defined which will instead report errors by placing them i nto the global errno
+variable.
 
-* `p32e2_t p32e2_add_j(const p32e2_t lhs, const p32e2_t rhs)`
-* `p32e2_t p32e2_sub_j(const p32e2_t lhs, const p32e2_t rhs)`
-* `p32e2_t p32e2_mul_j(const p32e2_t lhs, const p32e2_t rhs)`
-* `p32e2_t p32e2_addinv_j(const p32e2_t arg)`
-* `p32e2_t p32e2_div_j(const p32e2_t lhs, const p32e2_t rhs)`
-* `p32e2_t p32e2_mulinv_j(const p32e2_t arg)`
-* `p32e2_t p32e2_log2_j(const p32e2_t arg)`
-* `p32e2_t p32e2_exp2_j(const p32e2_t arg)`
-* `p32e2_t p32e2_fma_j(const p32e2_t a, const p32e2_t b, const p32e2_t c)`
-* `p32e2_t p32e2_fms_j(const p32e2_t a, const p32e2_t b, const p32e2_t c)`
-* `p32e2_t p32e2_nfma_j(const p32e2_t a, const p32e2_t b, const p32e2_t c)`
-* `p32e2_t p32e2_nfms_j(const p32e2_t a, const p32e2_t b, const p32e2_t c)`
+* `p32e2_t p32e2_add_e(const p32e2_t lhs, const p32e2_t rhs)`
+* `p32e2_t p32e2_sub_e(const p32e2_t lhs, const p32e2_t rhs)`
+* `p32e2_t p32e2_mul_e(const p32e2_t lhs, const p32e2_t rhs)`
+* `p32e2_t p32e2_addinv_e(const p32e2_t arg)`
+* `p32e2_t p32e2_div_e(const p32e2_t lhs, const p32e2_t rhs)`
+* `p32e2_t p32e2_mulinv_e(const p32e2_t arg)`
+* `p32e2_t p32e2_log2_e(const p32e2_t arg)`
+* `p32e2_t p32e2_exp2_e(const p32e2_t arg)`
+* `p32e2_t p32e2_fma_e(const p32e2_t a, const p32e2_t b, const p32e2_t c)`
+* `p32e2_t p32e2_fms_e(const p32e2_t a, const p32e2_t b, const p32e2_t c)`
+* `p32e2_t p32e2_nfma_e(const p32e2_t a, const p32e2_t b, const p32e2_t c)`
+* `p32e2_t p32e2_nfms_e(const p32e2_t a, const p32e2_t b, const p32e2_t c)`
 * fas     - _fused add/scale_
 * fcp     - _fused cross product_
 * fdp     - _fused dot product_
-* `p32e2_t p32e2_sqrt_j(const p32e2_t arg)`
-* `p32e2_t p32e2_log1p_j(const p32e2_t arg)`
-* `p32e2_t p32e2_log_j(const p32e2_t arg)`
-* `p32e2_t p32e2_log10_j(const p32e2_t arg)`
-* `p32e2_t p32e2_exp_j(const p32e2_t arg)`
-* `p32e2_t p32e2_pow_j(const p32e2_t lhs, const p32e2_t rhs)`
+* `p32e2_t p32e2_sqrt_e(const p32e2_t arg)`
+* `p32e2_t p32e2_log1p_e(const p32e2_t arg)`
+* `p32e2_t p32e2_log_e(const p32e2_t arg)`
+* `p32e2_t p32e2_log10_e(const p32e2_t arg)`
+* `p32e2_t p32e2_exp_e(const p32e2_t arg)`
+* `p32e2_t p32e2_pow_e(const p32e2_t lhs, const p32e2_t rhs)`
 * logx    - _arbitrary base logarithm_
-* `p32e2_t p32e2_sin_j(const p32e2_t arg)`               
-* `p32e2_t p32e2_cos_j(const p32e2_t arg)`               
-* `p32e2_t p32e2_atan_j(const p32e2_t arg)`
-* `p32e2_t p32e2_atan2_j(const p32e2_t y, const p32e2_t x)`
+* `p32e2_t p32e2_sin_e(const p32e2_t arg)`               
+* `p32e2_t p32e2_cos_e(const p32e2_t arg)`               
+* `p32e2_t p32e2_atan_e(const p32e2_t arg)`
+* `p32e2_t p32e2_atan2_e(const p32e2_t y, const p32e2_t x)`
 
 USING C++ CLASSES
 -----------------

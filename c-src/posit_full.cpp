@@ -11,22 +11,18 @@
 extern "C"    int p8e0_div(p8e0_t * res, const p8e0_t a, const p8e0_t b) {
   p8e0_t pres;
 
-    float fres;
-  if (set_nan_jmp()){
-    fres = p8e0_to_f(a) / p8e0_to_f(b);
-  } else {
-    return EDOM;
-  }
-;
+  float fres;
+  fres = p8e0_to_f(a) / p8e0_to_f(b);
 
   pres = f_to_p8e0(fres);
-  res->udata = pres.udata; return 0;
+  res->udata = pres.udata; return errno;
 }
 
-extern "C"    p8e0_t p8e0_div_j(const p8e0_t a, const p8e0_t b) {
+extern "C"    p8e0_t p8e0_div_e(const p8e0_t a, const p8e0_t b) {
   p8e0_t pres;
 
-  float fres = p8e0_to_f(a) / p8e0_to_f(b);
+  float fres;
+  fres = p8e0_to_f(a) / p8e0_to_f(b);
 
   pres = f_to_p8e0(fres);
   return pres;
@@ -36,22 +32,18 @@ extern "C"    p8e0_t p8e0_div_j(const p8e0_t a, const p8e0_t b) {
 extern "C"    int p8e1_div(p8e1_t * res, const p8e1_t a, const p8e1_t b) {
   p8e1_t pres;
 
-    float fres;
-  if (set_nan_jmp()){
-    fres = p8e1_to_f(a) / p8e1_to_f(b);
-  } else {
-    return EDOM;
-  }
-;
+  float fres;
+  fres = p8e1_to_f(a) / p8e1_to_f(b);
 
   pres = f_to_p8e1(fres);
-  res->udata = pres.udata; return 0;
+  res->udata = pres.udata; return errno;
 }
 
-extern "C"    p8e1_t p8e1_div_j(const p8e1_t a, const p8e1_t b) {
+extern "C"    p8e1_t p8e1_div_e(const p8e1_t a, const p8e1_t b) {
   p8e1_t pres;
 
-  float fres = p8e1_to_f(a) / p8e1_to_f(b);
+  float fres;
+  fres = p8e1_to_f(a) / p8e1_to_f(b);
 
   pres = f_to_p8e1(fres);
   return pres;
@@ -61,22 +53,18 @@ extern "C"    p8e1_t p8e1_div_j(const p8e1_t a, const p8e1_t b) {
 extern "C"    int p8e2_div(p8e2_t * res, const p8e2_t a, const p8e2_t b) {
   p8e2_t pres;
 
-    float fres;
-  if (set_nan_jmp()){
-    fres = p8e2_to_f(a) / p8e2_to_f(b);
-  } else {
-    return EDOM;
-  }
-;
+  float fres;
+  fres = p8e2_to_f(a) / p8e2_to_f(b);
 
   pres = f_to_p8e2(fres);
-  res->udata = pres.udata; return 0;
+  res->udata = pres.udata; return errno;
 }
 
-extern "C"    p8e2_t p8e2_div_j(const p8e2_t a, const p8e2_t b) {
+extern "C"    p8e2_t p8e2_div_e(const p8e2_t a, const p8e2_t b) {
   p8e2_t pres;
 
-  float fres = p8e2_to_f(a) / p8e2_to_f(b);
+  float fres;
+  fres = p8e2_to_f(a) / p8e2_to_f(b);
 
   pres = f_to_p8e2(fres);
   return pres;
@@ -91,22 +79,18 @@ extern "C"    p8e2_t p8e2_div_j(const p8e2_t a, const p8e2_t b) {
 extern "C"    int p16e0_div(p16e0_t * res, const p16e0_t a, const p16e0_t b) {
   p16e0_t pres;
 
-    float fres;
-  if (set_nan_jmp()){
-    fres = p16e0_to_f(a) / p16e0_to_f(b);
-  } else {
-    return EDOM;
-  }
-;
+  float fres;
+  fres = p16e0_to_f(a) / p16e0_to_f(b);
 
   pres = f_to_p16e0(fres);
-  res->udata = pres.udata; return 0;
+  res->udata = pres.udata; return errno;
 }
 
-extern "C"    p16e0_t p16e0_div_j(const p16e0_t a, const p16e0_t b) {
+extern "C"    p16e0_t p16e0_div_e(const p16e0_t a, const p16e0_t b) {
   p16e0_t pres;
 
-  float fres = p16e0_to_f(a) / p16e0_to_f(b);
+  float fres;
+  fres = p16e0_to_f(a) / p16e0_to_f(b);
 
   pres = f_to_p16e0(fres);
   return pres;
@@ -116,22 +100,18 @@ extern "C"    p16e0_t p16e0_div_j(const p16e0_t a, const p16e0_t b) {
 extern "C"    int p16e1_div(p16e1_t * res, const p16e1_t a, const p16e1_t b) {
   p16e1_t pres;
 
-    float fres;
-  if (set_nan_jmp()){
-    fres = p16e1_to_f(a) / p16e1_to_f(b);
-  } else {
-    return EDOM;
-  }
-;
+  float fres;
+  fres = p16e1_to_f(a) / p16e1_to_f(b);
 
   pres = f_to_p16e1(fres);
-  res->udata = pres.udata; return 0;
+  res->udata = pres.udata; return errno;
 }
 
-extern "C"    p16e1_t p16e1_div_j(const p16e1_t a, const p16e1_t b) {
+extern "C"    p16e1_t p16e1_div_e(const p16e1_t a, const p16e1_t b) {
   p16e1_t pres;
 
-  float fres = p16e1_to_f(a) / p16e1_to_f(b);
+  float fres;
+  fres = p16e1_to_f(a) / p16e1_to_f(b);
 
   pres = f_to_p16e1(fres);
   return pres;
@@ -141,22 +121,18 @@ extern "C"    p16e1_t p16e1_div_j(const p16e1_t a, const p16e1_t b) {
 extern "C"    int p16e2_div(p16e2_t * res, const p16e2_t a, const p16e2_t b) {
   p16e2_t pres;
 
-    float fres;
-  if (set_nan_jmp()){
-    fres = p16e2_to_f(a) / p16e2_to_f(b);
-  } else {
-    return EDOM;
-  }
-;
+  float fres;
+  fres = p16e2_to_f(a) / p16e2_to_f(b);
 
   pres = f_to_p16e2(fres);
-  res->udata = pres.udata; return 0;
+  res->udata = pres.udata; return errno;
 }
 
-extern "C"    p16e2_t p16e2_div_j(const p16e2_t a, const p16e2_t b) {
+extern "C"    p16e2_t p16e2_div_e(const p16e2_t a, const p16e2_t b) {
   p16e2_t pres;
 
-  float fres = p16e2_to_f(a) / p16e2_to_f(b);
+  float fres;
+  fres = p16e2_to_f(a) / p16e2_to_f(b);
 
   pres = f_to_p16e2(fres);
   return pres;
@@ -171,22 +147,18 @@ extern "C"    p16e2_t p16e2_div_j(const p16e2_t a, const p16e2_t b) {
 extern "C"    int p32e0_div(p32e0_t * res, const p32e0_t a, const p32e0_t b) {
   p32e0_t pres;
 
-    double fres;
-  if (set_nan_jmp()){
-    fres = p32e0_to_f(a) / p32e0_to_f(b);
-  } else {
-    return EDOM;
-  }
-;
+  double fres;
+  fres = p32e0_to_f(a) / p32e0_to_f(b);
 
   pres = f_to_p32e0(fres);
-  res->udata = pres.udata; return 0;
+  res->udata = pres.udata; return errno;
 }
 
-extern "C"    p32e0_t p32e0_div_j(const p32e0_t a, const p32e0_t b) {
+extern "C"    p32e0_t p32e0_div_e(const p32e0_t a, const p32e0_t b) {
   p32e0_t pres;
 
-  double fres = p32e0_to_f(a) / p32e0_to_f(b);
+  double fres;
+  fres = p32e0_to_f(a) / p32e0_to_f(b);
 
   pres = f_to_p32e0(fres);
   return pres;
@@ -196,22 +168,18 @@ extern "C"    p32e0_t p32e0_div_j(const p32e0_t a, const p32e0_t b) {
 extern "C"    int p32e1_div(p32e1_t * res, const p32e1_t a, const p32e1_t b) {
   p32e1_t pres;
 
-    double fres;
-  if (set_nan_jmp()){
-    fres = p32e1_to_f(a) / p32e1_to_f(b);
-  } else {
-    return EDOM;
-  }
-;
+  double fres;
+  fres = p32e1_to_f(a) / p32e1_to_f(b);
 
   pres = f_to_p32e1(fres);
-  res->udata = pres.udata; return 0;
+  res->udata = pres.udata; return errno;
 }
 
-extern "C"    p32e1_t p32e1_div_j(const p32e1_t a, const p32e1_t b) {
+extern "C"    p32e1_t p32e1_div_e(const p32e1_t a, const p32e1_t b) {
   p32e1_t pres;
 
-  double fres = p32e1_to_f(a) / p32e1_to_f(b);
+  double fres;
+  fres = p32e1_to_f(a) / p32e1_to_f(b);
 
   pres = f_to_p32e1(fres);
   return pres;
@@ -221,22 +189,18 @@ extern "C"    p32e1_t p32e1_div_j(const p32e1_t a, const p32e1_t b) {
 extern "C"    int p32e2_div(p32e2_t * res, const p32e2_t a, const p32e2_t b) {
   p32e2_t pres;
 
-    double fres;
-  if (set_nan_jmp()){
-    fres = p32e2_to_f(a) / p32e2_to_f(b);
-  } else {
-    return EDOM;
-  }
-;
+  double fres;
+  fres = p32e2_to_f(a) / p32e2_to_f(b);
 
   pres = f_to_p32e2(fres);
-  res->udata = pres.udata; return 0;
+  res->udata = pres.udata; return errno;
 }
 
-extern "C"    p32e2_t p32e2_div_j(const p32e2_t a, const p32e2_t b) {
+extern "C"    p32e2_t p32e2_div_e(const p32e2_t a, const p32e2_t b) {
   p32e2_t pres;
 
-  double fres = p32e2_to_f(a) / p32e2_to_f(b);
+  double fres;
+  fres = p32e2_to_f(a) / p32e2_to_f(b);
 
   pres = f_to_p32e2(fres);
   return pres;
@@ -246,22 +210,18 @@ extern "C"    p32e2_t p32e2_div_j(const p32e2_t a, const p32e2_t b) {
 extern "C"    int p32e3_div(p32e3_t * res, const p32e3_t a, const p32e3_t b) {
   p32e3_t pres;
 
-    double fres;
-  if (set_nan_jmp()){
-    fres = p32e3_to_f(a) / p32e3_to_f(b);
-  } else {
-    return EDOM;
-  }
-;
+  double fres;
+  fres = p32e3_to_f(a) / p32e3_to_f(b);
 
   pres = f_to_p32e3(fres);
-  res->udata = pres.udata; return 0;
+  res->udata = pres.udata; return errno;
 }
 
-extern "C"    p32e3_t p32e3_div_j(const p32e3_t a, const p32e3_t b) {
+extern "C"    p32e3_t p32e3_div_e(const p32e3_t a, const p32e3_t b) {
   p32e3_t pres;
 
-  double fres = p32e3_to_f(a) / p32e3_to_f(b);
+  double fres;
+  fres = p32e3_to_f(a) / p32e3_to_f(b);
 
   pres = f_to_p32e3(fres);
   return pres;
@@ -274,7 +234,7 @@ extern "C"    p32e3_t p32e3_div_j(const p32e3_t a, const p32e3_t b) {
 ///////////////////////////////////////////////////////////////
 //  posit_8 section, variable ES adapters for mulinv
 ///////////////////////////////////////////////////////////////
-extern "C"    p8e0_t p8e0_mulinv_j(const p8e0_t a) {
+extern "C"    p8e0_t p8e0_mulinv_e(const p8e0_t a) {
   float fres = p8e0_to_f(a);
   return f_to_p8e0(1/fres);
 }
@@ -287,7 +247,7 @@ extern "C"    int p8e0_mulinv(p8e0_t * res, const p8e0_t a) {
   return 0;
 }
 
-extern "C"    p8e1_t p8e1_mulinv_j(const p8e1_t a) {
+extern "C"    p8e1_t p8e1_mulinv_e(const p8e1_t a) {
   float fres = p8e1_to_f(a);
   return f_to_p8e1(1/fres);
 }
@@ -300,7 +260,7 @@ extern "C"    int p8e1_mulinv(p8e1_t * res, const p8e1_t a) {
   return 0;
 }
 
-extern "C"    p8e2_t p8e2_mulinv_j(const p8e2_t a) {
+extern "C"    p8e2_t p8e2_mulinv_e(const p8e2_t a) {
   float fres = p8e2_to_f(a);
   return f_to_p8e2(1/fres);
 }
@@ -318,7 +278,7 @@ extern "C"    int p8e2_mulinv(p8e2_t * res, const p8e2_t a) {
 ///////////////////////////////////////////////////////////////
 //  posit_16 section, variable ES adapters for mulinv
 ///////////////////////////////////////////////////////////////
-extern "C"    p16e0_t p16e0_mulinv_j(const p16e0_t a) {
+extern "C"    p16e0_t p16e0_mulinv_e(const p16e0_t a) {
   float fres = p16e0_to_f(a);
   return f_to_p16e0(1/fres);
 }
@@ -331,7 +291,7 @@ extern "C"    int p16e0_mulinv(p16e0_t * res, const p16e0_t a) {
   return 0;
 }
 
-extern "C"    p16e1_t p16e1_mulinv_j(const p16e1_t a) {
+extern "C"    p16e1_t p16e1_mulinv_e(const p16e1_t a) {
   float fres = p16e1_to_f(a);
   return f_to_p16e1(1/fres);
 }
@@ -344,7 +304,7 @@ extern "C"    int p16e1_mulinv(p16e1_t * res, const p16e1_t a) {
   return 0;
 }
 
-extern "C"    p16e2_t p16e2_mulinv_j(const p16e2_t a) {
+extern "C"    p16e2_t p16e2_mulinv_e(const p16e2_t a) {
   float fres = p16e2_to_f(a);
   return f_to_p16e2(1/fres);
 }
@@ -362,7 +322,7 @@ extern "C"    int p16e2_mulinv(p16e2_t * res, const p16e2_t a) {
 ///////////////////////////////////////////////////////////////
 //  posit_32 section, variable ES adapters for mulinv
 ///////////////////////////////////////////////////////////////
-extern "C"    p32e0_t p32e0_mulinv_j(const p32e0_t a) {
+extern "C"    p32e0_t p32e0_mulinv_e(const p32e0_t a) {
   double fres = p32e0_to_f(a);
   return f_to_p32e0(1/fres);
 }
@@ -375,7 +335,7 @@ extern "C"    int p32e0_mulinv(p32e0_t * res, const p32e0_t a) {
   return 0;
 }
 
-extern "C"    p32e1_t p32e1_mulinv_j(const p32e1_t a) {
+extern "C"    p32e1_t p32e1_mulinv_e(const p32e1_t a) {
   double fres = p32e1_to_f(a);
   return f_to_p32e1(1/fres);
 }
@@ -388,7 +348,7 @@ extern "C"    int p32e1_mulinv(p32e1_t * res, const p32e1_t a) {
   return 0;
 }
 
-extern "C"    p32e2_t p32e2_mulinv_j(const p32e2_t a) {
+extern "C"    p32e2_t p32e2_mulinv_e(const p32e2_t a) {
   double fres = p32e2_to_f(a);
   return f_to_p32e2(1/fres);
 }
@@ -401,7 +361,7 @@ extern "C"    int p32e2_mulinv(p32e2_t * res, const p32e2_t a) {
   return 0;
 }
 
-extern "C"    p32e3_t p32e3_mulinv_j(const p32e3_t a) {
+extern "C"    p32e3_t p32e3_mulinv_e(const p32e3_t a) {
   double fres = p32e3_to_f(a);
   return f_to_p32e3(1/fres);
 }
@@ -445,13 +405,13 @@ extern "C"    int p8e0_log2(p8e0_t * res, const p8e0_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p8e0_t p8e0_log2_j(const p8e0_t a) {
+extern "C"    p8e0_t p8e0_log2_e(const p8e0_t a) {
   p8e0_t pres;
   int status = sanitize_log2_8(a.udata);
   switch (status){
    case 1: pres.udata = P8ZER; return pres;
    case 2: pres.udata = P8INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P8ZER; errno = EDOM; return pres;
   }
 
   float fres = log2(p8e0_to_f(a));
@@ -474,13 +434,13 @@ extern "C"    int p8e1_log2(p8e1_t * res, const p8e1_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p8e1_t p8e1_log2_j(const p8e1_t a) {
+extern "C"    p8e1_t p8e1_log2_e(const p8e1_t a) {
   p8e1_t pres;
   int status = sanitize_log2_8(a.udata);
   switch (status){
    case 1: pres.udata = P8ZER; return pres;
    case 2: pres.udata = P8INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P8ZER; errno = EDOM; return pres;
   }
 
   float fres = log2(p8e1_to_f(a));
@@ -503,13 +463,13 @@ extern "C"    int p8e2_log2(p8e2_t * res, const p8e2_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p8e2_t p8e2_log2_j(const p8e2_t a) {
+extern "C"    p8e2_t p8e2_log2_e(const p8e2_t a) {
   p8e2_t pres;
   int status = sanitize_log2_8(a.udata);
   switch (status){
    case 1: pres.udata = P8ZER; return pres;
    case 2: pres.udata = P8INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P8ZER; errno = EDOM; return pres;
   }
 
   float fres = log2(p8e2_to_f(a));
@@ -548,13 +508,13 @@ extern "C"    int p16e0_log2(p16e0_t * res, const p16e0_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p16e0_t p16e0_log2_j(const p16e0_t a) {
+extern "C"    p16e0_t p16e0_log2_e(const p16e0_t a) {
   p16e0_t pres;
   int status = sanitize_log2_16(a.udata);
   switch (status){
    case 1: pres.udata = P16ZER; return pres;
    case 2: pres.udata = P16INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P16ZER; errno = EDOM; return pres;
   }
 
   float fres = log2(p16e0_to_f(a));
@@ -577,13 +537,13 @@ extern "C"    int p16e1_log2(p16e1_t * res, const p16e1_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p16e1_t p16e1_log2_j(const p16e1_t a) {
+extern "C"    p16e1_t p16e1_log2_e(const p16e1_t a) {
   p16e1_t pres;
   int status = sanitize_log2_16(a.udata);
   switch (status){
    case 1: pres.udata = P16ZER; return pres;
    case 2: pres.udata = P16INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P16ZER; errno = EDOM; return pres;
   }
 
   float fres = log2(p16e1_to_f(a));
@@ -606,13 +566,13 @@ extern "C"    int p16e2_log2(p16e2_t * res, const p16e2_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p16e2_t p16e2_log2_j(const p16e2_t a) {
+extern "C"    p16e2_t p16e2_log2_e(const p16e2_t a) {
   p16e2_t pres;
   int status = sanitize_log2_16(a.udata);
   switch (status){
    case 1: pres.udata = P16ZER; return pres;
    case 2: pres.udata = P16INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P16ZER; errno = EDOM; return pres;
   }
 
   float fres = log2(p16e2_to_f(a));
@@ -651,13 +611,13 @@ extern "C"    int p32e0_log2(p32e0_t * res, const p32e0_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e0_t p32e0_log2_j(const p32e0_t a) {
+extern "C"    p32e0_t p32e0_log2_e(const p32e0_t a) {
   p32e0_t pres;
   int status = sanitize_log2_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = log2(p32e0_to_f(a));
@@ -680,13 +640,13 @@ extern "C"    int p32e1_log2(p32e1_t * res, const p32e1_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e1_t p32e1_log2_j(const p32e1_t a) {
+extern "C"    p32e1_t p32e1_log2_e(const p32e1_t a) {
   p32e1_t pres;
   int status = sanitize_log2_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = log2(p32e1_to_f(a));
@@ -709,13 +669,13 @@ extern "C"    int p32e2_log2(p32e2_t * res, const p32e2_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e2_t p32e2_log2_j(const p32e2_t a) {
+extern "C"    p32e2_t p32e2_log2_e(const p32e2_t a) {
   p32e2_t pres;
   int status = sanitize_log2_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = log2(p32e2_to_f(a));
@@ -738,13 +698,13 @@ extern "C"    int p32e3_log2(p32e3_t * res, const p32e3_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e3_t p32e3_log2_j(const p32e3_t a) {
+extern "C"    p32e3_t p32e3_log2_e(const p32e3_t a) {
   p32e3_t pres;
   int status = sanitize_log2_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = log2(p32e3_to_f(a));
@@ -782,13 +742,13 @@ extern "C"    int p8e0_exp2(p8e0_t * res, const p8e0_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p8e0_t p8e0_exp2_j(const p8e0_t a) {
+extern "C"    p8e0_t p8e0_exp2_e(const p8e0_t a) {
   p8e0_t pres;
   int status = sanitize_exp2_8(a.udata);
   switch (status){
    case 1: pres.udata = P8ZER; return pres;
    case 2: pres.udata = P8INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P8ZER; errno = EDOM; return pres;
   }
 
   float fres = exp2(p8e0_to_f(a));
@@ -811,13 +771,13 @@ extern "C"    int p8e1_exp2(p8e1_t * res, const p8e1_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p8e1_t p8e1_exp2_j(const p8e1_t a) {
+extern "C"    p8e1_t p8e1_exp2_e(const p8e1_t a) {
   p8e1_t pres;
   int status = sanitize_exp2_8(a.udata);
   switch (status){
    case 1: pres.udata = P8ZER; return pres;
    case 2: pres.udata = P8INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P8ZER; errno = EDOM; return pres;
   }
 
   float fres = exp2(p8e1_to_f(a));
@@ -840,13 +800,13 @@ extern "C"    int p8e2_exp2(p8e2_t * res, const p8e2_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p8e2_t p8e2_exp2_j(const p8e2_t a) {
+extern "C"    p8e2_t p8e2_exp2_e(const p8e2_t a) {
   p8e2_t pres;
   int status = sanitize_exp2_8(a.udata);
   switch (status){
    case 1: pres.udata = P8ZER; return pres;
    case 2: pres.udata = P8INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P8ZER; errno = EDOM; return pres;
   }
 
   float fres = exp2(p8e2_to_f(a));
@@ -883,13 +843,13 @@ extern "C"    int p16e0_exp2(p16e0_t * res, const p16e0_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p16e0_t p16e0_exp2_j(const p16e0_t a) {
+extern "C"    p16e0_t p16e0_exp2_e(const p16e0_t a) {
   p16e0_t pres;
   int status = sanitize_exp2_16(a.udata);
   switch (status){
    case 1: pres.udata = P16ZER; return pres;
    case 2: pres.udata = P16INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P16ZER; errno = EDOM; return pres;
   }
 
   float fres = exp2(p16e0_to_f(a));
@@ -912,13 +872,13 @@ extern "C"    int p16e1_exp2(p16e1_t * res, const p16e1_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p16e1_t p16e1_exp2_j(const p16e1_t a) {
+extern "C"    p16e1_t p16e1_exp2_e(const p16e1_t a) {
   p16e1_t pres;
   int status = sanitize_exp2_16(a.udata);
   switch (status){
    case 1: pres.udata = P16ZER; return pres;
    case 2: pres.udata = P16INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P16ZER; errno = EDOM; return pres;
   }
 
   float fres = exp2(p16e1_to_f(a));
@@ -941,13 +901,13 @@ extern "C"    int p16e2_exp2(p16e2_t * res, const p16e2_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p16e2_t p16e2_exp2_j(const p16e2_t a) {
+extern "C"    p16e2_t p16e2_exp2_e(const p16e2_t a) {
   p16e2_t pres;
   int status = sanitize_exp2_16(a.udata);
   switch (status){
    case 1: pres.udata = P16ZER; return pres;
    case 2: pres.udata = P16INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P16ZER; errno = EDOM; return pres;
   }
 
   float fres = exp2(p16e2_to_f(a));
@@ -984,13 +944,13 @@ extern "C"    int p32e0_exp2(p32e0_t * res, const p32e0_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e0_t p32e0_exp2_j(const p32e0_t a) {
+extern "C"    p32e0_t p32e0_exp2_e(const p32e0_t a) {
   p32e0_t pres;
   int status = sanitize_exp2_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = exp2(p32e0_to_f(a));
@@ -1013,13 +973,13 @@ extern "C"    int p32e1_exp2(p32e1_t * res, const p32e1_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e1_t p32e1_exp2_j(const p32e1_t a) {
+extern "C"    p32e1_t p32e1_exp2_e(const p32e1_t a) {
   p32e1_t pres;
   int status = sanitize_exp2_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = exp2(p32e1_to_f(a));
@@ -1042,13 +1002,13 @@ extern "C"    int p32e2_exp2(p32e2_t * res, const p32e2_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e2_t p32e2_exp2_j(const p32e2_t a) {
+extern "C"    p32e2_t p32e2_exp2_e(const p32e2_t a) {
   p32e2_t pres;
   int status = sanitize_exp2_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = exp2(p32e2_to_f(a));
@@ -1071,13 +1031,13 @@ extern "C"    int p32e3_exp2(p32e3_t * res, const p32e3_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
+extern "C"    p32e3_t p32e3_exp2_e(const p32e3_t a) {
   p32e3_t pres;
   int status = sanitize_exp2_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = exp2(p32e3_to_f(a));
@@ -1092,7 +1052,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
 ///////////////////////////////////////////////////////////////
 //  posit_8 section, variable ES adapters for fma
 ///////////////////////////////////////////////////////////////
-   int p8e0_fma(p8e0_t * res, const p8e0_t a, const p8e0_t b, const p8e0_t c){
+extern "C"    int p8e0_fma(p8e0_t * res, const p8e0_t a, const p8e0_t b, const p8e0_t c){
     p8e0_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -1123,12 +1083,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p8e0_t p8e0_fma_j(const p8e0_t a, const p8e0_t b, const p8e0_t c){
+extern "C"    p8e0_t p8e0_fma_e(const p8e0_t a, const p8e0_t b, const p8e0_t c){
     p8e0_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P8INF) || (b.udata == P8INF)){
-      if (c.udata == P8INF) { throw_nan_jmp(); }
+      if (c.udata == P8INF) { result.udata = P8INF; errno = EDOM; return result; }
       result.udata = P8INF;
       return result;
     }
@@ -1155,7 +1115,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
   }
   
 
-   int p8e1_fma(p8e1_t * res, const p8e1_t a, const p8e1_t b, const p8e1_t c){
+extern "C"    int p8e1_fma(p8e1_t * res, const p8e1_t a, const p8e1_t b, const p8e1_t c){
     p8e1_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -1186,12 +1146,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p8e1_t p8e1_fma_j(const p8e1_t a, const p8e1_t b, const p8e1_t c){
+extern "C"    p8e1_t p8e1_fma_e(const p8e1_t a, const p8e1_t b, const p8e1_t c){
     p8e1_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P8INF) || (b.udata == P8INF)){
-      if (c.udata == P8INF) { throw_nan_jmp(); }
+      if (c.udata == P8INF) { result.udata = P8INF; errno = EDOM; return result; }
       result.udata = P8INF;
       return result;
     }
@@ -1218,7 +1178,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
   }
   
 
-   int p8e2_fma(p8e2_t * res, const p8e2_t a, const p8e2_t b, const p8e2_t c){
+extern "C"    int p8e2_fma(p8e2_t * res, const p8e2_t a, const p8e2_t b, const p8e2_t c){
     p8e2_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -1249,12 +1209,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p8e2_t p8e2_fma_j(const p8e2_t a, const p8e2_t b, const p8e2_t c){
+extern "C"    p8e2_t p8e2_fma_e(const p8e2_t a, const p8e2_t b, const p8e2_t c){
     p8e2_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P8INF) || (b.udata == P8INF)){
-      if (c.udata == P8INF) { throw_nan_jmp(); }
+      if (c.udata == P8INF) { result.udata = P8INF; errno = EDOM; return result; }
       result.udata = P8INF;
       return result;
     }
@@ -1286,7 +1246,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
 ///////////////////////////////////////////////////////////////
 //  posit_16 section, variable ES adapters for fma
 ///////////////////////////////////////////////////////////////
-   int p16e0_fma(p16e0_t * res, const p16e0_t a, const p16e0_t b, const p16e0_t c){
+extern "C"    int p16e0_fma(p16e0_t * res, const p16e0_t a, const p16e0_t b, const p16e0_t c){
     p16e0_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -1317,12 +1277,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p16e0_t p16e0_fma_j(const p16e0_t a, const p16e0_t b, const p16e0_t c){
+extern "C"    p16e0_t p16e0_fma_e(const p16e0_t a, const p16e0_t b, const p16e0_t c){
     p16e0_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P16INF) || (b.udata == P16INF)){
-      if (c.udata == P16INF) { throw_nan_jmp(); }
+      if (c.udata == P16INF) { result.udata = P16INF; errno = EDOM; return result; }
       result.udata = P16INF;
       return result;
     }
@@ -1349,7 +1309,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
   }
   
 
-   int p16e1_fma(p16e1_t * res, const p16e1_t a, const p16e1_t b, const p16e1_t c){
+extern "C"    int p16e1_fma(p16e1_t * res, const p16e1_t a, const p16e1_t b, const p16e1_t c){
     p16e1_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -1380,12 +1340,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p16e1_t p16e1_fma_j(const p16e1_t a, const p16e1_t b, const p16e1_t c){
+extern "C"    p16e1_t p16e1_fma_e(const p16e1_t a, const p16e1_t b, const p16e1_t c){
     p16e1_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P16INF) || (b.udata == P16INF)){
-      if (c.udata == P16INF) { throw_nan_jmp(); }
+      if (c.udata == P16INF) { result.udata = P16INF; errno = EDOM; return result; }
       result.udata = P16INF;
       return result;
     }
@@ -1412,7 +1372,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
   }
   
 
-   int p16e2_fma(p16e2_t * res, const p16e2_t a, const p16e2_t b, const p16e2_t c){
+extern "C"    int p16e2_fma(p16e2_t * res, const p16e2_t a, const p16e2_t b, const p16e2_t c){
     p16e2_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -1443,12 +1403,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p16e2_t p16e2_fma_j(const p16e2_t a, const p16e2_t b, const p16e2_t c){
+extern "C"    p16e2_t p16e2_fma_e(const p16e2_t a, const p16e2_t b, const p16e2_t c){
     p16e2_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P16INF) || (b.udata == P16INF)){
-      if (c.udata == P16INF) { throw_nan_jmp(); }
+      if (c.udata == P16INF) { result.udata = P16INF; errno = EDOM; return result; }
       result.udata = P16INF;
       return result;
     }
@@ -1480,7 +1440,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
 ///////////////////////////////////////////////////////////////
 //  posit_32 section, variable ES adapters for fma
 ///////////////////////////////////////////////////////////////
-   int p32e0_fma(p32e0_t * res, const p32e0_t a, const p32e0_t b, const p32e0_t c){
+extern "C"    int p32e0_fma(p32e0_t * res, const p32e0_t a, const p32e0_t b, const p32e0_t c){
     p32e0_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -1511,12 +1471,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p32e0_t p32e0_fma_j(const p32e0_t a, const p32e0_t b, const p32e0_t c){
+extern "C"    p32e0_t p32e0_fma_e(const p32e0_t a, const p32e0_t b, const p32e0_t c){
     p32e0_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P32INF) || (b.udata == P32INF)){
-      if (c.udata == P32INF) { throw_nan_jmp(); }
+      if (c.udata == P32INF) { result.udata = P32INF; errno = EDOM; return result; }
       result.udata = P32INF;
       return result;
     }
@@ -1543,7 +1503,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
   }
   
 
-   int p32e1_fma(p32e1_t * res, const p32e1_t a, const p32e1_t b, const p32e1_t c){
+extern "C"    int p32e1_fma(p32e1_t * res, const p32e1_t a, const p32e1_t b, const p32e1_t c){
     p32e1_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -1574,12 +1534,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p32e1_t p32e1_fma_j(const p32e1_t a, const p32e1_t b, const p32e1_t c){
+extern "C"    p32e1_t p32e1_fma_e(const p32e1_t a, const p32e1_t b, const p32e1_t c){
     p32e1_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P32INF) || (b.udata == P32INF)){
-      if (c.udata == P32INF) { throw_nan_jmp(); }
+      if (c.udata == P32INF) { result.udata = P32INF; errno = EDOM; return result; }
       result.udata = P32INF;
       return result;
     }
@@ -1606,7 +1566,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
   }
   
 
-   int p32e2_fma(p32e2_t * res, const p32e2_t a, const p32e2_t b, const p32e2_t c){
+extern "C"    int p32e2_fma(p32e2_t * res, const p32e2_t a, const p32e2_t b, const p32e2_t c){
     p32e2_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -1637,12 +1597,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p32e2_t p32e2_fma_j(const p32e2_t a, const p32e2_t b, const p32e2_t c){
+extern "C"    p32e2_t p32e2_fma_e(const p32e2_t a, const p32e2_t b, const p32e2_t c){
     p32e2_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P32INF) || (b.udata == P32INF)){
-      if (c.udata == P32INF) { throw_nan_jmp(); }
+      if (c.udata == P32INF) { result.udata = P32INF; errno = EDOM; return result; }
       result.udata = P32INF;
       return result;
     }
@@ -1669,7 +1629,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
   }
   
 
-   int p32e3_fma(p32e3_t * res, const p32e3_t a, const p32e3_t b, const p32e3_t c){
+extern "C"    int p32e3_fma(p32e3_t * res, const p32e3_t a, const p32e3_t b, const p32e3_t c){
     p32e3_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -1700,12 +1660,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p32e3_t p32e3_fma_j(const p32e3_t a, const p32e3_t b, const p32e3_t c){
+extern "C"    p32e3_t p32e3_fma_e(const p32e3_t a, const p32e3_t b, const p32e3_t c){
     p32e3_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P32INF) || (b.udata == P32INF)){
-      if (c.udata == P32INF) { throw_nan_jmp(); }
+      if (c.udata == P32INF) { result.udata = P32INF; errno = EDOM; return result; }
       result.udata = P32INF;
       return result;
     }
@@ -1738,7 +1698,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
 ///////////////////////////////////////////////////////////////
 //  posit_8 section, variable ES adapters for fms
 ///////////////////////////////////////////////////////////////
-   int p8e0_fms(p8e0_t * res, const p8e0_t a, const p8e0_t b, const p8e0_t c){
+extern "C"    int p8e0_fms(p8e0_t * res, const p8e0_t a, const p8e0_t b, const p8e0_t c){
     p8e0_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -1769,12 +1729,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p8e0_t p8e0_fms_j(const p8e0_t a, const p8e0_t b, const p8e0_t c){
+extern "C"    p8e0_t p8e0_fms_e(const p8e0_t a, const p8e0_t b, const p8e0_t c){
     p8e0_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P8INF) || (b.udata == P8INF)){
-      if (c.udata == P8INF) { throw_nan_jmp(); }
+      if (c.udata == P8INF) { result.udata = P8INF; errno = EDOM; return result; }
       result.udata = P8INF;
       return result;
     }
@@ -1801,7 +1761,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
   }
   
 
-   int p8e1_fms(p8e1_t * res, const p8e1_t a, const p8e1_t b, const p8e1_t c){
+extern "C"    int p8e1_fms(p8e1_t * res, const p8e1_t a, const p8e1_t b, const p8e1_t c){
     p8e1_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -1832,12 +1792,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p8e1_t p8e1_fms_j(const p8e1_t a, const p8e1_t b, const p8e1_t c){
+extern "C"    p8e1_t p8e1_fms_e(const p8e1_t a, const p8e1_t b, const p8e1_t c){
     p8e1_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P8INF) || (b.udata == P8INF)){
-      if (c.udata == P8INF) { throw_nan_jmp(); }
+      if (c.udata == P8INF) { result.udata = P8INF; errno = EDOM; return result; }
       result.udata = P8INF;
       return result;
     }
@@ -1864,7 +1824,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
   }
   
 
-   int p8e2_fms(p8e2_t * res, const p8e2_t a, const p8e2_t b, const p8e2_t c){
+extern "C"    int p8e2_fms(p8e2_t * res, const p8e2_t a, const p8e2_t b, const p8e2_t c){
     p8e2_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -1895,12 +1855,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p8e2_t p8e2_fms_j(const p8e2_t a, const p8e2_t b, const p8e2_t c){
+extern "C"    p8e2_t p8e2_fms_e(const p8e2_t a, const p8e2_t b, const p8e2_t c){
     p8e2_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P8INF) || (b.udata == P8INF)){
-      if (c.udata == P8INF) { throw_nan_jmp(); }
+      if (c.udata == P8INF) { result.udata = P8INF; errno = EDOM; return result; }
       result.udata = P8INF;
       return result;
     }
@@ -1932,7 +1892,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
 ///////////////////////////////////////////////////////////////
 //  posit_16 section, variable ES adapters for fms
 ///////////////////////////////////////////////////////////////
-   int p16e0_fms(p16e0_t * res, const p16e0_t a, const p16e0_t b, const p16e0_t c){
+extern "C"    int p16e0_fms(p16e0_t * res, const p16e0_t a, const p16e0_t b, const p16e0_t c){
     p16e0_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -1963,12 +1923,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p16e0_t p16e0_fms_j(const p16e0_t a, const p16e0_t b, const p16e0_t c){
+extern "C"    p16e0_t p16e0_fms_e(const p16e0_t a, const p16e0_t b, const p16e0_t c){
     p16e0_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P16INF) || (b.udata == P16INF)){
-      if (c.udata == P16INF) { throw_nan_jmp(); }
+      if (c.udata == P16INF) { result.udata = P16INF; errno = EDOM; return result; }
       result.udata = P16INF;
       return result;
     }
@@ -1995,7 +1955,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
   }
   
 
-   int p16e1_fms(p16e1_t * res, const p16e1_t a, const p16e1_t b, const p16e1_t c){
+extern "C"    int p16e1_fms(p16e1_t * res, const p16e1_t a, const p16e1_t b, const p16e1_t c){
     p16e1_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -2026,12 +1986,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p16e1_t p16e1_fms_j(const p16e1_t a, const p16e1_t b, const p16e1_t c){
+extern "C"    p16e1_t p16e1_fms_e(const p16e1_t a, const p16e1_t b, const p16e1_t c){
     p16e1_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P16INF) || (b.udata == P16INF)){
-      if (c.udata == P16INF) { throw_nan_jmp(); }
+      if (c.udata == P16INF) { result.udata = P16INF; errno = EDOM; return result; }
       result.udata = P16INF;
       return result;
     }
@@ -2058,7 +2018,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
   }
   
 
-   int p16e2_fms(p16e2_t * res, const p16e2_t a, const p16e2_t b, const p16e2_t c){
+extern "C"    int p16e2_fms(p16e2_t * res, const p16e2_t a, const p16e2_t b, const p16e2_t c){
     p16e2_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -2089,12 +2049,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p16e2_t p16e2_fms_j(const p16e2_t a, const p16e2_t b, const p16e2_t c){
+extern "C"    p16e2_t p16e2_fms_e(const p16e2_t a, const p16e2_t b, const p16e2_t c){
     p16e2_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P16INF) || (b.udata == P16INF)){
-      if (c.udata == P16INF) { throw_nan_jmp(); }
+      if (c.udata == P16INF) { result.udata = P16INF; errno = EDOM; return result; }
       result.udata = P16INF;
       return result;
     }
@@ -2126,7 +2086,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
 ///////////////////////////////////////////////////////////////
 //  posit_32 section, variable ES adapters for fms
 ///////////////////////////////////////////////////////////////
-   int p32e0_fms(p32e0_t * res, const p32e0_t a, const p32e0_t b, const p32e0_t c){
+extern "C"    int p32e0_fms(p32e0_t * res, const p32e0_t a, const p32e0_t b, const p32e0_t c){
     p32e0_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -2157,12 +2117,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p32e0_t p32e0_fms_j(const p32e0_t a, const p32e0_t b, const p32e0_t c){
+extern "C"    p32e0_t p32e0_fms_e(const p32e0_t a, const p32e0_t b, const p32e0_t c){
     p32e0_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P32INF) || (b.udata == P32INF)){
-      if (c.udata == P32INF) { throw_nan_jmp(); }
+      if (c.udata == P32INF) { result.udata = P32INF; errno = EDOM; return result; }
       result.udata = P32INF;
       return result;
     }
@@ -2189,7 +2149,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
   }
   
 
-   int p32e1_fms(p32e1_t * res, const p32e1_t a, const p32e1_t b, const p32e1_t c){
+extern "C"    int p32e1_fms(p32e1_t * res, const p32e1_t a, const p32e1_t b, const p32e1_t c){
     p32e1_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -2220,12 +2180,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p32e1_t p32e1_fms_j(const p32e1_t a, const p32e1_t b, const p32e1_t c){
+extern "C"    p32e1_t p32e1_fms_e(const p32e1_t a, const p32e1_t b, const p32e1_t c){
     p32e1_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P32INF) || (b.udata == P32INF)){
-      if (c.udata == P32INF) { throw_nan_jmp(); }
+      if (c.udata == P32INF) { result.udata = P32INF; errno = EDOM; return result; }
       result.udata = P32INF;
       return result;
     }
@@ -2252,7 +2212,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
   }
   
 
-   int p32e2_fms(p32e2_t * res, const p32e2_t a, const p32e2_t b, const p32e2_t c){
+extern "C"    int p32e2_fms(p32e2_t * res, const p32e2_t a, const p32e2_t b, const p32e2_t c){
     p32e2_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -2283,12 +2243,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p32e2_t p32e2_fms_j(const p32e2_t a, const p32e2_t b, const p32e2_t c){
+extern "C"    p32e2_t p32e2_fms_e(const p32e2_t a, const p32e2_t b, const p32e2_t c){
     p32e2_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P32INF) || (b.udata == P32INF)){
-      if (c.udata == P32INF) { throw_nan_jmp(); }
+      if (c.udata == P32INF) { result.udata = P32INF; errno = EDOM; return result; }
       result.udata = P32INF;
       return result;
     }
@@ -2315,7 +2275,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
   }
   
 
-   int p32e3_fms(p32e3_t * res, const p32e3_t a, const p32e3_t b, const p32e3_t c){
+extern "C"    int p32e3_fms(p32e3_t * res, const p32e3_t a, const p32e3_t b, const p32e3_t c){
     p32e3_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -2346,12 +2306,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p32e3_t p32e3_fms_j(const p32e3_t a, const p32e3_t b, const p32e3_t c){
+extern "C"    p32e3_t p32e3_fms_e(const p32e3_t a, const p32e3_t b, const p32e3_t c){
     p32e3_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P32INF) || (b.udata == P32INF)){
-      if (c.udata == P32INF) { throw_nan_jmp(); }
+      if (c.udata == P32INF) { result.udata = P32INF; errno = EDOM; return result; }
       result.udata = P32INF;
       return result;
     }
@@ -2384,7 +2344,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
 ///////////////////////////////////////////////////////////////
 //  posit_8 section, variable ES adapters for nfma
 ///////////////////////////////////////////////////////////////
-   int p8e0_nfma(p8e0_t * res, const p8e0_t a, const p8e0_t b, const p8e0_t c){
+extern "C"    int p8e0_nfma(p8e0_t * res, const p8e0_t a, const p8e0_t b, const p8e0_t c){
     p8e0_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -2415,12 +2375,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p8e0_t p8e0_nfma_j(const p8e0_t a, const p8e0_t b, const p8e0_t c){
+extern "C"    p8e0_t p8e0_nfma_e(const p8e0_t a, const p8e0_t b, const p8e0_t c){
     p8e0_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P8INF) || (b.udata == P8INF)){
-      if (c.udata == P8INF) { throw_nan_jmp(); }
+      if (c.udata == P8INF) { result.udata = P8INF; errno = EDOM; return result; }
       result.udata = P8INF;
       return result;
     }
@@ -2447,7 +2407,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
   }
   
 
-   int p8e1_nfma(p8e1_t * res, const p8e1_t a, const p8e1_t b, const p8e1_t c){
+extern "C"    int p8e1_nfma(p8e1_t * res, const p8e1_t a, const p8e1_t b, const p8e1_t c){
     p8e1_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -2478,12 +2438,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p8e1_t p8e1_nfma_j(const p8e1_t a, const p8e1_t b, const p8e1_t c){
+extern "C"    p8e1_t p8e1_nfma_e(const p8e1_t a, const p8e1_t b, const p8e1_t c){
     p8e1_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P8INF) || (b.udata == P8INF)){
-      if (c.udata == P8INF) { throw_nan_jmp(); }
+      if (c.udata == P8INF) { result.udata = P8INF; errno = EDOM; return result; }
       result.udata = P8INF;
       return result;
     }
@@ -2510,7 +2470,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
   }
   
 
-   int p8e2_nfma(p8e2_t * res, const p8e2_t a, const p8e2_t b, const p8e2_t c){
+extern "C"    int p8e2_nfma(p8e2_t * res, const p8e2_t a, const p8e2_t b, const p8e2_t c){
     p8e2_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -2541,12 +2501,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p8e2_t p8e2_nfma_j(const p8e2_t a, const p8e2_t b, const p8e2_t c){
+extern "C"    p8e2_t p8e2_nfma_e(const p8e2_t a, const p8e2_t b, const p8e2_t c){
     p8e2_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P8INF) || (b.udata == P8INF)){
-      if (c.udata == P8INF) { throw_nan_jmp(); }
+      if (c.udata == P8INF) { result.udata = P8INF; errno = EDOM; return result; }
       result.udata = P8INF;
       return result;
     }
@@ -2578,7 +2538,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
 ///////////////////////////////////////////////////////////////
 //  posit_16 section, variable ES adapters for nfma
 ///////////////////////////////////////////////////////////////
-   int p16e0_nfma(p16e0_t * res, const p16e0_t a, const p16e0_t b, const p16e0_t c){
+extern "C"    int p16e0_nfma(p16e0_t * res, const p16e0_t a, const p16e0_t b, const p16e0_t c){
     p16e0_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -2609,12 +2569,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p16e0_t p16e0_nfma_j(const p16e0_t a, const p16e0_t b, const p16e0_t c){
+extern "C"    p16e0_t p16e0_nfma_e(const p16e0_t a, const p16e0_t b, const p16e0_t c){
     p16e0_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P16INF) || (b.udata == P16INF)){
-      if (c.udata == P16INF) { throw_nan_jmp(); }
+      if (c.udata == P16INF) { result.udata = P16INF; errno = EDOM; return result; }
       result.udata = P16INF;
       return result;
     }
@@ -2641,7 +2601,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
   }
   
 
-   int p16e1_nfma(p16e1_t * res, const p16e1_t a, const p16e1_t b, const p16e1_t c){
+extern "C"    int p16e1_nfma(p16e1_t * res, const p16e1_t a, const p16e1_t b, const p16e1_t c){
     p16e1_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -2672,12 +2632,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p16e1_t p16e1_nfma_j(const p16e1_t a, const p16e1_t b, const p16e1_t c){
+extern "C"    p16e1_t p16e1_nfma_e(const p16e1_t a, const p16e1_t b, const p16e1_t c){
     p16e1_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P16INF) || (b.udata == P16INF)){
-      if (c.udata == P16INF) { throw_nan_jmp(); }
+      if (c.udata == P16INF) { result.udata = P16INF; errno = EDOM; return result; }
       result.udata = P16INF;
       return result;
     }
@@ -2704,7 +2664,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
   }
   
 
-   int p16e2_nfma(p16e2_t * res, const p16e2_t a, const p16e2_t b, const p16e2_t c){
+extern "C"    int p16e2_nfma(p16e2_t * res, const p16e2_t a, const p16e2_t b, const p16e2_t c){
     p16e2_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -2735,12 +2695,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p16e2_t p16e2_nfma_j(const p16e2_t a, const p16e2_t b, const p16e2_t c){
+extern "C"    p16e2_t p16e2_nfma_e(const p16e2_t a, const p16e2_t b, const p16e2_t c){
     p16e2_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P16INF) || (b.udata == P16INF)){
-      if (c.udata == P16INF) { throw_nan_jmp(); }
+      if (c.udata == P16INF) { result.udata = P16INF; errno = EDOM; return result; }
       result.udata = P16INF;
       return result;
     }
@@ -2772,7 +2732,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
 ///////////////////////////////////////////////////////////////
 //  posit_32 section, variable ES adapters for nfma
 ///////////////////////////////////////////////////////////////
-   int p32e0_nfma(p32e0_t * res, const p32e0_t a, const p32e0_t b, const p32e0_t c){
+extern "C"    int p32e0_nfma(p32e0_t * res, const p32e0_t a, const p32e0_t b, const p32e0_t c){
     p32e0_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -2803,12 +2763,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p32e0_t p32e0_nfma_j(const p32e0_t a, const p32e0_t b, const p32e0_t c){
+extern "C"    p32e0_t p32e0_nfma_e(const p32e0_t a, const p32e0_t b, const p32e0_t c){
     p32e0_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P32INF) || (b.udata == P32INF)){
-      if (c.udata == P32INF) { throw_nan_jmp(); }
+      if (c.udata == P32INF) { result.udata = P32INF; errno = EDOM; return result; }
       result.udata = P32INF;
       return result;
     }
@@ -2835,7 +2795,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
   }
   
 
-   int p32e1_nfma(p32e1_t * res, const p32e1_t a, const p32e1_t b, const p32e1_t c){
+extern "C"    int p32e1_nfma(p32e1_t * res, const p32e1_t a, const p32e1_t b, const p32e1_t c){
     p32e1_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -2866,12 +2826,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p32e1_t p32e1_nfma_j(const p32e1_t a, const p32e1_t b, const p32e1_t c){
+extern "C"    p32e1_t p32e1_nfma_e(const p32e1_t a, const p32e1_t b, const p32e1_t c){
     p32e1_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P32INF) || (b.udata == P32INF)){
-      if (c.udata == P32INF) { throw_nan_jmp(); }
+      if (c.udata == P32INF) { result.udata = P32INF; errno = EDOM; return result; }
       result.udata = P32INF;
       return result;
     }
@@ -2898,7 +2858,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
   }
   
 
-   int p32e2_nfma(p32e2_t * res, const p32e2_t a, const p32e2_t b, const p32e2_t c){
+extern "C"    int p32e2_nfma(p32e2_t * res, const p32e2_t a, const p32e2_t b, const p32e2_t c){
     p32e2_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -2929,12 +2889,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p32e2_t p32e2_nfma_j(const p32e2_t a, const p32e2_t b, const p32e2_t c){
+extern "C"    p32e2_t p32e2_nfma_e(const p32e2_t a, const p32e2_t b, const p32e2_t c){
     p32e2_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P32INF) || (b.udata == P32INF)){
-      if (c.udata == P32INF) { throw_nan_jmp(); }
+      if (c.udata == P32INF) { result.udata = P32INF; errno = EDOM; return result; }
       result.udata = P32INF;
       return result;
     }
@@ -2961,7 +2921,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
   }
   
 
-   int p32e3_nfma(p32e3_t * res, const p32e3_t a, const p32e3_t b, const p32e3_t c){
+extern "C"    int p32e3_nfma(p32e3_t * res, const p32e3_t a, const p32e3_t b, const p32e3_t c){
     p32e3_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -2992,12 +2952,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p32e3_t p32e3_nfma_j(const p32e3_t a, const p32e3_t b, const p32e3_t c){
+extern "C"    p32e3_t p32e3_nfma_e(const p32e3_t a, const p32e3_t b, const p32e3_t c){
     p32e3_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P32INF) || (b.udata == P32INF)){
-      if (c.udata == P32INF) { throw_nan_jmp(); }
+      if (c.udata == P32INF) { result.udata = P32INF; errno = EDOM; return result; }
       result.udata = P32INF;
       return result;
     }
@@ -3030,7 +2990,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
 ///////////////////////////////////////////////////////////////
 //  posit_8 section, variable ES adapters for nfms
 ///////////////////////////////////////////////////////////////
-   int p8e0_nfms(p8e0_t * res, const p8e0_t a, const p8e0_t b, const p8e0_t c){
+extern "C"    int p8e0_nfms(p8e0_t * res, const p8e0_t a, const p8e0_t b, const p8e0_t c){
     p8e0_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -3061,12 +3021,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p8e0_t p8e0_nfms_j(const p8e0_t a, const p8e0_t b, const p8e0_t c){
+extern "C"    p8e0_t p8e0_nfms_e(const p8e0_t a, const p8e0_t b, const p8e0_t c){
     p8e0_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P8INF) || (b.udata == P8INF)){
-      if (c.udata == P8INF) { throw_nan_jmp(); }
+      if (c.udata == P8INF) { result.udata = P8INF; errno = EDOM; return result; }
       result.udata = P8INF;
       return result;
     }
@@ -3093,7 +3053,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
   }
   
 
-   int p8e1_nfms(p8e1_t * res, const p8e1_t a, const p8e1_t b, const p8e1_t c){
+extern "C"    int p8e1_nfms(p8e1_t * res, const p8e1_t a, const p8e1_t b, const p8e1_t c){
     p8e1_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -3124,12 +3084,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p8e1_t p8e1_nfms_j(const p8e1_t a, const p8e1_t b, const p8e1_t c){
+extern "C"    p8e1_t p8e1_nfms_e(const p8e1_t a, const p8e1_t b, const p8e1_t c){
     p8e1_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P8INF) || (b.udata == P8INF)){
-      if (c.udata == P8INF) { throw_nan_jmp(); }
+      if (c.udata == P8INF) { result.udata = P8INF; errno = EDOM; return result; }
       result.udata = P8INF;
       return result;
     }
@@ -3156,7 +3116,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
   }
   
 
-   int p8e2_nfms(p8e2_t * res, const p8e2_t a, const p8e2_t b, const p8e2_t c){
+extern "C"    int p8e2_nfms(p8e2_t * res, const p8e2_t a, const p8e2_t b, const p8e2_t c){
     p8e2_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -3187,12 +3147,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p8e2_t p8e2_nfms_j(const p8e2_t a, const p8e2_t b, const p8e2_t c){
+extern "C"    p8e2_t p8e2_nfms_e(const p8e2_t a, const p8e2_t b, const p8e2_t c){
     p8e2_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P8INF) || (b.udata == P8INF)){
-      if (c.udata == P8INF) { throw_nan_jmp(); }
+      if (c.udata == P8INF) { result.udata = P8INF; errno = EDOM; return result; }
       result.udata = P8INF;
       return result;
     }
@@ -3224,7 +3184,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
 ///////////////////////////////////////////////////////////////
 //  posit_16 section, variable ES adapters for nfms
 ///////////////////////////////////////////////////////////////
-   int p16e0_nfms(p16e0_t * res, const p16e0_t a, const p16e0_t b, const p16e0_t c){
+extern "C"    int p16e0_nfms(p16e0_t * res, const p16e0_t a, const p16e0_t b, const p16e0_t c){
     p16e0_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -3255,12 +3215,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p16e0_t p16e0_nfms_j(const p16e0_t a, const p16e0_t b, const p16e0_t c){
+extern "C"    p16e0_t p16e0_nfms_e(const p16e0_t a, const p16e0_t b, const p16e0_t c){
     p16e0_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P16INF) || (b.udata == P16INF)){
-      if (c.udata == P16INF) { throw_nan_jmp(); }
+      if (c.udata == P16INF) { result.udata = P16INF; errno = EDOM; return result; }
       result.udata = P16INF;
       return result;
     }
@@ -3287,7 +3247,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
   }
   
 
-   int p16e1_nfms(p16e1_t * res, const p16e1_t a, const p16e1_t b, const p16e1_t c){
+extern "C"    int p16e1_nfms(p16e1_t * res, const p16e1_t a, const p16e1_t b, const p16e1_t c){
     p16e1_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -3318,12 +3278,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p16e1_t p16e1_nfms_j(const p16e1_t a, const p16e1_t b, const p16e1_t c){
+extern "C"    p16e1_t p16e1_nfms_e(const p16e1_t a, const p16e1_t b, const p16e1_t c){
     p16e1_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P16INF) || (b.udata == P16INF)){
-      if (c.udata == P16INF) { throw_nan_jmp(); }
+      if (c.udata == P16INF) { result.udata = P16INF; errno = EDOM; return result; }
       result.udata = P16INF;
       return result;
     }
@@ -3350,7 +3310,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
   }
   
 
-   int p16e2_nfms(p16e2_t * res, const p16e2_t a, const p16e2_t b, const p16e2_t c){
+extern "C"    int p16e2_nfms(p16e2_t * res, const p16e2_t a, const p16e2_t b, const p16e2_t c){
     p16e2_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -3381,12 +3341,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p16e2_t p16e2_nfms_j(const p16e2_t a, const p16e2_t b, const p16e2_t c){
+extern "C"    p16e2_t p16e2_nfms_e(const p16e2_t a, const p16e2_t b, const p16e2_t c){
     p16e2_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P16INF) || (b.udata == P16INF)){
-      if (c.udata == P16INF) { throw_nan_jmp(); }
+      if (c.udata == P16INF) { result.udata = P16INF; errno = EDOM; return result; }
       result.udata = P16INF;
       return result;
     }
@@ -3418,7 +3378,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
 ///////////////////////////////////////////////////////////////
 //  posit_32 section, variable ES adapters for nfms
 ///////////////////////////////////////////////////////////////
-   int p32e0_nfms(p32e0_t * res, const p32e0_t a, const p32e0_t b, const p32e0_t c){
+extern "C"    int p32e0_nfms(p32e0_t * res, const p32e0_t a, const p32e0_t b, const p32e0_t c){
     p32e0_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -3449,12 +3409,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p32e0_t p32e0_nfms_j(const p32e0_t a, const p32e0_t b, const p32e0_t c){
+extern "C"    p32e0_t p32e0_nfms_e(const p32e0_t a, const p32e0_t b, const p32e0_t c){
     p32e0_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P32INF) || (b.udata == P32INF)){
-      if (c.udata == P32INF) { throw_nan_jmp(); }
+      if (c.udata == P32INF) { result.udata = P32INF; errno = EDOM; return result; }
       result.udata = P32INF;
       return result;
     }
@@ -3481,7 +3441,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
   }
   
 
-   int p32e1_nfms(p32e1_t * res, const p32e1_t a, const p32e1_t b, const p32e1_t c){
+extern "C"    int p32e1_nfms(p32e1_t * res, const p32e1_t a, const p32e1_t b, const p32e1_t c){
     p32e1_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -3512,12 +3472,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p32e1_t p32e1_nfms_j(const p32e1_t a, const p32e1_t b, const p32e1_t c){
+extern "C"    p32e1_t p32e1_nfms_e(const p32e1_t a, const p32e1_t b, const p32e1_t c){
     p32e1_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P32INF) || (b.udata == P32INF)){
-      if (c.udata == P32INF) { throw_nan_jmp(); }
+      if (c.udata == P32INF) { result.udata = P32INF; errno = EDOM; return result; }
       result.udata = P32INF;
       return result;
     }
@@ -3544,7 +3504,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
   }
   
 
-   int p32e2_nfms(p32e2_t * res, const p32e2_t a, const p32e2_t b, const p32e2_t c){
+extern "C"    int p32e2_nfms(p32e2_t * res, const p32e2_t a, const p32e2_t b, const p32e2_t c){
     p32e2_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -3575,12 +3535,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p32e2_t p32e2_nfms_j(const p32e2_t a, const p32e2_t b, const p32e2_t c){
+extern "C"    p32e2_t p32e2_nfms_e(const p32e2_t a, const p32e2_t b, const p32e2_t c){
     p32e2_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P32INF) || (b.udata == P32INF)){
-      if (c.udata == P32INF) { throw_nan_jmp(); }
+      if (c.udata == P32INF) { result.udata = P32INF; errno = EDOM; return result; }
       result.udata = P32INF;
       return result;
     }
@@ -3607,7 +3567,7 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
   }
   
 
-   int p32e3_nfms(p32e3_t * res, const p32e3_t a, const p32e3_t b, const p32e3_t c){
+extern "C"    int p32e3_nfms(p32e3_t * res, const p32e3_t a, const p32e3_t b, const p32e3_t c){
     p32e3_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
@@ -3638,12 +3598,12 @@ extern "C"    p32e3_t p32e3_exp2_j(const p32e3_t a) {
     *res = result; return 0;
   }
   
-   p32e3_t p32e3_nfms_j(const p32e3_t a, const p32e3_t b, const p32e3_t c){
+extern "C"    p32e3_t p32e3_nfms_e(const p32e3_t a, const p32e3_t b, const p32e3_t c){
     p32e3_t result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
     if ((a.udata == P32INF) || (b.udata == P32INF)){
-      if (c.udata == P32INF) { throw_nan_jmp(); }
+      if (c.udata == P32INF) { result.udata = P32INF; errno = EDOM; return result; }
       result.udata = P32INF;
       return result;
     }

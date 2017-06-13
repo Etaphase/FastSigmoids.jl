@@ -13,24 +13,15 @@ function binop_fn(n::Integer ,es::Integer, op::Symbol, status::Bool)
   fexpr = haskey(TPTR_TO_BINF, op) ? "$(to_f(n,es,:a)) $(TPTR_TO_BINF[op]) $(to_f(n,es,:b))" :
     "$(op)($(to_f(n,es,:a)), $(to_f(n,es,:b)))"
 
-  #finally wrap it in a jump call detection if we're returning status_t.
-  fexpr = status ? """
-    $(ftype[n]) fres;
-    if (set_nan_jmp()){
-      fres = $fexpr;
-    } else {
-      return EDOM;
-    }
-  """ : "$(ftype[n]) fres = $(fexpr)"
-
   #generate the return statement, which depends on whether or not we're status or jump.
-  ret = status ? "res->udata = pres.udata; return 0" : "return pres"
+  ret = status ? "res->udata = pres.udata; return errno" : "return pres"
 
 """
 extern "C" $(opfn(n,es)) {
   $(p(n,es)) pres;
 
-  $(fexpr);
+  $(ftype[n]) fres;
+  fres = $fexpr;
 
   pres = $(to_p(n,es,:fres));
   $ret;

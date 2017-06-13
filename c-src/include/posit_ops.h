@@ -4,11 +4,7 @@
 
 #include "posit.h"
 
-#ifdef __cplusplus
-  extern "C"{
-#else
-  extern {
-#endif
+extern "C"{
 
    int p8e0_add(p8e0_t * res, const p8e0_t a, const p8e0_t b);
    int p8e1_add(p8e1_t * res, const p8e1_t a, const p8e1_t b);
@@ -363,4 +359,5 @@
    int p32e3_atan2(p32e3_t * res, const p32e3_t a, const p32e3_t b);
 
 }
+
 #endif

@@ -1,12 +1,10 @@
 
-#ifndef __POSIT_OPS_JUMPS_H
-#define __POSIT_OPS_JUMPS_H
+#ifndef __POSIT_OPS_ERRNO_H
+#define __POSIT_OPS_ERRNO_H
 
 #include "posit.h"
 
-#ifdef __cplusplus
-  extern "C"{
-#endif
+extern "C"{
 
    p8e0_t p8e0_add_e(const p8e0_t a, const p8e0_t b);
    p8e1_t p8e1_add_e(const p8e1_t a, const p8e1_t b);
@@ -290,7 +288,6 @@
    p32e2_t p32e2_atan2_e(const p32e2_t a, const p32e2_t b);
    p32e3_t p32e3_atan2_e(const p32e3_t a, const p32e3_t b);
 
-#ifdef __cplusplus
 }
-#endif
+
 #endif

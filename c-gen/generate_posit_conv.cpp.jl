@@ -62,7 +62,7 @@ static uint$(n)_t $(ftype)_to_p$(n)$(es_fn)($(ftype) fval$(es_hd)){
   //infinity and NaN checks:
   if (isinf(fval)) {return $(c_literal(top_bits(n)));};
   if (fval == 0)   {return $(c_literal(zero_bits(n)));};
-  if (isnan(fval)){ throw_nan_jmp(); }
+  if (isnan(fval)){ printf(\"bad: %f \\n\", fval); errno = EDOM; return P$(n)INF; }
   //do a surreptitious conversion from $(ftype) precision to UInt$(n)
   uint$(fpsize)_t *ival = (uint$(fpsize)_t *) &fval;
   bool signbit = (($(c_literal(top_bits(fpsize))) & (*ival)) != 0);
@@ -184,7 +184,11 @@ end
 
 function generate_posit_conv_cpp(io, posit_defs)
   #generates "posit.h" based on the posit_definitions
-  write(io, "#include \"include/posit.h\"")
+  write(io, """
+  #include <errno.h>
+  #include <stdio.h>
+  #include \"include/posit.h\"
+  """)
 
   for n in sort(collect(keys(posit_defs)))
 

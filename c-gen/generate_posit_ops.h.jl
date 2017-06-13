@@ -2,7 +2,7 @@
 function general_header(op::Symbol, n::Integer, es::Integer, arity::Integer, status = false)
   prefix = "  "
   output = status ? "int" : p(n,es)
-  ident  = string(p(n,es,op), status ? "" : "_j")
+  ident  = string(p(n,es,op), status ? "" : "_e")
   statusarg = status ? ["$(p(n,es)) * res"] : []
 
   args   = join(vcat(statusarg, ["const $(p(n,es)) $(sym[idx])" for idx = 1:arity]),", ")
@@ -91,11 +91,7 @@ function generate_posit_ops_status_h(io, posit_defs)
 
     #include "posit.h"
 
-    #ifdef __cplusplus
-      extern "C"{
-    #else
-      extern {
-    #endif
+    extern "C"{
 
     """)
   for op in ordered_oplist
@@ -108,21 +104,22 @@ function generate_posit_ops_status_h(io, posit_defs)
 
     write(io, "\n")
   end
-  write(io, "}\n")
-  write(io, "#endif\n")
+  write(io, """
+  }
+
+  #endif
+  """)
 end
 
-function generate_posit_ops_jumps_h(io, posit_defs)
+function generate_posit_ops_errno_h(io, posit_defs)
   write(io, """
 
-    #ifndef __POSIT_OPS_JUMPS_H
-    #define __POSIT_OPS_JUMPS_H
+    #ifndef __POSIT_OPS_ERRNO_H
+    #define __POSIT_OPS_ERRNO_H
 
     #include "posit.h"
 
-    #ifdef __cplusplus
-      extern "C"{
-    #endif
+    extern "C"{
 
     """)
   for op in ordered_oplist
@@ -138,9 +135,8 @@ function generate_posit_ops_jumps_h(io, posit_defs)
     write(io, "\n")
   end
   write(io, """
-  #ifdef __cplusplus
   }
-  #endif
+
   #endif
   """)
 end

@@ -13,17 +13,15 @@ function constructors(n, es)
   $(c(n,es))::$(c(n,es))(){ this->data = P$(n)ZER; }
 
   $(c(n,es))::$(c(n,es))(const float a){
-    if (set_nan_jmp()) {
-      this->data = $floatdef.udata;
-    } else {
+    this->data = $floatdef.udata;
+    if (errno) {
       throw std::domain_error("attempted to construct a posit from a NaN IEEE value");
     }
   }
 
   $(c(n,es))::$(c(n,es))(const double a){
-    if (set_nan_jmp()) {
-      this->data = $doubledef.udata;
-    } else {
+    this->data = $doubledef.udata;
+    if (errno) {
       throw std::domain_error("attempted to construct a posit from a NaN IEEE value");
     }
   }
@@ -55,9 +53,8 @@ function arith_operators(n,es)
     $(c(n,es)) &$(c(n,es))::operator $(assn_opsymbol)(const $(c(n,es)) rhs){
       $(p(n,es)) res;
 
-      if (set_nan_jmp()){
-        res = $(p(n,es,op))_j(*this, rhs);
-      } else {
+      res = $(p(n,es,op))_e(*this, rhs);
+      if (errno) {
         throw std::domain_error("NaN value obtained in operator $assn_opsymbol");
       }
 
@@ -68,9 +65,9 @@ function arith_operators(n,es)
     $(c(n,es)) $(c(n,es))::operator $(arith_opsymbol)(const $(c(n,es)) rhs) const{
       $(c(n,es)) res;          //create a return value from the stack.
 
-      if (set_nan_jmp()){
-        res = $(p(n,es))($(p(n,es,op))_j(*this, rhs));
-      } else {
+      res = $(p(n,es))($(p(n,es,op))_e(*this, rhs));
+
+      if (errno) {
         throw std::domain_error("NaN value obtained in operator $arith_opsymbol");
       }
 
@@ -138,9 +135,9 @@ function unary_functions(n, es)
     $(c(n,es)) $(fn) (const $(c(n,es)) x){
       $(p(n,es)) res;
 
-      if (set_nan_jmp()){
-        res = $(p(n,es,fn))_j(x);
-      } else {
+      res = $(p(n,es,fn))_e(x);
+
+      if (errno) {
         throw std::domain_error("NaN value obtained in function $fn");
       }
 
@@ -167,9 +164,8 @@ function binary_functions(n, es)
     $(c(n,es)) $(fn) (const $(c(n,es)) a, const $(c(n,es)) b){
       $(p(n,es)) res;
 
-      if (set_nan_jmp()){
-        res = $(p(n,es,fn))_j(a, b);
-      } else {
+      res = $(p(n,es,fn))_e(a, b);
+      if (errno) {
         throw std::domain_error("NaN value obtained in function $fn");
       }
 
@@ -196,9 +192,9 @@ function ternary_functions(n, es)
     $(c(n,es)) $(fn)(const $(c(n,es)) a, const $(c(n,es)) b, const $(c(n,es)) c){
       $(p(n,es)) res;
 
-      if (set_nan_jmp()){
-        res = $(p(n,es,fn))_j(a, b, c);
-      } else {
+      res = $(p(n,es,fn))_e(a, b, c);
+
+      if (errno) {
         throw std::domain_error("NaN value obtained in function $fn");
       }
 
@@ -219,8 +215,9 @@ function generate_posit_class_cpp(io, n, es)
 
   #include "include/posit_conv.h"
   #include "include/posit_ops.h"
-  #include "include/posit_ops_jumps.h"
+  #include "include/posit_ops_errno.h"
   #include "include/$(c(n,es)).h"
+  #include "errno.h"
   #include <stdexcept>
 
   $(constructors(n,es))

@@ -1,25 +1,24 @@
 
 #include "include/posit_conv.h"
 #include "include/posit_ops.h"
-#include "include/posit_ops_jumps.h"
+#include "include/posit_ops_errno.h"
 #include "include/P32e2.h"
+#include "errno.h"
 #include <stdexcept>
 
 
 P32e2::P32e2(){ this->data = P32ZER; }
 
 P32e2::P32e2(const float a){
-  if (set_nan_jmp()) {
-    this->data = f_to_p32e2((double) a).udata;
-  } else {
+  this->data = f_to_p32e2((double) a).udata;
+  if (errno) {
     throw std::domain_error("attempted to construct a posit from a NaN IEEE value");
   }
 }
 
 P32e2::P32e2(const double a){
-  if (set_nan_jmp()) {
-    this->data = f_to_p32e2(a).udata;
-  } else {
+  this->data = f_to_p32e2(a).udata;
+  if (errno) {
     throw std::domain_error("attempted to construct a posit from a NaN IEEE value");
   }
 }
@@ -39,9 +38,8 @@ P32e2 P32e2::operator -() const{
 P32e2 &P32e2::operator *=(const P32e2 rhs){
   p32e2_t res;
 
-  if (set_nan_jmp()){
-    res = p32e2_mul_j(*this, rhs);
-  } else {
+  res = p32e2_mul_e(*this, rhs);
+  if (errno) {
     throw std::domain_error("NaN value obtained in operator *=");
   }
 
@@ -52,9 +50,9 @@ P32e2 &P32e2::operator *=(const P32e2 rhs){
 P32e2 P32e2::operator *(const P32e2 rhs) const{
   P32e2 res;          //create a return value from the stack.
 
-  if (set_nan_jmp()){
-    res = p32e2_t(p32e2_mul_j(*this, rhs));
-  } else {
+  res = p32e2_t(p32e2_mul_e(*this, rhs));
+
+  if (errno) {
     throw std::domain_error("NaN value obtained in operator *");
   }
 
@@ -64,9 +62,8 @@ P32e2 P32e2::operator *(const P32e2 rhs) const{
 P32e2 &P32e2::operator -=(const P32e2 rhs){
   p32e2_t res;
 
-  if (set_nan_jmp()){
-    res = p32e2_sub_j(*this, rhs);
-  } else {
+  res = p32e2_sub_e(*this, rhs);
+  if (errno) {
     throw std::domain_error("NaN value obtained in operator -=");
   }
 
@@ -77,9 +74,9 @@ P32e2 &P32e2::operator -=(const P32e2 rhs){
 P32e2 P32e2::operator -(const P32e2 rhs) const{
   P32e2 res;          //create a return value from the stack.
 
-  if (set_nan_jmp()){
-    res = p32e2_t(p32e2_sub_j(*this, rhs));
-  } else {
+  res = p32e2_t(p32e2_sub_e(*this, rhs));
+
+  if (errno) {
     throw std::domain_error("NaN value obtained in operator -");
   }
 
@@ -89,9 +86,8 @@ P32e2 P32e2::operator -(const P32e2 rhs) const{
 P32e2 &P32e2::operator +=(const P32e2 rhs){
   p32e2_t res;
 
-  if (set_nan_jmp()){
-    res = p32e2_add_j(*this, rhs);
-  } else {
+  res = p32e2_add_e(*this, rhs);
+  if (errno) {
     throw std::domain_error("NaN value obtained in operator +=");
   }
 
@@ -102,9 +98,9 @@ P32e2 &P32e2::operator +=(const P32e2 rhs){
 P32e2 P32e2::operator +(const P32e2 rhs) const{
   P32e2 res;          //create a return value from the stack.
 
-  if (set_nan_jmp()){
-    res = p32e2_t(p32e2_add_j(*this, rhs));
-  } else {
+  res = p32e2_t(p32e2_add_e(*this, rhs));
+
+  if (errno) {
     throw std::domain_error("NaN value obtained in operator +");
   }
 
@@ -114,9 +110,8 @@ P32e2 P32e2::operator +(const P32e2 rhs) const{
 P32e2 &P32e2::operator /=(const P32e2 rhs){
   p32e2_t res;
 
-  if (set_nan_jmp()){
-    res = p32e2_div_j(*this, rhs);
-  } else {
+  res = p32e2_div_e(*this, rhs);
+  if (errno) {
     throw std::domain_error("NaN value obtained in operator /=");
   }
 
@@ -127,9 +122,9 @@ P32e2 &P32e2::operator /=(const P32e2 rhs){
 P32e2 P32e2::operator /(const P32e2 rhs) const{
   P32e2 res;          //create a return value from the stack.
 
-  if (set_nan_jmp()){
-    res = p32e2_t(p32e2_div_j(*this, rhs));
-  } else {
+  res = p32e2_t(p32e2_div_e(*this, rhs));
+
+  if (errno) {
     throw std::domain_error("NaN value obtained in operator /");
   }
 
@@ -193,9 +188,9 @@ P32e2::operator p32e2_t() const{
 P32e2 mulinv (const P32e2 x){
   p32e2_t res;
 
-  if (set_nan_jmp()){
-    res = p32e2_mulinv_j(x);
-  } else {
+  res = p32e2_mulinv_e(x);
+
+  if (errno) {
     throw std::domain_error("NaN value obtained in function mulinv");
   }
 
@@ -207,9 +202,9 @@ P32e2 mulinv (const P32e2 x){
 P32e2 log2 (const P32e2 x){
   p32e2_t res;
 
-  if (set_nan_jmp()){
-    res = p32e2_log2_j(x);
-  } else {
+  res = p32e2_log2_e(x);
+
+  if (errno) {
     throw std::domain_error("NaN value obtained in function log2");
   }
 
@@ -221,9 +216,9 @@ P32e2 log2 (const P32e2 x){
 P32e2 exp2 (const P32e2 x){
   p32e2_t res;
 
-  if (set_nan_jmp()){
-    res = p32e2_exp2_j(x);
-  } else {
+  res = p32e2_exp2_e(x);
+
+  if (errno) {
     throw std::domain_error("NaN value obtained in function exp2");
   }
 
@@ -235,9 +230,9 @@ P32e2 exp2 (const P32e2 x){
 P32e2 sqrt (const P32e2 x){
   p32e2_t res;
 
-  if (set_nan_jmp()){
-    res = p32e2_sqrt_j(x);
-  } else {
+  res = p32e2_sqrt_e(x);
+
+  if (errno) {
     throw std::domain_error("NaN value obtained in function sqrt");
   }
 
@@ -249,9 +244,9 @@ P32e2 sqrt (const P32e2 x){
 P32e2 log1p (const P32e2 x){
   p32e2_t res;
 
-  if (set_nan_jmp()){
-    res = p32e2_log1p_j(x);
-  } else {
+  res = p32e2_log1p_e(x);
+
+  if (errno) {
     throw std::domain_error("NaN value obtained in function log1p");
   }
 
@@ -263,9 +258,9 @@ P32e2 log1p (const P32e2 x){
 P32e2 log (const P32e2 x){
   p32e2_t res;
 
-  if (set_nan_jmp()){
-    res = p32e2_log_j(x);
-  } else {
+  res = p32e2_log_e(x);
+
+  if (errno) {
     throw std::domain_error("NaN value obtained in function log");
   }
 
@@ -277,9 +272,9 @@ P32e2 log (const P32e2 x){
 P32e2 log10 (const P32e2 x){
   p32e2_t res;
 
-  if (set_nan_jmp()){
-    res = p32e2_log10_j(x);
-  } else {
+  res = p32e2_log10_e(x);
+
+  if (errno) {
     throw std::domain_error("NaN value obtained in function log10");
   }
 
@@ -291,9 +286,9 @@ P32e2 log10 (const P32e2 x){
 P32e2 exp (const P32e2 x){
   p32e2_t res;
 
-  if (set_nan_jmp()){
-    res = p32e2_exp_j(x);
-  } else {
+  res = p32e2_exp_e(x);
+
+  if (errno) {
     throw std::domain_error("NaN value obtained in function exp");
   }
 
@@ -305,9 +300,9 @@ P32e2 exp (const P32e2 x){
 P32e2 sin (const P32e2 x){
   p32e2_t res;
 
-  if (set_nan_jmp()){
-    res = p32e2_sin_j(x);
-  } else {
+  res = p32e2_sin_e(x);
+
+  if (errno) {
     throw std::domain_error("NaN value obtained in function sin");
   }
 
@@ -319,9 +314,9 @@ P32e2 sin (const P32e2 x){
 P32e2 cos (const P32e2 x){
   p32e2_t res;
 
-  if (set_nan_jmp()){
-    res = p32e2_cos_j(x);
-  } else {
+  res = p32e2_cos_e(x);
+
+  if (errno) {
     throw std::domain_error("NaN value obtained in function cos");
   }
 
@@ -333,9 +328,9 @@ P32e2 cos (const P32e2 x){
 P32e2 atan (const P32e2 x){
   p32e2_t res;
 
-  if (set_nan_jmp()){
-    res = p32e2_atan_j(x);
-  } else {
+  res = p32e2_atan_e(x);
+
+  if (errno) {
     throw std::domain_error("NaN value obtained in function atan");
   }
 
@@ -348,9 +343,8 @@ P32e2 atan (const P32e2 x){
 P32e2 pow (const P32e2 a, const P32e2 b){
   p32e2_t res;
 
-  if (set_nan_jmp()){
-    res = p32e2_pow_j(a, b);
-  } else {
+  res = p32e2_pow_e(a, b);
+  if (errno) {
     throw std::domain_error("NaN value obtained in function pow");
   }
 
@@ -362,9 +356,8 @@ P32e2 pow (const P32e2 a, const P32e2 b){
 P32e2 atan2 (const P32e2 a, const P32e2 b){
   p32e2_t res;
 
-  if (set_nan_jmp()){
-    res = p32e2_atan2_j(a, b);
-  } else {
+  res = p32e2_atan2_e(a, b);
+  if (errno) {
     throw std::domain_error("NaN value obtained in function atan2");
   }
 
@@ -377,9 +370,9 @@ P32e2 atan2 (const P32e2 a, const P32e2 b){
 P32e2 fma(const P32e2 a, const P32e2 b, const P32e2 c){
   p32e2_t res;
 
-  if (set_nan_jmp()){
-    res = p32e2_fma_j(a, b, c);
-  } else {
+  res = p32e2_fma_e(a, b, c);
+
+  if (errno) {
     throw std::domain_error("NaN value obtained in function fma");
   }
 
@@ -391,9 +384,9 @@ P32e2 fma(const P32e2 a, const P32e2 b, const P32e2 c){
 P32e2 fms(const P32e2 a, const P32e2 b, const P32e2 c){
   p32e2_t res;
 
-  if (set_nan_jmp()){
-    res = p32e2_fms_j(a, b, c);
-  } else {
+  res = p32e2_fms_e(a, b, c);
+
+  if (errno) {
     throw std::domain_error("NaN value obtained in function fms");
   }
 
@@ -405,9 +398,9 @@ P32e2 fms(const P32e2 a, const P32e2 b, const P32e2 c){
 P32e2 nfma(const P32e2 a, const P32e2 b, const P32e2 c){
   p32e2_t res;
 
-  if (set_nan_jmp()){
-    res = p32e2_nfma_j(a, b, c);
-  } else {
+  res = p32e2_nfma_e(a, b, c);
+
+  if (errno) {
     throw std::domain_error("NaN value obtained in function nfma");
   }
 
@@ -419,9 +412,9 @@ P32e2 nfma(const P32e2 a, const P32e2 b, const P32e2 c){
 P32e2 nfms(const P32e2 a, const P32e2 b, const P32e2 c){
   p32e2_t res;
 
-  if (set_nan_jmp()){
-    res = p32e2_nfms_j(a, b, c);
-  } else {
+  res = p32e2_nfms_e(a, b, c);
+
+  if (errno) {
     throw std::domain_error("NaN value obtained in function nfms");
   }
 

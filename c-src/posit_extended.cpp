@@ -33,13 +33,13 @@ extern "C"    int p8e0_sqrt(p8e0_t * res, const p8e0_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p8e0_t p8e0_sqrt_j(const p8e0_t a) {
+extern "C"    p8e0_t p8e0_sqrt_e(const p8e0_t a) {
   p8e0_t pres;
   int status = sanitize_sqrt_8(a.udata);
   switch (status){
    case 1: pres.udata = P8ZER; return pres;
    case 2: pres.udata = P8INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P8ZER; errno = EDOM; return pres;
   }
 
   float fres = sqrt(p8e0_to_f(a));
@@ -62,13 +62,13 @@ extern "C"    int p8e1_sqrt(p8e1_t * res, const p8e1_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p8e1_t p8e1_sqrt_j(const p8e1_t a) {
+extern "C"    p8e1_t p8e1_sqrt_e(const p8e1_t a) {
   p8e1_t pres;
   int status = sanitize_sqrt_8(a.udata);
   switch (status){
    case 1: pres.udata = P8ZER; return pres;
    case 2: pres.udata = P8INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P8ZER; errno = EDOM; return pres;
   }
 
   float fres = sqrt(p8e1_to_f(a));
@@ -91,13 +91,13 @@ extern "C"    int p8e2_sqrt(p8e2_t * res, const p8e2_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p8e2_t p8e2_sqrt_j(const p8e2_t a) {
+extern "C"    p8e2_t p8e2_sqrt_e(const p8e2_t a) {
   p8e2_t pres;
   int status = sanitize_sqrt_8(a.udata);
   switch (status){
    case 1: pres.udata = P8ZER; return pres;
    case 2: pres.udata = P8INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P8ZER; errno = EDOM; return pres;
   }
 
   float fres = sqrt(p8e2_to_f(a));
@@ -136,13 +136,13 @@ extern "C"    int p16e0_sqrt(p16e0_t * res, const p16e0_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p16e0_t p16e0_sqrt_j(const p16e0_t a) {
+extern "C"    p16e0_t p16e0_sqrt_e(const p16e0_t a) {
   p16e0_t pres;
   int status = sanitize_sqrt_16(a.udata);
   switch (status){
    case 1: pres.udata = P16ZER; return pres;
    case 2: pres.udata = P16INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P16ZER; errno = EDOM; return pres;
   }
 
   float fres = sqrt(p16e0_to_f(a));
@@ -165,13 +165,13 @@ extern "C"    int p16e1_sqrt(p16e1_t * res, const p16e1_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p16e1_t p16e1_sqrt_j(const p16e1_t a) {
+extern "C"    p16e1_t p16e1_sqrt_e(const p16e1_t a) {
   p16e1_t pres;
   int status = sanitize_sqrt_16(a.udata);
   switch (status){
    case 1: pres.udata = P16ZER; return pres;
    case 2: pres.udata = P16INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P16ZER; errno = EDOM; return pres;
   }
 
   float fres = sqrt(p16e1_to_f(a));
@@ -194,13 +194,13 @@ extern "C"    int p16e2_sqrt(p16e2_t * res, const p16e2_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p16e2_t p16e2_sqrt_j(const p16e2_t a) {
+extern "C"    p16e2_t p16e2_sqrt_e(const p16e2_t a) {
   p16e2_t pres;
   int status = sanitize_sqrt_16(a.udata);
   switch (status){
    case 1: pres.udata = P16ZER; return pres;
    case 2: pres.udata = P16INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P16ZER; errno = EDOM; return pres;
   }
 
   float fres = sqrt(p16e2_to_f(a));
@@ -239,13 +239,13 @@ extern "C"    int p32e0_sqrt(p32e0_t * res, const p32e0_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e0_t p32e0_sqrt_j(const p32e0_t a) {
+extern "C"    p32e0_t p32e0_sqrt_e(const p32e0_t a) {
   p32e0_t pres;
   int status = sanitize_sqrt_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = sqrt(p32e0_to_f(a));
@@ -268,13 +268,13 @@ extern "C"    int p32e1_sqrt(p32e1_t * res, const p32e1_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e1_t p32e1_sqrt_j(const p32e1_t a) {
+extern "C"    p32e1_t p32e1_sqrt_e(const p32e1_t a) {
   p32e1_t pres;
   int status = sanitize_sqrt_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = sqrt(p32e1_to_f(a));
@@ -297,13 +297,13 @@ extern "C"    int p32e2_sqrt(p32e2_t * res, const p32e2_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e2_t p32e2_sqrt_j(const p32e2_t a) {
+extern "C"    p32e2_t p32e2_sqrt_e(const p32e2_t a) {
   p32e2_t pres;
   int status = sanitize_sqrt_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = sqrt(p32e2_to_f(a));
@@ -326,13 +326,13 @@ extern "C"    int p32e3_sqrt(p32e3_t * res, const p32e3_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e3_t p32e3_sqrt_j(const p32e3_t a) {
+extern "C"    p32e3_t p32e3_sqrt_e(const p32e3_t a) {
   p32e3_t pres;
   int status = sanitize_sqrt_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = sqrt(p32e3_to_f(a));
@@ -372,13 +372,13 @@ extern "C"    int p8e0_log1p(p8e0_t * res, const p8e0_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p8e0_t p8e0_log1p_j(const p8e0_t a) {
+extern "C"    p8e0_t p8e0_log1p_e(const p8e0_t a) {
   p8e0_t pres;
   int status = sanitize_log1p_8(a.udata);
   switch (status){
    case 1: pres.udata = P8ZER; return pres;
    case 2: pres.udata = P8INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P8ZER; errno = EDOM; return pres;
   }
 
   float fres = log1p(p8e0_to_f(a));
@@ -401,13 +401,13 @@ extern "C"    int p8e1_log1p(p8e1_t * res, const p8e1_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p8e1_t p8e1_log1p_j(const p8e1_t a) {
+extern "C"    p8e1_t p8e1_log1p_e(const p8e1_t a) {
   p8e1_t pres;
   int status = sanitize_log1p_8(a.udata);
   switch (status){
    case 1: pres.udata = P8ZER; return pres;
    case 2: pres.udata = P8INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P8ZER; errno = EDOM; return pres;
   }
 
   float fres = log1p(p8e1_to_f(a));
@@ -430,13 +430,13 @@ extern "C"    int p8e2_log1p(p8e2_t * res, const p8e2_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p8e2_t p8e2_log1p_j(const p8e2_t a) {
+extern "C"    p8e2_t p8e2_log1p_e(const p8e2_t a) {
   p8e2_t pres;
   int status = sanitize_log1p_8(a.udata);
   switch (status){
    case 1: pres.udata = P8ZER; return pres;
    case 2: pres.udata = P8INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P8ZER; errno = EDOM; return pres;
   }
 
   float fres = log1p(p8e2_to_f(a));
@@ -475,13 +475,13 @@ extern "C"    int p16e0_log1p(p16e0_t * res, const p16e0_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p16e0_t p16e0_log1p_j(const p16e0_t a) {
+extern "C"    p16e0_t p16e0_log1p_e(const p16e0_t a) {
   p16e0_t pres;
   int status = sanitize_log1p_16(a.udata);
   switch (status){
    case 1: pres.udata = P16ZER; return pres;
    case 2: pres.udata = P16INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P16ZER; errno = EDOM; return pres;
   }
 
   float fres = log1p(p16e0_to_f(a));
@@ -504,13 +504,13 @@ extern "C"    int p16e1_log1p(p16e1_t * res, const p16e1_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p16e1_t p16e1_log1p_j(const p16e1_t a) {
+extern "C"    p16e1_t p16e1_log1p_e(const p16e1_t a) {
   p16e1_t pres;
   int status = sanitize_log1p_16(a.udata);
   switch (status){
    case 1: pres.udata = P16ZER; return pres;
    case 2: pres.udata = P16INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P16ZER; errno = EDOM; return pres;
   }
 
   float fres = log1p(p16e1_to_f(a));
@@ -533,13 +533,13 @@ extern "C"    int p16e2_log1p(p16e2_t * res, const p16e2_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p16e2_t p16e2_log1p_j(const p16e2_t a) {
+extern "C"    p16e2_t p16e2_log1p_e(const p16e2_t a) {
   p16e2_t pres;
   int status = sanitize_log1p_16(a.udata);
   switch (status){
    case 1: pres.udata = P16ZER; return pres;
    case 2: pres.udata = P16INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P16ZER; errno = EDOM; return pres;
   }
 
   float fres = log1p(p16e2_to_f(a));
@@ -578,13 +578,13 @@ extern "C"    int p32e0_log1p(p32e0_t * res, const p32e0_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e0_t p32e0_log1p_j(const p32e0_t a) {
+extern "C"    p32e0_t p32e0_log1p_e(const p32e0_t a) {
   p32e0_t pres;
   int status = sanitize_log1p_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = log1p(p32e0_to_f(a));
@@ -607,13 +607,13 @@ extern "C"    int p32e1_log1p(p32e1_t * res, const p32e1_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e1_t p32e1_log1p_j(const p32e1_t a) {
+extern "C"    p32e1_t p32e1_log1p_e(const p32e1_t a) {
   p32e1_t pres;
   int status = sanitize_log1p_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = log1p(p32e1_to_f(a));
@@ -636,13 +636,13 @@ extern "C"    int p32e2_log1p(p32e2_t * res, const p32e2_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e2_t p32e2_log1p_j(const p32e2_t a) {
+extern "C"    p32e2_t p32e2_log1p_e(const p32e2_t a) {
   p32e2_t pres;
   int status = sanitize_log1p_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = log1p(p32e2_to_f(a));
@@ -665,13 +665,13 @@ extern "C"    int p32e3_log1p(p32e3_t * res, const p32e3_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e3_t p32e3_log1p_j(const p32e3_t a) {
+extern "C"    p32e3_t p32e3_log1p_e(const p32e3_t a) {
   p32e3_t pres;
   int status = sanitize_log1p_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = log1p(p32e3_to_f(a));
@@ -710,13 +710,13 @@ extern "C"    int p8e0_log(p8e0_t * res, const p8e0_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p8e0_t p8e0_log_j(const p8e0_t a) {
+extern "C"    p8e0_t p8e0_log_e(const p8e0_t a) {
   p8e0_t pres;
   int status = sanitize_log_8(a.udata);
   switch (status){
    case 1: pres.udata = P8ZER; return pres;
    case 2: pres.udata = P8INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P8ZER; errno = EDOM; return pres;
   }
 
   float fres = log(p8e0_to_f(a));
@@ -739,13 +739,13 @@ extern "C"    int p8e1_log(p8e1_t * res, const p8e1_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p8e1_t p8e1_log_j(const p8e1_t a) {
+extern "C"    p8e1_t p8e1_log_e(const p8e1_t a) {
   p8e1_t pres;
   int status = sanitize_log_8(a.udata);
   switch (status){
    case 1: pres.udata = P8ZER; return pres;
    case 2: pres.udata = P8INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P8ZER; errno = EDOM; return pres;
   }
 
   float fres = log(p8e1_to_f(a));
@@ -768,13 +768,13 @@ extern "C"    int p8e2_log(p8e2_t * res, const p8e2_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p8e2_t p8e2_log_j(const p8e2_t a) {
+extern "C"    p8e2_t p8e2_log_e(const p8e2_t a) {
   p8e2_t pres;
   int status = sanitize_log_8(a.udata);
   switch (status){
    case 1: pres.udata = P8ZER; return pres;
    case 2: pres.udata = P8INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P8ZER; errno = EDOM; return pres;
   }
 
   float fres = log(p8e2_to_f(a));
@@ -812,13 +812,13 @@ extern "C"    int p16e0_log(p16e0_t * res, const p16e0_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p16e0_t p16e0_log_j(const p16e0_t a) {
+extern "C"    p16e0_t p16e0_log_e(const p16e0_t a) {
   p16e0_t pres;
   int status = sanitize_log_16(a.udata);
   switch (status){
    case 1: pres.udata = P16ZER; return pres;
    case 2: pres.udata = P16INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P16ZER; errno = EDOM; return pres;
   }
 
   float fres = log(p16e0_to_f(a));
@@ -841,13 +841,13 @@ extern "C"    int p16e1_log(p16e1_t * res, const p16e1_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p16e1_t p16e1_log_j(const p16e1_t a) {
+extern "C"    p16e1_t p16e1_log_e(const p16e1_t a) {
   p16e1_t pres;
   int status = sanitize_log_16(a.udata);
   switch (status){
    case 1: pres.udata = P16ZER; return pres;
    case 2: pres.udata = P16INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P16ZER; errno = EDOM; return pres;
   }
 
   float fres = log(p16e1_to_f(a));
@@ -870,13 +870,13 @@ extern "C"    int p16e2_log(p16e2_t * res, const p16e2_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p16e2_t p16e2_log_j(const p16e2_t a) {
+extern "C"    p16e2_t p16e2_log_e(const p16e2_t a) {
   p16e2_t pres;
   int status = sanitize_log_16(a.udata);
   switch (status){
    case 1: pres.udata = P16ZER; return pres;
    case 2: pres.udata = P16INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P16ZER; errno = EDOM; return pres;
   }
 
   float fres = log(p16e2_to_f(a));
@@ -914,13 +914,13 @@ extern "C"    int p32e0_log(p32e0_t * res, const p32e0_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e0_t p32e0_log_j(const p32e0_t a) {
+extern "C"    p32e0_t p32e0_log_e(const p32e0_t a) {
   p32e0_t pres;
   int status = sanitize_log_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = log(p32e0_to_f(a));
@@ -943,13 +943,13 @@ extern "C"    int p32e1_log(p32e1_t * res, const p32e1_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e1_t p32e1_log_j(const p32e1_t a) {
+extern "C"    p32e1_t p32e1_log_e(const p32e1_t a) {
   p32e1_t pres;
   int status = sanitize_log_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = log(p32e1_to_f(a));
@@ -972,13 +972,13 @@ extern "C"    int p32e2_log(p32e2_t * res, const p32e2_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e2_t p32e2_log_j(const p32e2_t a) {
+extern "C"    p32e2_t p32e2_log_e(const p32e2_t a) {
   p32e2_t pres;
   int status = sanitize_log_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = log(p32e2_to_f(a));
@@ -1001,13 +1001,13 @@ extern "C"    int p32e3_log(p32e3_t * res, const p32e3_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e3_t p32e3_log_j(const p32e3_t a) {
+extern "C"    p32e3_t p32e3_log_e(const p32e3_t a) {
   p32e3_t pres;
   int status = sanitize_log_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = log(p32e3_to_f(a));
@@ -1047,13 +1047,13 @@ extern "C"    int p8e0_log10(p8e0_t * res, const p8e0_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p8e0_t p8e0_log10_j(const p8e0_t a) {
+extern "C"    p8e0_t p8e0_log10_e(const p8e0_t a) {
   p8e0_t pres;
   int status = sanitize_log10_8(a.udata);
   switch (status){
    case 1: pres.udata = P8ZER; return pres;
    case 2: pres.udata = P8INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P8ZER; errno = EDOM; return pres;
   }
 
   float fres = log10(p8e0_to_f(a));
@@ -1076,13 +1076,13 @@ extern "C"    int p8e1_log10(p8e1_t * res, const p8e1_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p8e1_t p8e1_log10_j(const p8e1_t a) {
+extern "C"    p8e1_t p8e1_log10_e(const p8e1_t a) {
   p8e1_t pres;
   int status = sanitize_log10_8(a.udata);
   switch (status){
    case 1: pres.udata = P8ZER; return pres;
    case 2: pres.udata = P8INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P8ZER; errno = EDOM; return pres;
   }
 
   float fres = log10(p8e1_to_f(a));
@@ -1105,13 +1105,13 @@ extern "C"    int p8e2_log10(p8e2_t * res, const p8e2_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p8e2_t p8e2_log10_j(const p8e2_t a) {
+extern "C"    p8e2_t p8e2_log10_e(const p8e2_t a) {
   p8e2_t pres;
   int status = sanitize_log10_8(a.udata);
   switch (status){
    case 1: pres.udata = P8ZER; return pres;
    case 2: pres.udata = P8INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P8ZER; errno = EDOM; return pres;
   }
 
   float fres = log10(p8e2_to_f(a));
@@ -1150,13 +1150,13 @@ extern "C"    int p16e0_log10(p16e0_t * res, const p16e0_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p16e0_t p16e0_log10_j(const p16e0_t a) {
+extern "C"    p16e0_t p16e0_log10_e(const p16e0_t a) {
   p16e0_t pres;
   int status = sanitize_log10_16(a.udata);
   switch (status){
    case 1: pres.udata = P16ZER; return pres;
    case 2: pres.udata = P16INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P16ZER; errno = EDOM; return pres;
   }
 
   float fres = log10(p16e0_to_f(a));
@@ -1179,13 +1179,13 @@ extern "C"    int p16e1_log10(p16e1_t * res, const p16e1_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p16e1_t p16e1_log10_j(const p16e1_t a) {
+extern "C"    p16e1_t p16e1_log10_e(const p16e1_t a) {
   p16e1_t pres;
   int status = sanitize_log10_16(a.udata);
   switch (status){
    case 1: pres.udata = P16ZER; return pres;
    case 2: pres.udata = P16INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P16ZER; errno = EDOM; return pres;
   }
 
   float fres = log10(p16e1_to_f(a));
@@ -1208,13 +1208,13 @@ extern "C"    int p16e2_log10(p16e2_t * res, const p16e2_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p16e2_t p16e2_log10_j(const p16e2_t a) {
+extern "C"    p16e2_t p16e2_log10_e(const p16e2_t a) {
   p16e2_t pres;
   int status = sanitize_log10_16(a.udata);
   switch (status){
    case 1: pres.udata = P16ZER; return pres;
    case 2: pres.udata = P16INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P16ZER; errno = EDOM; return pres;
   }
 
   float fres = log10(p16e2_to_f(a));
@@ -1253,13 +1253,13 @@ extern "C"    int p32e0_log10(p32e0_t * res, const p32e0_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e0_t p32e0_log10_j(const p32e0_t a) {
+extern "C"    p32e0_t p32e0_log10_e(const p32e0_t a) {
   p32e0_t pres;
   int status = sanitize_log10_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = log10(p32e0_to_f(a));
@@ -1282,13 +1282,13 @@ extern "C"    int p32e1_log10(p32e1_t * res, const p32e1_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e1_t p32e1_log10_j(const p32e1_t a) {
+extern "C"    p32e1_t p32e1_log10_e(const p32e1_t a) {
   p32e1_t pres;
   int status = sanitize_log10_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = log10(p32e1_to_f(a));
@@ -1311,13 +1311,13 @@ extern "C"    int p32e2_log10(p32e2_t * res, const p32e2_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e2_t p32e2_log10_j(const p32e2_t a) {
+extern "C"    p32e2_t p32e2_log10_e(const p32e2_t a) {
   p32e2_t pres;
   int status = sanitize_log10_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = log10(p32e2_to_f(a));
@@ -1340,13 +1340,13 @@ extern "C"    int p32e3_log10(p32e3_t * res, const p32e3_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e3_t p32e3_log10_j(const p32e3_t a) {
+extern "C"    p32e3_t p32e3_log10_e(const p32e3_t a) {
   p32e3_t pres;
   int status = sanitize_log10_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = log10(p32e3_to_f(a));
@@ -1384,13 +1384,13 @@ extern "C"    int p8e0_exp(p8e0_t * res, const p8e0_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p8e0_t p8e0_exp_j(const p8e0_t a) {
+extern "C"    p8e0_t p8e0_exp_e(const p8e0_t a) {
   p8e0_t pres;
   int status = sanitize_exp_8(a.udata);
   switch (status){
    case 1: pres.udata = P8ZER; return pres;
    case 2: pres.udata = P8INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P8ZER; errno = EDOM; return pres;
   }
 
   float fres = exp(p8e0_to_f(a));
@@ -1413,13 +1413,13 @@ extern "C"    int p8e1_exp(p8e1_t * res, const p8e1_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p8e1_t p8e1_exp_j(const p8e1_t a) {
+extern "C"    p8e1_t p8e1_exp_e(const p8e1_t a) {
   p8e1_t pres;
   int status = sanitize_exp_8(a.udata);
   switch (status){
    case 1: pres.udata = P8ZER; return pres;
    case 2: pres.udata = P8INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P8ZER; errno = EDOM; return pres;
   }
 
   float fres = exp(p8e1_to_f(a));
@@ -1442,13 +1442,13 @@ extern "C"    int p8e2_exp(p8e2_t * res, const p8e2_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p8e2_t p8e2_exp_j(const p8e2_t a) {
+extern "C"    p8e2_t p8e2_exp_e(const p8e2_t a) {
   p8e2_t pres;
   int status = sanitize_exp_8(a.udata);
   switch (status){
    case 1: pres.udata = P8ZER; return pres;
    case 2: pres.udata = P8INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P8ZER; errno = EDOM; return pres;
   }
 
   float fres = exp(p8e2_to_f(a));
@@ -1485,13 +1485,13 @@ extern "C"    int p16e0_exp(p16e0_t * res, const p16e0_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p16e0_t p16e0_exp_j(const p16e0_t a) {
+extern "C"    p16e0_t p16e0_exp_e(const p16e0_t a) {
   p16e0_t pres;
   int status = sanitize_exp_16(a.udata);
   switch (status){
    case 1: pres.udata = P16ZER; return pres;
    case 2: pres.udata = P16INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P16ZER; errno = EDOM; return pres;
   }
 
   float fres = exp(p16e0_to_f(a));
@@ -1514,13 +1514,13 @@ extern "C"    int p16e1_exp(p16e1_t * res, const p16e1_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p16e1_t p16e1_exp_j(const p16e1_t a) {
+extern "C"    p16e1_t p16e1_exp_e(const p16e1_t a) {
   p16e1_t pres;
   int status = sanitize_exp_16(a.udata);
   switch (status){
    case 1: pres.udata = P16ZER; return pres;
    case 2: pres.udata = P16INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P16ZER; errno = EDOM; return pres;
   }
 
   float fres = exp(p16e1_to_f(a));
@@ -1543,13 +1543,13 @@ extern "C"    int p16e2_exp(p16e2_t * res, const p16e2_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p16e2_t p16e2_exp_j(const p16e2_t a) {
+extern "C"    p16e2_t p16e2_exp_e(const p16e2_t a) {
   p16e2_t pres;
   int status = sanitize_exp_16(a.udata);
   switch (status){
    case 1: pres.udata = P16ZER; return pres;
    case 2: pres.udata = P16INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P16ZER; errno = EDOM; return pres;
   }
 
   float fres = exp(p16e2_to_f(a));
@@ -1586,13 +1586,13 @@ extern "C"    int p32e0_exp(p32e0_t * res, const p32e0_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e0_t p32e0_exp_j(const p32e0_t a) {
+extern "C"    p32e0_t p32e0_exp_e(const p32e0_t a) {
   p32e0_t pres;
   int status = sanitize_exp_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = exp(p32e0_to_f(a));
@@ -1615,13 +1615,13 @@ extern "C"    int p32e1_exp(p32e1_t * res, const p32e1_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e1_t p32e1_exp_j(const p32e1_t a) {
+extern "C"    p32e1_t p32e1_exp_e(const p32e1_t a) {
   p32e1_t pres;
   int status = sanitize_exp_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = exp(p32e1_to_f(a));
@@ -1644,13 +1644,13 @@ extern "C"    int p32e2_exp(p32e2_t * res, const p32e2_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e2_t p32e2_exp_j(const p32e2_t a) {
+extern "C"    p32e2_t p32e2_exp_e(const p32e2_t a) {
   p32e2_t pres;
   int status = sanitize_exp_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = exp(p32e2_to_f(a));
@@ -1673,13 +1673,13 @@ extern "C"    int p32e3_exp(p32e3_t * res, const p32e3_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e3_t p32e3_exp_j(const p32e3_t a) {
+extern "C"    p32e3_t p32e3_exp_e(const p32e3_t a) {
   p32e3_t pres;
   int status = sanitize_exp_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = exp(p32e3_to_f(a));
@@ -1697,22 +1697,18 @@ extern "C"    p32e3_t p32e3_exp_j(const p32e3_t a) {
 extern "C"    int p8e0_pow(p8e0_t * res, const p8e0_t a, const p8e0_t b) {
   p8e0_t pres;
 
-    float fres;
-  if (set_nan_jmp()){
-    fres = pow(p8e0_to_f(a), p8e0_to_f(b));
-  } else {
-    return EDOM;
-  }
-;
+  float fres;
+  fres = pow(p8e0_to_f(a), p8e0_to_f(b));
 
   pres = f_to_p8e0(fres);
-  res->udata = pres.udata; return 0;
+  res->udata = pres.udata; return errno;
 }
 
-extern "C"    p8e0_t p8e0_pow_j(const p8e0_t a, const p8e0_t b) {
+extern "C"    p8e0_t p8e0_pow_e(const p8e0_t a, const p8e0_t b) {
   p8e0_t pres;
 
-  float fres = pow(p8e0_to_f(a), p8e0_to_f(b));
+  float fres;
+  fres = pow(p8e0_to_f(a), p8e0_to_f(b));
 
   pres = f_to_p8e0(fres);
   return pres;
@@ -1722,22 +1718,18 @@ extern "C"    p8e0_t p8e0_pow_j(const p8e0_t a, const p8e0_t b) {
 extern "C"    int p8e1_pow(p8e1_t * res, const p8e1_t a, const p8e1_t b) {
   p8e1_t pres;
 
-    float fres;
-  if (set_nan_jmp()){
-    fres = pow(p8e1_to_f(a), p8e1_to_f(b));
-  } else {
-    return EDOM;
-  }
-;
+  float fres;
+  fres = pow(p8e1_to_f(a), p8e1_to_f(b));
 
   pres = f_to_p8e1(fres);
-  res->udata = pres.udata; return 0;
+  res->udata = pres.udata; return errno;
 }
 
-extern "C"    p8e1_t p8e1_pow_j(const p8e1_t a, const p8e1_t b) {
+extern "C"    p8e1_t p8e1_pow_e(const p8e1_t a, const p8e1_t b) {
   p8e1_t pres;
 
-  float fres = pow(p8e1_to_f(a), p8e1_to_f(b));
+  float fres;
+  fres = pow(p8e1_to_f(a), p8e1_to_f(b));
 
   pres = f_to_p8e1(fres);
   return pres;
@@ -1747,22 +1739,18 @@ extern "C"    p8e1_t p8e1_pow_j(const p8e1_t a, const p8e1_t b) {
 extern "C"    int p8e2_pow(p8e2_t * res, const p8e2_t a, const p8e2_t b) {
   p8e2_t pres;
 
-    float fres;
-  if (set_nan_jmp()){
-    fres = pow(p8e2_to_f(a), p8e2_to_f(b));
-  } else {
-    return EDOM;
-  }
-;
+  float fres;
+  fres = pow(p8e2_to_f(a), p8e2_to_f(b));
 
   pres = f_to_p8e2(fres);
-  res->udata = pres.udata; return 0;
+  res->udata = pres.udata; return errno;
 }
 
-extern "C"    p8e2_t p8e2_pow_j(const p8e2_t a, const p8e2_t b) {
+extern "C"    p8e2_t p8e2_pow_e(const p8e2_t a, const p8e2_t b) {
   p8e2_t pres;
 
-  float fres = pow(p8e2_to_f(a), p8e2_to_f(b));
+  float fres;
+  fres = pow(p8e2_to_f(a), p8e2_to_f(b));
 
   pres = f_to_p8e2(fres);
   return pres;
@@ -1777,22 +1765,18 @@ extern "C"    p8e2_t p8e2_pow_j(const p8e2_t a, const p8e2_t b) {
 extern "C"    int p16e0_pow(p16e0_t * res, const p16e0_t a, const p16e0_t b) {
   p16e0_t pres;
 
-    float fres;
-  if (set_nan_jmp()){
-    fres = pow(p16e0_to_f(a), p16e0_to_f(b));
-  } else {
-    return EDOM;
-  }
-;
+  float fres;
+  fres = pow(p16e0_to_f(a), p16e0_to_f(b));
 
   pres = f_to_p16e0(fres);
-  res->udata = pres.udata; return 0;
+  res->udata = pres.udata; return errno;
 }
 
-extern "C"    p16e0_t p16e0_pow_j(const p16e0_t a, const p16e0_t b) {
+extern "C"    p16e0_t p16e0_pow_e(const p16e0_t a, const p16e0_t b) {
   p16e0_t pres;
 
-  float fres = pow(p16e0_to_f(a), p16e0_to_f(b));
+  float fres;
+  fres = pow(p16e0_to_f(a), p16e0_to_f(b));
 
   pres = f_to_p16e0(fres);
   return pres;
@@ -1802,22 +1786,18 @@ extern "C"    p16e0_t p16e0_pow_j(const p16e0_t a, const p16e0_t b) {
 extern "C"    int p16e1_pow(p16e1_t * res, const p16e1_t a, const p16e1_t b) {
   p16e1_t pres;
 
-    float fres;
-  if (set_nan_jmp()){
-    fres = pow(p16e1_to_f(a), p16e1_to_f(b));
-  } else {
-    return EDOM;
-  }
-;
+  float fres;
+  fres = pow(p16e1_to_f(a), p16e1_to_f(b));
 
   pres = f_to_p16e1(fres);
-  res->udata = pres.udata; return 0;
+  res->udata = pres.udata; return errno;
 }
 
-extern "C"    p16e1_t p16e1_pow_j(const p16e1_t a, const p16e1_t b) {
+extern "C"    p16e1_t p16e1_pow_e(const p16e1_t a, const p16e1_t b) {
   p16e1_t pres;
 
-  float fres = pow(p16e1_to_f(a), p16e1_to_f(b));
+  float fres;
+  fres = pow(p16e1_to_f(a), p16e1_to_f(b));
 
   pres = f_to_p16e1(fres);
   return pres;
@@ -1827,22 +1807,18 @@ extern "C"    p16e1_t p16e1_pow_j(const p16e1_t a, const p16e1_t b) {
 extern "C"    int p16e2_pow(p16e2_t * res, const p16e2_t a, const p16e2_t b) {
   p16e2_t pres;
 
-    float fres;
-  if (set_nan_jmp()){
-    fres = pow(p16e2_to_f(a), p16e2_to_f(b));
-  } else {
-    return EDOM;
-  }
-;
+  float fres;
+  fres = pow(p16e2_to_f(a), p16e2_to_f(b));
 
   pres = f_to_p16e2(fres);
-  res->udata = pres.udata; return 0;
+  res->udata = pres.udata; return errno;
 }
 
-extern "C"    p16e2_t p16e2_pow_j(const p16e2_t a, const p16e2_t b) {
+extern "C"    p16e2_t p16e2_pow_e(const p16e2_t a, const p16e2_t b) {
   p16e2_t pres;
 
-  float fres = pow(p16e2_to_f(a), p16e2_to_f(b));
+  float fres;
+  fres = pow(p16e2_to_f(a), p16e2_to_f(b));
 
   pres = f_to_p16e2(fres);
   return pres;
@@ -1857,22 +1833,18 @@ extern "C"    p16e2_t p16e2_pow_j(const p16e2_t a, const p16e2_t b) {
 extern "C"    int p32e0_pow(p32e0_t * res, const p32e0_t a, const p32e0_t b) {
   p32e0_t pres;
 
-    double fres;
-  if (set_nan_jmp()){
-    fres = pow(p32e0_to_f(a), p32e0_to_f(b));
-  } else {
-    return EDOM;
-  }
-;
+  double fres;
+  fres = pow(p32e0_to_f(a), p32e0_to_f(b));
 
   pres = f_to_p32e0(fres);
-  res->udata = pres.udata; return 0;
+  res->udata = pres.udata; return errno;
 }
 
-extern "C"    p32e0_t p32e0_pow_j(const p32e0_t a, const p32e0_t b) {
+extern "C"    p32e0_t p32e0_pow_e(const p32e0_t a, const p32e0_t b) {
   p32e0_t pres;
 
-  double fres = pow(p32e0_to_f(a), p32e0_to_f(b));
+  double fres;
+  fres = pow(p32e0_to_f(a), p32e0_to_f(b));
 
   pres = f_to_p32e0(fres);
   return pres;
@@ -1882,22 +1854,18 @@ extern "C"    p32e0_t p32e0_pow_j(const p32e0_t a, const p32e0_t b) {
 extern "C"    int p32e1_pow(p32e1_t * res, const p32e1_t a, const p32e1_t b) {
   p32e1_t pres;
 
-    double fres;
-  if (set_nan_jmp()){
-    fres = pow(p32e1_to_f(a), p32e1_to_f(b));
-  } else {
-    return EDOM;
-  }
-;
+  double fres;
+  fres = pow(p32e1_to_f(a), p32e1_to_f(b));
 
   pres = f_to_p32e1(fres);
-  res->udata = pres.udata; return 0;
+  res->udata = pres.udata; return errno;
 }
 
-extern "C"    p32e1_t p32e1_pow_j(const p32e1_t a, const p32e1_t b) {
+extern "C"    p32e1_t p32e1_pow_e(const p32e1_t a, const p32e1_t b) {
   p32e1_t pres;
 
-  double fres = pow(p32e1_to_f(a), p32e1_to_f(b));
+  double fres;
+  fres = pow(p32e1_to_f(a), p32e1_to_f(b));
 
   pres = f_to_p32e1(fres);
   return pres;
@@ -1907,22 +1875,18 @@ extern "C"    p32e1_t p32e1_pow_j(const p32e1_t a, const p32e1_t b) {
 extern "C"    int p32e2_pow(p32e2_t * res, const p32e2_t a, const p32e2_t b) {
   p32e2_t pres;
 
-    double fres;
-  if (set_nan_jmp()){
-    fres = pow(p32e2_to_f(a), p32e2_to_f(b));
-  } else {
-    return EDOM;
-  }
-;
+  double fres;
+  fres = pow(p32e2_to_f(a), p32e2_to_f(b));
 
   pres = f_to_p32e2(fres);
-  res->udata = pres.udata; return 0;
+  res->udata = pres.udata; return errno;
 }
 
-extern "C"    p32e2_t p32e2_pow_j(const p32e2_t a, const p32e2_t b) {
+extern "C"    p32e2_t p32e2_pow_e(const p32e2_t a, const p32e2_t b) {
   p32e2_t pres;
 
-  double fres = pow(p32e2_to_f(a), p32e2_to_f(b));
+  double fres;
+  fres = pow(p32e2_to_f(a), p32e2_to_f(b));
 
   pres = f_to_p32e2(fres);
   return pres;
@@ -1932,22 +1896,18 @@ extern "C"    p32e2_t p32e2_pow_j(const p32e2_t a, const p32e2_t b) {
 extern "C"    int p32e3_pow(p32e3_t * res, const p32e3_t a, const p32e3_t b) {
   p32e3_t pres;
 
-    double fres;
-  if (set_nan_jmp()){
-    fres = pow(p32e3_to_f(a), p32e3_to_f(b));
-  } else {
-    return EDOM;
-  }
-;
+  double fres;
+  fres = pow(p32e3_to_f(a), p32e3_to_f(b));
 
   pres = f_to_p32e3(fres);
-  res->udata = pres.udata; return 0;
+  res->udata = pres.udata; return errno;
 }
 
-extern "C"    p32e3_t p32e3_pow_j(const p32e3_t a, const p32e3_t b) {
+extern "C"    p32e3_t p32e3_pow_e(const p32e3_t a, const p32e3_t b) {
   p32e3_t pres;
 
-  double fres = pow(p32e3_to_f(a), p32e3_to_f(b));
+  double fres;
+  fres = pow(p32e3_to_f(a), p32e3_to_f(b));
 
   pres = f_to_p32e3(fres);
   return pres;
@@ -1983,13 +1943,13 @@ extern "C"    int p8e0_sin(p8e0_t * res, const p8e0_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p8e0_t p8e0_sin_j(const p8e0_t a) {
+extern "C"    p8e0_t p8e0_sin_e(const p8e0_t a) {
   p8e0_t pres;
   int status = sanitize_sin_8(a.udata);
   switch (status){
    case 1: pres.udata = P8ZER; return pres;
    case 2: pres.udata = P8INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P8ZER; errno = EDOM; return pres;
   }
 
   float fres = sin(p8e0_to_f(a));
@@ -2012,13 +1972,13 @@ extern "C"    int p8e1_sin(p8e1_t * res, const p8e1_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p8e1_t p8e1_sin_j(const p8e1_t a) {
+extern "C"    p8e1_t p8e1_sin_e(const p8e1_t a) {
   p8e1_t pres;
   int status = sanitize_sin_8(a.udata);
   switch (status){
    case 1: pres.udata = P8ZER; return pres;
    case 2: pres.udata = P8INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P8ZER; errno = EDOM; return pres;
   }
 
   float fres = sin(p8e1_to_f(a));
@@ -2041,13 +2001,13 @@ extern "C"    int p8e2_sin(p8e2_t * res, const p8e2_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p8e2_t p8e2_sin_j(const p8e2_t a) {
+extern "C"    p8e2_t p8e2_sin_e(const p8e2_t a) {
   p8e2_t pres;
   int status = sanitize_sin_8(a.udata);
   switch (status){
    case 1: pres.udata = P8ZER; return pres;
    case 2: pres.udata = P8INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P8ZER; errno = EDOM; return pres;
   }
 
   float fres = sin(p8e2_to_f(a));
@@ -2084,13 +2044,13 @@ extern "C"    int p16e0_sin(p16e0_t * res, const p16e0_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p16e0_t p16e0_sin_j(const p16e0_t a) {
+extern "C"    p16e0_t p16e0_sin_e(const p16e0_t a) {
   p16e0_t pres;
   int status = sanitize_sin_16(a.udata);
   switch (status){
    case 1: pres.udata = P16ZER; return pres;
    case 2: pres.udata = P16INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P16ZER; errno = EDOM; return pres;
   }
 
   float fres = sin(p16e0_to_f(a));
@@ -2113,13 +2073,13 @@ extern "C"    int p16e1_sin(p16e1_t * res, const p16e1_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p16e1_t p16e1_sin_j(const p16e1_t a) {
+extern "C"    p16e1_t p16e1_sin_e(const p16e1_t a) {
   p16e1_t pres;
   int status = sanitize_sin_16(a.udata);
   switch (status){
    case 1: pres.udata = P16ZER; return pres;
    case 2: pres.udata = P16INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P16ZER; errno = EDOM; return pres;
   }
 
   float fres = sin(p16e1_to_f(a));
@@ -2142,13 +2102,13 @@ extern "C"    int p16e2_sin(p16e2_t * res, const p16e2_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p16e2_t p16e2_sin_j(const p16e2_t a) {
+extern "C"    p16e2_t p16e2_sin_e(const p16e2_t a) {
   p16e2_t pres;
   int status = sanitize_sin_16(a.udata);
   switch (status){
    case 1: pres.udata = P16ZER; return pres;
    case 2: pres.udata = P16INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P16ZER; errno = EDOM; return pres;
   }
 
   float fres = sin(p16e2_to_f(a));
@@ -2185,13 +2145,13 @@ extern "C"    int p32e0_sin(p32e0_t * res, const p32e0_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e0_t p32e0_sin_j(const p32e0_t a) {
+extern "C"    p32e0_t p32e0_sin_e(const p32e0_t a) {
   p32e0_t pres;
   int status = sanitize_sin_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = sin(p32e0_to_f(a));
@@ -2214,13 +2174,13 @@ extern "C"    int p32e1_sin(p32e1_t * res, const p32e1_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e1_t p32e1_sin_j(const p32e1_t a) {
+extern "C"    p32e1_t p32e1_sin_e(const p32e1_t a) {
   p32e1_t pres;
   int status = sanitize_sin_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = sin(p32e1_to_f(a));
@@ -2243,13 +2203,13 @@ extern "C"    int p32e2_sin(p32e2_t * res, const p32e2_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e2_t p32e2_sin_j(const p32e2_t a) {
+extern "C"    p32e2_t p32e2_sin_e(const p32e2_t a) {
   p32e2_t pres;
   int status = sanitize_sin_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = sin(p32e2_to_f(a));
@@ -2272,13 +2232,13 @@ extern "C"    int p32e3_sin(p32e3_t * res, const p32e3_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e3_t p32e3_sin_j(const p32e3_t a) {
+extern "C"    p32e3_t p32e3_sin_e(const p32e3_t a) {
   p32e3_t pres;
   int status = sanitize_sin_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = sin(p32e3_to_f(a));
@@ -2316,13 +2276,13 @@ extern "C"    int p8e0_cos(p8e0_t * res, const p8e0_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p8e0_t p8e0_cos_j(const p8e0_t a) {
+extern "C"    p8e0_t p8e0_cos_e(const p8e0_t a) {
   p8e0_t pres;
   int status = sanitize_cos_8(a.udata);
   switch (status){
    case 1: pres.udata = P8ZER; return pres;
    case 2: pres.udata = P8INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P8ZER; errno = EDOM; return pres;
   }
 
   float fres = cos(p8e0_to_f(a));
@@ -2345,13 +2305,13 @@ extern "C"    int p8e1_cos(p8e1_t * res, const p8e1_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p8e1_t p8e1_cos_j(const p8e1_t a) {
+extern "C"    p8e1_t p8e1_cos_e(const p8e1_t a) {
   p8e1_t pres;
   int status = sanitize_cos_8(a.udata);
   switch (status){
    case 1: pres.udata = P8ZER; return pres;
    case 2: pres.udata = P8INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P8ZER; errno = EDOM; return pres;
   }
 
   float fres = cos(p8e1_to_f(a));
@@ -2374,13 +2334,13 @@ extern "C"    int p8e2_cos(p8e2_t * res, const p8e2_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p8e2_t p8e2_cos_j(const p8e2_t a) {
+extern "C"    p8e2_t p8e2_cos_e(const p8e2_t a) {
   p8e2_t pres;
   int status = sanitize_cos_8(a.udata);
   switch (status){
    case 1: pres.udata = P8ZER; return pres;
    case 2: pres.udata = P8INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P8ZER; errno = EDOM; return pres;
   }
 
   float fres = cos(p8e2_to_f(a));
@@ -2417,13 +2377,13 @@ extern "C"    int p16e0_cos(p16e0_t * res, const p16e0_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p16e0_t p16e0_cos_j(const p16e0_t a) {
+extern "C"    p16e0_t p16e0_cos_e(const p16e0_t a) {
   p16e0_t pres;
   int status = sanitize_cos_16(a.udata);
   switch (status){
    case 1: pres.udata = P16ZER; return pres;
    case 2: pres.udata = P16INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P16ZER; errno = EDOM; return pres;
   }
 
   float fres = cos(p16e0_to_f(a));
@@ -2446,13 +2406,13 @@ extern "C"    int p16e1_cos(p16e1_t * res, const p16e1_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p16e1_t p16e1_cos_j(const p16e1_t a) {
+extern "C"    p16e1_t p16e1_cos_e(const p16e1_t a) {
   p16e1_t pres;
   int status = sanitize_cos_16(a.udata);
   switch (status){
    case 1: pres.udata = P16ZER; return pres;
    case 2: pres.udata = P16INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P16ZER; errno = EDOM; return pres;
   }
 
   float fres = cos(p16e1_to_f(a));
@@ -2475,13 +2435,13 @@ extern "C"    int p16e2_cos(p16e2_t * res, const p16e2_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p16e2_t p16e2_cos_j(const p16e2_t a) {
+extern "C"    p16e2_t p16e2_cos_e(const p16e2_t a) {
   p16e2_t pres;
   int status = sanitize_cos_16(a.udata);
   switch (status){
    case 1: pres.udata = P16ZER; return pres;
    case 2: pres.udata = P16INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P16ZER; errno = EDOM; return pres;
   }
 
   float fres = cos(p16e2_to_f(a));
@@ -2518,13 +2478,13 @@ extern "C"    int p32e0_cos(p32e0_t * res, const p32e0_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e0_t p32e0_cos_j(const p32e0_t a) {
+extern "C"    p32e0_t p32e0_cos_e(const p32e0_t a) {
   p32e0_t pres;
   int status = sanitize_cos_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = cos(p32e0_to_f(a));
@@ -2547,13 +2507,13 @@ extern "C"    int p32e1_cos(p32e1_t * res, const p32e1_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e1_t p32e1_cos_j(const p32e1_t a) {
+extern "C"    p32e1_t p32e1_cos_e(const p32e1_t a) {
   p32e1_t pres;
   int status = sanitize_cos_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = cos(p32e1_to_f(a));
@@ -2576,13 +2536,13 @@ extern "C"    int p32e2_cos(p32e2_t * res, const p32e2_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e2_t p32e2_cos_j(const p32e2_t a) {
+extern "C"    p32e2_t p32e2_cos_e(const p32e2_t a) {
   p32e2_t pres;
   int status = sanitize_cos_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = cos(p32e2_to_f(a));
@@ -2605,13 +2565,13 @@ extern "C"    int p32e3_cos(p32e3_t * res, const p32e3_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e3_t p32e3_cos_j(const p32e3_t a) {
+extern "C"    p32e3_t p32e3_cos_e(const p32e3_t a) {
   p32e3_t pres;
   int status = sanitize_cos_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = cos(p32e3_to_f(a));
@@ -2649,13 +2609,13 @@ extern "C"    int p8e0_atan(p8e0_t * res, const p8e0_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p8e0_t p8e0_atan_j(const p8e0_t a) {
+extern "C"    p8e0_t p8e0_atan_e(const p8e0_t a) {
   p8e0_t pres;
   int status = sanitize_atan_8(a.udata);
   switch (status){
    case 1: pres.udata = P8ZER; return pres;
    case 2: pres.udata = P8INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P8ZER; errno = EDOM; return pres;
   }
 
   float fres = atan(p8e0_to_f(a));
@@ -2678,13 +2638,13 @@ extern "C"    int p8e1_atan(p8e1_t * res, const p8e1_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p8e1_t p8e1_atan_j(const p8e1_t a) {
+extern "C"    p8e1_t p8e1_atan_e(const p8e1_t a) {
   p8e1_t pres;
   int status = sanitize_atan_8(a.udata);
   switch (status){
    case 1: pres.udata = P8ZER; return pres;
    case 2: pres.udata = P8INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P8ZER; errno = EDOM; return pres;
   }
 
   float fres = atan(p8e1_to_f(a));
@@ -2707,13 +2667,13 @@ extern "C"    int p8e2_atan(p8e2_t * res, const p8e2_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p8e2_t p8e2_atan_j(const p8e2_t a) {
+extern "C"    p8e2_t p8e2_atan_e(const p8e2_t a) {
   p8e2_t pres;
   int status = sanitize_atan_8(a.udata);
   switch (status){
    case 1: pres.udata = P8ZER; return pres;
    case 2: pres.udata = P8INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P8ZER; errno = EDOM; return pres;
   }
 
   float fres = atan(p8e2_to_f(a));
@@ -2750,13 +2710,13 @@ extern "C"    int p16e0_atan(p16e0_t * res, const p16e0_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p16e0_t p16e0_atan_j(const p16e0_t a) {
+extern "C"    p16e0_t p16e0_atan_e(const p16e0_t a) {
   p16e0_t pres;
   int status = sanitize_atan_16(a.udata);
   switch (status){
    case 1: pres.udata = P16ZER; return pres;
    case 2: pres.udata = P16INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P16ZER; errno = EDOM; return pres;
   }
 
   float fres = atan(p16e0_to_f(a));
@@ -2779,13 +2739,13 @@ extern "C"    int p16e1_atan(p16e1_t * res, const p16e1_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p16e1_t p16e1_atan_j(const p16e1_t a) {
+extern "C"    p16e1_t p16e1_atan_e(const p16e1_t a) {
   p16e1_t pres;
   int status = sanitize_atan_16(a.udata);
   switch (status){
    case 1: pres.udata = P16ZER; return pres;
    case 2: pres.udata = P16INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P16ZER; errno = EDOM; return pres;
   }
 
   float fres = atan(p16e1_to_f(a));
@@ -2808,13 +2768,13 @@ extern "C"    int p16e2_atan(p16e2_t * res, const p16e2_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p16e2_t p16e2_atan_j(const p16e2_t a) {
+extern "C"    p16e2_t p16e2_atan_e(const p16e2_t a) {
   p16e2_t pres;
   int status = sanitize_atan_16(a.udata);
   switch (status){
    case 1: pres.udata = P16ZER; return pres;
    case 2: pres.udata = P16INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P16ZER; errno = EDOM; return pres;
   }
 
   float fres = atan(p16e2_to_f(a));
@@ -2851,13 +2811,13 @@ extern "C"    int p32e0_atan(p32e0_t * res, const p32e0_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e0_t p32e0_atan_j(const p32e0_t a) {
+extern "C"    p32e0_t p32e0_atan_e(const p32e0_t a) {
   p32e0_t pres;
   int status = sanitize_atan_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = atan(p32e0_to_f(a));
@@ -2880,13 +2840,13 @@ extern "C"    int p32e1_atan(p32e1_t * res, const p32e1_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e1_t p32e1_atan_j(const p32e1_t a) {
+extern "C"    p32e1_t p32e1_atan_e(const p32e1_t a) {
   p32e1_t pres;
   int status = sanitize_atan_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = atan(p32e1_to_f(a));
@@ -2909,13 +2869,13 @@ extern "C"    int p32e2_atan(p32e2_t * res, const p32e2_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e2_t p32e2_atan_j(const p32e2_t a) {
+extern "C"    p32e2_t p32e2_atan_e(const p32e2_t a) {
   p32e2_t pres;
   int status = sanitize_atan_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = atan(p32e2_to_f(a));
@@ -2938,13 +2898,13 @@ extern "C"    int p32e3_atan(p32e3_t * res, const p32e3_t a) {
   res->udata = pres.udata; return 0;
 }
 
-extern "C"    p32e3_t p32e3_atan_j(const p32e3_t a) {
+extern "C"    p32e3_t p32e3_atan_e(const p32e3_t a) {
   p32e3_t pres;
   int status = sanitize_atan_32(a.udata);
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: throw_nan_jmp();
+   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
   }
 
   double fres = atan(p32e3_to_f(a));
@@ -2962,22 +2922,18 @@ extern "C"    p32e3_t p32e3_atan_j(const p32e3_t a) {
 extern "C"    int p8e0_atan2(p8e0_t * res, const p8e0_t a, const p8e0_t b) {
   p8e0_t pres;
 
-    float fres;
-  if (set_nan_jmp()){
-    fres = atan2(p8e0_to_f(a), p8e0_to_f(b));
-  } else {
-    return EDOM;
-  }
-;
+  float fres;
+  fres = atan2(p8e0_to_f(a), p8e0_to_f(b));
 
   pres = f_to_p8e0(fres);
-  res->udata = pres.udata; return 0;
+  res->udata = pres.udata; return errno;
 }
 
-extern "C"    p8e0_t p8e0_atan2_j(const p8e0_t a, const p8e0_t b) {
+extern "C"    p8e0_t p8e0_atan2_e(const p8e0_t a, const p8e0_t b) {
   p8e0_t pres;
 
-  float fres = atan2(p8e0_to_f(a), p8e0_to_f(b));
+  float fres;
+  fres = atan2(p8e0_to_f(a), p8e0_to_f(b));
 
   pres = f_to_p8e0(fres);
   return pres;
@@ -2987,22 +2943,18 @@ extern "C"    p8e0_t p8e0_atan2_j(const p8e0_t a, const p8e0_t b) {
 extern "C"    int p8e1_atan2(p8e1_t * res, const p8e1_t a, const p8e1_t b) {
   p8e1_t pres;
 
-    float fres;
-  if (set_nan_jmp()){
-    fres = atan2(p8e1_to_f(a), p8e1_to_f(b));
-  } else {
-    return EDOM;
-  }
-;
+  float fres;
+  fres = atan2(p8e1_to_f(a), p8e1_to_f(b));
 
   pres = f_to_p8e1(fres);
-  res->udata = pres.udata; return 0;
+  res->udata = pres.udata; return errno;
 }
 
-extern "C"    p8e1_t p8e1_atan2_j(const p8e1_t a, const p8e1_t b) {
+extern "C"    p8e1_t p8e1_atan2_e(const p8e1_t a, const p8e1_t b) {
   p8e1_t pres;
 
-  float fres = atan2(p8e1_to_f(a), p8e1_to_f(b));
+  float fres;
+  fres = atan2(p8e1_to_f(a), p8e1_to_f(b));
 
   pres = f_to_p8e1(fres);
   return pres;
@@ -3012,22 +2964,18 @@ extern "C"    p8e1_t p8e1_atan2_j(const p8e1_t a, const p8e1_t b) {
 extern "C"    int p8e2_atan2(p8e2_t * res, const p8e2_t a, const p8e2_t b) {
   p8e2_t pres;
 
-    float fres;
-  if (set_nan_jmp()){
-    fres = atan2(p8e2_to_f(a), p8e2_to_f(b));
-  } else {
-    return EDOM;
-  }
-;
+  float fres;
+  fres = atan2(p8e2_to_f(a), p8e2_to_f(b));
 
   pres = f_to_p8e2(fres);
-  res->udata = pres.udata; return 0;
+  res->udata = pres.udata; return errno;
 }
 
-extern "C"    p8e2_t p8e2_atan2_j(const p8e2_t a, const p8e2_t b) {
+extern "C"    p8e2_t p8e2_atan2_e(const p8e2_t a, const p8e2_t b) {
   p8e2_t pres;
 
-  float fres = atan2(p8e2_to_f(a), p8e2_to_f(b));
+  float fres;
+  fres = atan2(p8e2_to_f(a), p8e2_to_f(b));
 
   pres = f_to_p8e2(fres);
   return pres;
@@ -3042,22 +2990,18 @@ extern "C"    p8e2_t p8e2_atan2_j(const p8e2_t a, const p8e2_t b) {
 extern "C"    int p16e0_atan2(p16e0_t * res, const p16e0_t a, const p16e0_t b) {
   p16e0_t pres;
 
-    float fres;
-  if (set_nan_jmp()){
-    fres = atan2(p16e0_to_f(a), p16e0_to_f(b));
-  } else {
-    return EDOM;
-  }
-;
+  float fres;
+  fres = atan2(p16e0_to_f(a), p16e0_to_f(b));
 
   pres = f_to_p16e0(fres);
-  res->udata = pres.udata; return 0;
+  res->udata = pres.udata; return errno;
 }
 
-extern "C"    p16e0_t p16e0_atan2_j(const p16e0_t a, const p16e0_t b) {
+extern "C"    p16e0_t p16e0_atan2_e(const p16e0_t a, const p16e0_t b) {
   p16e0_t pres;
 
-  float fres = atan2(p16e0_to_f(a), p16e0_to_f(b));
+  float fres;
+  fres = atan2(p16e0_to_f(a), p16e0_to_f(b));
 
   pres = f_to_p16e0(fres);
   return pres;
@@ -3067,22 +3011,18 @@ extern "C"    p16e0_t p16e0_atan2_j(const p16e0_t a, const p16e0_t b) {
 extern "C"    int p16e1_atan2(p16e1_t * res, const p16e1_t a, const p16e1_t b) {
   p16e1_t pres;
 
-    float fres;
-  if (set_nan_jmp()){
-    fres = atan2(p16e1_to_f(a), p16e1_to_f(b));
-  } else {
-    return EDOM;
-  }
-;
+  float fres;
+  fres = atan2(p16e1_to_f(a), p16e1_to_f(b));
 
   pres = f_to_p16e1(fres);
-  res->udata = pres.udata; return 0;
+  res->udata = pres.udata; return errno;
 }
 
-extern "C"    p16e1_t p16e1_atan2_j(const p16e1_t a, const p16e1_t b) {
+extern "C"    p16e1_t p16e1_atan2_e(const p16e1_t a, const p16e1_t b) {
   p16e1_t pres;
 
-  float fres = atan2(p16e1_to_f(a), p16e1_to_f(b));
+  float fres;
+  fres = atan2(p16e1_to_f(a), p16e1_to_f(b));
 
   pres = f_to_p16e1(fres);
   return pres;
@@ -3092,22 +3032,18 @@ extern "C"    p16e1_t p16e1_atan2_j(const p16e1_t a, const p16e1_t b) {
 extern "C"    int p16e2_atan2(p16e2_t * res, const p16e2_t a, const p16e2_t b) {
   p16e2_t pres;
 
-    float fres;
-  if (set_nan_jmp()){
-    fres = atan2(p16e2_to_f(a), p16e2_to_f(b));
-  } else {
-    return EDOM;
-  }
-;
+  float fres;
+  fres = atan2(p16e2_to_f(a), p16e2_to_f(b));
 
   pres = f_to_p16e2(fres);
-  res->udata = pres.udata; return 0;
+  res->udata = pres.udata; return errno;
 }
 
-extern "C"    p16e2_t p16e2_atan2_j(const p16e2_t a, const p16e2_t b) {
+extern "C"    p16e2_t p16e2_atan2_e(const p16e2_t a, const p16e2_t b) {
   p16e2_t pres;
 
-  float fres = atan2(p16e2_to_f(a), p16e2_to_f(b));
+  float fres;
+  fres = atan2(p16e2_to_f(a), p16e2_to_f(b));
 
   pres = f_to_p16e2(fres);
   return pres;
@@ -3122,22 +3058,18 @@ extern "C"    p16e2_t p16e2_atan2_j(const p16e2_t a, const p16e2_t b) {
 extern "C"    int p32e0_atan2(p32e0_t * res, const p32e0_t a, const p32e0_t b) {
   p32e0_t pres;
 
-    double fres;
-  if (set_nan_jmp()){
-    fres = atan2(p32e0_to_f(a), p32e0_to_f(b));
-  } else {
-    return EDOM;
-  }
-;
+  double fres;
+  fres = atan2(p32e0_to_f(a), p32e0_to_f(b));
 
   pres = f_to_p32e0(fres);
-  res->udata = pres.udata; return 0;
+  res->udata = pres.udata; return errno;
 }
 
-extern "C"    p32e0_t p32e0_atan2_j(const p32e0_t a, const p32e0_t b) {
+extern "C"    p32e0_t p32e0_atan2_e(const p32e0_t a, const p32e0_t b) {
   p32e0_t pres;
 
-  double fres = atan2(p32e0_to_f(a), p32e0_to_f(b));
+  double fres;
+  fres = atan2(p32e0_to_f(a), p32e0_to_f(b));
 
   pres = f_to_p32e0(fres);
   return pres;
@@ -3147,22 +3079,18 @@ extern "C"    p32e0_t p32e0_atan2_j(const p32e0_t a, const p32e0_t b) {
 extern "C"    int p32e1_atan2(p32e1_t * res, const p32e1_t a, const p32e1_t b) {
   p32e1_t pres;
 
-    double fres;
-  if (set_nan_jmp()){
-    fres = atan2(p32e1_to_f(a), p32e1_to_f(b));
-  } else {
-    return EDOM;
-  }
-;
+  double fres;
+  fres = atan2(p32e1_to_f(a), p32e1_to_f(b));
 
   pres = f_to_p32e1(fres);
-  res->udata = pres.udata; return 0;
+  res->udata = pres.udata; return errno;
 }
 
-extern "C"    p32e1_t p32e1_atan2_j(const p32e1_t a, const p32e1_t b) {
+extern "C"    p32e1_t p32e1_atan2_e(const p32e1_t a, const p32e1_t b) {
   p32e1_t pres;
 
-  double fres = atan2(p32e1_to_f(a), p32e1_to_f(b));
+  double fres;
+  fres = atan2(p32e1_to_f(a), p32e1_to_f(b));
 
   pres = f_to_p32e1(fres);
   return pres;
@@ -3172,22 +3100,18 @@ extern "C"    p32e1_t p32e1_atan2_j(const p32e1_t a, const p32e1_t b) {
 extern "C"    int p32e2_atan2(p32e2_t * res, const p32e2_t a, const p32e2_t b) {
   p32e2_t pres;
 
-    double fres;
-  if (set_nan_jmp()){
-    fres = atan2(p32e2_to_f(a), p32e2_to_f(b));
-  } else {
-    return EDOM;
-  }
-;
+  double fres;
+  fres = atan2(p32e2_to_f(a), p32e2_to_f(b));
 
   pres = f_to_p32e2(fres);
-  res->udata = pres.udata; return 0;
+  res->udata = pres.udata; return errno;
 }
 
-extern "C"    p32e2_t p32e2_atan2_j(const p32e2_t a, const p32e2_t b) {
+extern "C"    p32e2_t p32e2_atan2_e(const p32e2_t a, const p32e2_t b) {
   p32e2_t pres;
 
-  double fres = atan2(p32e2_to_f(a), p32e2_to_f(b));
+  double fres;
+  fres = atan2(p32e2_to_f(a), p32e2_to_f(b));
 
   pres = f_to_p32e2(fres);
   return pres;
@@ -3197,22 +3121,18 @@ extern "C"    p32e2_t p32e2_atan2_j(const p32e2_t a, const p32e2_t b) {
 extern "C"    int p32e3_atan2(p32e3_t * res, const p32e3_t a, const p32e3_t b) {
   p32e3_t pres;
 
-    double fres;
-  if (set_nan_jmp()){
-    fres = atan2(p32e3_to_f(a), p32e3_to_f(b));
-  } else {
-    return EDOM;
-  }
-;
+  double fres;
+  fres = atan2(p32e3_to_f(a), p32e3_to_f(b));
 
   pres = f_to_p32e3(fres);
-  res->udata = pres.udata; return 0;
+  res->udata = pres.udata; return errno;
 }
 
-extern "C"    p32e3_t p32e3_atan2_j(const p32e3_t a, const p32e3_t b) {
+extern "C"    p32e3_t p32e3_atan2_e(const p32e3_t a, const p32e3_t b) {
   p32e3_t pres;
 
-  double fres = atan2(p32e3_to_f(a), p32e3_to_f(b));
+  double fres;
+  fres = atan2(p32e3_to_f(a), p32e3_to_f(b));
 
   pres = f_to_p32e3(fres);
   return pres;

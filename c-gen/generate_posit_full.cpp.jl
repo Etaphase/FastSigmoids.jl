@@ -44,7 +44,7 @@ doc"""
 function unop_fn(n::Integer ,es::Integer, op::Symbol, status::Bool)
   opfn = ops[op][status + 1]
   val = status ? "int" : p(n,es)
-  err = status ? "return EDOM" : "throw_nan_jmp()"
+  err = status ? "return EDOM" : "pres.udata = P$(n)ZER; errno = EDOM; return pres"
   ret = status ? "res->udata = pres.udata; return 0" : "return pres"
 
 """
@@ -69,10 +69,10 @@ doc"""
 """
 function terop_fn(n::Integer, es::Integer, op::Symbol, status::Bool)
   opfn = ops[op][status + 1]
-  quit = status ? "return EDOM" : "throw_nan_jmp()"
+  quit = status ? "return EDOM" : "result.udata = P$(n)INF; errno = EDOM; return result"
   retval = status ? "*res = result; return 0" : "return result"
   """
-$(opfn(n,es)){
+extern "C" $(opfn(n,es)){
     $(p(n,es)) result;
     //two ways to fail: add/sub of infinity or infinity times zero.  Both
     //require at least one of a and b to be infinity.
