@@ -9,8 +9,21 @@ function generate_posit_h(io, posit_defs)
     #include <stdbool.h>
     """)
 
-  #create a section for error handling
+  #define a data structure that holds the environment settings and extern it.
+  write(io, """
+  typedef struct{
+    bool nanmode;
+    bool underflows;
+  } environment_t;
 
+  extern environment_t POSIT_ENV;
+
+  extern void set_nanmode(bool nanmode);
+  extern void set_underflow(bool underflows);
+  """)
+
+
+  #create literal constants.
   for n in sort(collect(keys(posit_defs)))
     T = top_bits(n)
     write(io,"""
@@ -38,18 +51,4 @@ function generate_posit_h(io, posit_defs)
     write(io, "\n")
   end
 
-  #next create a link to the error handler
-  write(io,"""
-
-  //c error handling routines
-  #ifdef __cplusplus
-    extern "C" int set_nan_jmp();
-    extern "C" void throw_nan_jmp();
-  #else
-    extern int set_nan_jmp();
-    extern void throw_nan_jmp();
-  #endif
-
-  #endif
-  """)
 end

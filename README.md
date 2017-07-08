@@ -196,3 +196,8 @@ The following class conversions are overloaded for all posit classes:
 
 **NaN Exceptions** are implemented for the C++ library by throwing a
 domain_error object.  These should be caught using an outside try/catch block.
+
+
+
+FastSigmoid library is a part of the uDESIGN project
+and is supported by DARPA grant HR0011-17-9-0007 awarded to Etaphase, inc.

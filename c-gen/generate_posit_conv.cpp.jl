@@ -70,7 +70,8 @@ static uint$(n)_t $(ftype)_to_p$(n)$(es_fn)($(ftype) fval$(es_hd)){
   int16_t exponent = ((($(c_literal(exp_mask(fpsize))) & (*ival)) >> $(exp_shift(fpsize))) - $(exp_bias(fpsize)));
   //pin the exponent.
   exponent = (exponent > $(max_exp)) ? $(max_exp) : exponent;
-  exponent = (exponent < $(min_exp)) ? $(min_exp) : exponent;
+  //underflow behavior is defined by the POSIT_ENV.underflows setting.
+  exponent = (exponent >= $(min_exp) || POSIT_ENV.underflows) ? exponent : $(min_exp);
 
   $(es_expfrc)
 

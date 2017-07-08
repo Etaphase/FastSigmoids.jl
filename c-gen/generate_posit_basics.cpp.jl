@@ -92,6 +92,12 @@ function generate_posit_basics_cpp(io, posit_defs)
   #include "include/posit.h"
   #include "include/posit_conv.h"
   #include <errno.h>
+
+  environment_t POSIT_ENV = {false, false};
+
+  void set_nanmode(bool nanmode){ POSIT_ENV.nanmode = nanmode; }
+  void set_underflow(bool underflows){ POSIT_ENV.underflows = underflows; }
+
   """)
 
   for fn in BASICS_FNS
