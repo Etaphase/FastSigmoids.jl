@@ -37,11 +37,11 @@ NB:  The C portion of the library is comprehensively validated using Julia.
 basic operations in Posit{8,N} are exhaustively tested and basic operations in
 Posit{16,N} and Posit{32,N} are subjected to broad scope random testing.
 
-## Building the default library (does not require Julia)
+### Building the default library (does not require Julia)
 
-Enter the ./c-src library.  Execute the following commands to generate libfastposit.so.
-The default installation location is /usr/lib - if you'd like it elsewhere,
-simply copy it to the desired location after exceuting `make build`.
+Enter the `./c-src` library.  Execute the following commands to generate libfastposit.so.
+The default installation location is `/usr/lib` - if you'd like it elsewhere,
+simply copy it to the desired location after executing `make build`.
 
 ```bash
 > make clean
@@ -50,18 +50,21 @@ simply copy it to the desired location after exceuting `make build`.
 > make test              #optional
 ```
 
-## Generating Custom libraries (requires Julia)
+### Generating Custom libraries (requires Julia)
 
-A custom library can be pared down to only include desired posit environments,
-saving space.  You may generate a custom C library by entering the c-gen
-directory and spinning up julia and executing the following command:
+A custom library can implement changes to the code or pared down to only include
+desired posit environments, or expanded to support wider posit environments. You
+may regenerate the C library by entering the c-gen directory and spinning up
+julia and executing the following command:
 
 ```julia
 julia> include("cgen.jl")
 ```
 
-You may optionally generate a desired collection of posit environments by using
-the generate_fastsigmoid_c_library function, passed an suitable dict.
+Any changes made to the julia library-generating scripts will then be manifested in
+the `./c-src` directory.  If you would subsequently like to create a different
+set of supported posit environments, execute the following function, passing a
+suitable dictionary of N/ES values.
 
 ```julia
 julia> generate_fastsigmoid_c_library(Dict(8=>[0,1,2],16=>[0,1,2],32=>[0,1,2,3]))
@@ -78,7 +81,7 @@ You may set the operational modes using the following functions:
   extern "C" set_underflow(bool);
 ```
 
-## Underflow Mode
+### Underflow Mode
 
 When in underflow mode, rounding to zero is supported.  Pending review with some
 mathematical tests, we recommend underflow mode for:
@@ -95,7 +98,7 @@ we recommend non-underflowing mode for:
 The default is non-underflowing.  A full list of recommended uses is a desired
 area of future research.
 
-## NaN mode
+### NaN mode
 
 see: [https://github.com/interplanetary-robot/SigmoidNumbers/blob/master/NaNmode.md]
 
@@ -135,6 +138,7 @@ Supported functions (described as p32e2_t but implemented for all types):
 * `bool p32e2_lte(const p32e2_t lhs, const p32e2_t rhs)`                            **==> lhs <= rhs**
 * `bool p32e2_gt(const p32e2_t lhs, const p32e2_t rhs)`                             **==> lhs > rhs**
 * `bool p32e2_gte(const p32e2_t lhs, const p32e2_t rhs)`                            **==> lhs >= rhs**
+* `bool p32e2_eq(const p32e2_t lhs, const p32e2_t rhs)`                             **==> lhs == rhs**
 * `int p32e2_div(p32e2_t *res, p32e2_t lhs, p32e2_t rhs)`                           **res <- lhs / rhs**
 * `int p32e2_mulinv(p32e2_t *res, const p32e2_t arg)`                               **res <- 1/arg**
 * `int p32e2_log2(p32e2_t *res, const p32e2_t arg)`                                 **res <- log2(arg)**
@@ -216,6 +220,7 @@ functionally overloaded to support all posit classes:
 * fcp     - _fused cross product_
 * fdp     - _fused dot product_
 * dpi     - _initialize dot product accumulator_
+* `bool isequal(const P32e2 a, const P32e2 b)`       **==> a === b** 
 * `P32e2 sqrt(const P32e2 arg)`                      **==> sqrt(arg)**
 * `P32e2 log1p(const P32e2 arg)`                     **==> ln(arg + 1)**
 * `P32e2 log(const P32e2 arg)`                       **==> ln(arg)**
@@ -241,6 +246,7 @@ The following class operators are overloaded for all posit classes:
 * `bool operator <=(const P32e2 rhs)`                **==> this <= rhs**
 * `bool operator >(const P32e2 rhs)`                 **==> this > rhs**
 * `bool operator >=(const P32e2 rhs)`                **==> this >= rhs**
+* `bool operator ==(const P32e2 rhs)`                **==> this == rhs**
 * `P32e2 operator /(const P32e2 rhs)`                **==> this / rhs**
 * `P32e2 &operator /=(const P32e2 rhs)`              **==> this /= rhs**
 
