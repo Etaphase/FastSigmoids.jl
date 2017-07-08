@@ -56,6 +56,32 @@ may also enter the ./c-src library and execute make commands to generate libfast
 > make test              #optional
 ```
 
+OPERATION MODES IN C
+--------------------
+
+this library supports two operational mode settings, underflow mode and NaN mode.
+
+## Underflow Mode
+
+When in underflow mode, rounding to zero is supported.  Pending review with some
+mathematical tests, we recommend underflow mode for:
+
+* functions which are PDFs (integrals over ℝ must be bounded)
+* vector valued operations (where the "sacred" value is a multidimensional zero)
+
+we recommend non-underflowing mode for:
+
+* functions which are CDFs (no zone should have zero probability)
+* scalar-valued functions where zero has a special meaning (e.g. log, cot)
+* dot products of vector values using exact accumulators.
+
+The default is non-underflowing.  A full list of recommended uses is a desired
+area of future research.
+
+## NaN mode
+
+see: [https://github.com/interplanetary-robot/SigmoidNumbers/blob/master/NaNmode.md]
+
 USING C FUNCTIONS
 -----------------
 
