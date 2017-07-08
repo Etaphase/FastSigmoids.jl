@@ -26,6 +26,7 @@ class P32e3{
     bool operator <=(const P32e3 rhs) const;
     bool operator >(const P32e3 rhs) const;
     bool operator >=(const P32e3 rhs) const;
+    bool operator ==(const P32e3 rhs) const;
     P32e3 operator /(const P32e3 rhs) const;
     P32e3 &operator /=(const P32e3 rhs);
 
@@ -34,6 +35,7 @@ class P32e3{
     operator p32e3_t() const;
 };
 
+bool isequal(const P32e3 a, const P32e3 b);
 P32e3 mulinv(const P32e3 arg);
 P32e3 log2(const P32e3 arg);
 P32e3 exp2(const P32e3 arg);

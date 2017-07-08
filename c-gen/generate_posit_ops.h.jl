@@ -36,7 +36,7 @@ dpi_header_cpp(op::Symbol) =     (n, es) -> "extern void dpi(fdp_cache$(n)e$(es)
 
 newc_header(op::Symbol) =        (n, es) -> "  fdp_cache$(n)e$(es)_t* newcache$(n)e$(es)()"
 
-const ordered_oplist =  [:add, :mul, :sub, :addinv, :lt, :lte, :gt, :gte, :div,
+const ordered_oplist =  [:add, :mul, :sub, :addinv, :lt, :lte, :gt, :gte, :eq, :div,
                          :mulinv, :log2, :exp2, :fma, :fms, :nfma, :nfms, :fas, :fcp, :fdp, :dpi, :newc,
                          :sqrt, :log1p, :log10, :log, :exp, :pow, :logx, :sin, :cos, :atan, :atan2]
 
@@ -51,6 +51,7 @@ const ops = Dict(#required for all posit implementations
                  :lte    => [nothing, boolean_header_c(:lte)],
                  :gt     => [nothing, boolean_header_c(:gt)],
                  :gte    => [nothing, boolean_header_c(:gte)],
+                 :eq     => [nothing, boolean_header_c(:eq)],
                  #full posit required functions
                  :div    => header_set(:div, 2),
                  :mulinv => header_set(:mulinv, 1),

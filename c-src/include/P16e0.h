@@ -26,6 +26,7 @@ class P16e0{
     bool operator <=(const P16e0 rhs) const;
     bool operator >(const P16e0 rhs) const;
     bool operator >=(const P16e0 rhs) const;
+    bool operator ==(const P16e0 rhs) const;
     P16e0 operator /(const P16e0 rhs) const;
     P16e0 &operator /=(const P16e0 rhs);
 
@@ -34,6 +35,7 @@ class P16e0{
     operator p16e0_t() const;
 };
 
+bool isequal(const P16e0 a, const P16e0 b);
 P16e0 mulinv(const P16e0 arg);
 P16e0 log2(const P16e0 arg);
 P16e0 exp2(const P16e0 arg);

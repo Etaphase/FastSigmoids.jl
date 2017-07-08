@@ -132,6 +132,15 @@ P16e2 P16e2::operator /(const P16e2 rhs) const{
 }
 
 
+bool P16e2::operator ==(const P16e2 rhs) const{
+  p16e2_t lhs_p, rhs_p;
+  lhs_p.udata = this->data;
+  rhs_p.udata = rhs.data;
+
+  return p16e2_eq(lhs_p, rhs_p);
+}
+
+
 bool P16e2::operator >(const P16e2 rhs) const{
   p16e2_t lhs_p, rhs_p;
   lhs_p.udata = this->data;
@@ -183,6 +192,10 @@ P16e2::operator p16e2_t() const{
   return res;
 }
 
+
+bool isequal(const P16e2 a, const P16e2 b){
+  return a.data == b.data;
+}
 
 
 P16e2 mulinv (const P16e2 x){

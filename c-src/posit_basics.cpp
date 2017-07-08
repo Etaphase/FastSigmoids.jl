@@ -807,17 +807,17 @@ extern "C"    int p32e3_addinv(p32e3_t * res, const p32e3_t a) {
 //  posit_8 section, variable ES adapters for lt
 ///////////////////////////////////////////////////////////////
 extern "C"   bool p8e0_lt(const p8e0_t a,const  p8e0_t b) {
-  if (b.udata == P8INF) { return true; }
+  if ((a.udata == P8INF) || (b.udata == P8INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata < b.sdata);
 }
 
 extern "C"   bool p8e1_lt(const p8e1_t a,const  p8e1_t b) {
-  if (b.udata == P8INF) { return true; }
+  if ((a.udata == P8INF) || (b.udata == P8INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata < b.sdata);
 }
 
 extern "C"   bool p8e2_lt(const p8e2_t a,const  p8e2_t b) {
-  if (b.udata == P8INF) { return true; }
+  if ((a.udata == P8INF) || (b.udata == P8INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata < b.sdata);
 }
 
@@ -826,17 +826,17 @@ extern "C"   bool p8e2_lt(const p8e2_t a,const  p8e2_t b) {
 //  posit_16 section, variable ES adapters for lt
 ///////////////////////////////////////////////////////////////
 extern "C"   bool p16e0_lt(const p16e0_t a,const  p16e0_t b) {
-  if (b.udata == P16INF) { return true; }
+  if ((a.udata == P16INF) || (b.udata == P16INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata < b.sdata);
 }
 
 extern "C"   bool p16e1_lt(const p16e1_t a,const  p16e1_t b) {
-  if (b.udata == P16INF) { return true; }
+  if ((a.udata == P16INF) || (b.udata == P16INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata < b.sdata);
 }
 
 extern "C"   bool p16e2_lt(const p16e2_t a,const  p16e2_t b) {
-  if (b.udata == P16INF) { return true; }
+  if ((a.udata == P16INF) || (b.udata == P16INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata < b.sdata);
 }
 
@@ -845,22 +845,22 @@ extern "C"   bool p16e2_lt(const p16e2_t a,const  p16e2_t b) {
 //  posit_32 section, variable ES adapters for lt
 ///////////////////////////////////////////////////////////////
 extern "C"   bool p32e0_lt(const p32e0_t a,const  p32e0_t b) {
-  if (b.udata == P32INF) { return true; }
+  if ((a.udata == P32INF) || (b.udata == P32INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata < b.sdata);
 }
 
 extern "C"   bool p32e1_lt(const p32e1_t a,const  p32e1_t b) {
-  if (b.udata == P32INF) { return true; }
+  if ((a.udata == P32INF) || (b.udata == P32INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata < b.sdata);
 }
 
 extern "C"   bool p32e2_lt(const p32e2_t a,const  p32e2_t b) {
-  if (b.udata == P32INF) { return true; }
+  if ((a.udata == P32INF) || (b.udata == P32INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata < b.sdata);
 }
 
 extern "C"   bool p32e3_lt(const p32e3_t a,const  p32e3_t b) {
-  if (b.udata == P32INF) { return true; }
+  if ((a.udata == P32INF) || (b.udata == P32INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata < b.sdata);
 }
 
@@ -870,17 +870,17 @@ extern "C"   bool p32e3_lt(const p32e3_t a,const  p32e3_t b) {
 //  posit_8 section, variable ES adapters for lte
 ///////////////////////////////////////////////////////////////
 extern "C"   bool p8e0_lte(const p8e0_t a,const  p8e0_t b) {
-  if (b.udata == P8INF) { return true; }
+  if ((a.udata == P8INF) || (b.udata == P8INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata <= b.sdata);
 }
 
 extern "C"   bool p8e1_lte(const p8e1_t a,const  p8e1_t b) {
-  if (b.udata == P8INF) { return true; }
+  if ((a.udata == P8INF) || (b.udata == P8INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata <= b.sdata);
 }
 
 extern "C"   bool p8e2_lte(const p8e2_t a,const  p8e2_t b) {
-  if (b.udata == P8INF) { return true; }
+  if ((a.udata == P8INF) || (b.udata == P8INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata <= b.sdata);
 }
 
@@ -889,17 +889,17 @@ extern "C"   bool p8e2_lte(const p8e2_t a,const  p8e2_t b) {
 //  posit_16 section, variable ES adapters for lte
 ///////////////////////////////////////////////////////////////
 extern "C"   bool p16e0_lte(const p16e0_t a,const  p16e0_t b) {
-  if (b.udata == P16INF) { return true; }
+  if ((a.udata == P16INF) || (b.udata == P16INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata <= b.sdata);
 }
 
 extern "C"   bool p16e1_lte(const p16e1_t a,const  p16e1_t b) {
-  if (b.udata == P16INF) { return true; }
+  if ((a.udata == P16INF) || (b.udata == P16INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata <= b.sdata);
 }
 
 extern "C"   bool p16e2_lte(const p16e2_t a,const  p16e2_t b) {
-  if (b.udata == P16INF) { return true; }
+  if ((a.udata == P16INF) || (b.udata == P16INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata <= b.sdata);
 }
 
@@ -908,22 +908,22 @@ extern "C"   bool p16e2_lte(const p16e2_t a,const  p16e2_t b) {
 //  posit_32 section, variable ES adapters for lte
 ///////////////////////////////////////////////////////////////
 extern "C"   bool p32e0_lte(const p32e0_t a,const  p32e0_t b) {
-  if (b.udata == P32INF) { return true; }
+  if ((a.udata == P32INF) || (b.udata == P32INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata <= b.sdata);
 }
 
 extern "C"   bool p32e1_lte(const p32e1_t a,const  p32e1_t b) {
-  if (b.udata == P32INF) { return true; }
+  if ((a.udata == P32INF) || (b.udata == P32INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata <= b.sdata);
 }
 
 extern "C"   bool p32e2_lte(const p32e2_t a,const  p32e2_t b) {
-  if (b.udata == P32INF) { return true; }
+  if ((a.udata == P32INF) || (b.udata == P32INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata <= b.sdata);
 }
 
 extern "C"   bool p32e3_lte(const p32e3_t a,const  p32e3_t b) {
-  if (b.udata == P32INF) { return true; }
+  if ((a.udata == P32INF) || (b.udata == P32INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata <= b.sdata);
 }
 
@@ -933,17 +933,17 @@ extern "C"   bool p32e3_lte(const p32e3_t a,const  p32e3_t b) {
 //  posit_8 section, variable ES adapters for gt
 ///////////////////////////////////////////////////////////////
 extern "C"   bool p8e0_gt(const p8e0_t a,const  p8e0_t b) {
-  if (a.udata == P8INF) { return true; }
+  if ((a.udata == P8INF) || (b.udata == P8INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata > b.sdata);
 }
 
 extern "C"   bool p8e1_gt(const p8e1_t a,const  p8e1_t b) {
-  if (a.udata == P8INF) { return true; }
+  if ((a.udata == P8INF) || (b.udata == P8INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata > b.sdata);
 }
 
 extern "C"   bool p8e2_gt(const p8e2_t a,const  p8e2_t b) {
-  if (a.udata == P8INF) { return true; }
+  if ((a.udata == P8INF) || (b.udata == P8INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata > b.sdata);
 }
 
@@ -952,17 +952,17 @@ extern "C"   bool p8e2_gt(const p8e2_t a,const  p8e2_t b) {
 //  posit_16 section, variable ES adapters for gt
 ///////////////////////////////////////////////////////////////
 extern "C"   bool p16e0_gt(const p16e0_t a,const  p16e0_t b) {
-  if (a.udata == P16INF) { return true; }
+  if ((a.udata == P16INF) || (b.udata == P16INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata > b.sdata);
 }
 
 extern "C"   bool p16e1_gt(const p16e1_t a,const  p16e1_t b) {
-  if (a.udata == P16INF) { return true; }
+  if ((a.udata == P16INF) || (b.udata == P16INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata > b.sdata);
 }
 
 extern "C"   bool p16e2_gt(const p16e2_t a,const  p16e2_t b) {
-  if (a.udata == P16INF) { return true; }
+  if ((a.udata == P16INF) || (b.udata == P16INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata > b.sdata);
 }
 
@@ -971,22 +971,22 @@ extern "C"   bool p16e2_gt(const p16e2_t a,const  p16e2_t b) {
 //  posit_32 section, variable ES adapters for gt
 ///////////////////////////////////////////////////////////////
 extern "C"   bool p32e0_gt(const p32e0_t a,const  p32e0_t b) {
-  if (a.udata == P32INF) { return true; }
+  if ((a.udata == P32INF) || (b.udata == P32INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata > b.sdata);
 }
 
 extern "C"   bool p32e1_gt(const p32e1_t a,const  p32e1_t b) {
-  if (a.udata == P32INF) { return true; }
+  if ((a.udata == P32INF) || (b.udata == P32INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata > b.sdata);
 }
 
 extern "C"   bool p32e2_gt(const p32e2_t a,const  p32e2_t b) {
-  if (a.udata == P32INF) { return true; }
+  if ((a.udata == P32INF) || (b.udata == P32INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata > b.sdata);
 }
 
 extern "C"   bool p32e3_gt(const p32e3_t a,const  p32e3_t b) {
-  if (a.udata == P32INF) { return true; }
+  if ((a.udata == P32INF) || (b.udata == P32INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata > b.sdata);
 }
 
@@ -996,17 +996,17 @@ extern "C"   bool p32e3_gt(const p32e3_t a,const  p32e3_t b) {
 //  posit_8 section, variable ES adapters for gte
 ///////////////////////////////////////////////////////////////
 extern "C"   bool p8e0_gte(const p8e0_t a,const  p8e0_t b) {
-  if (a.udata == P8INF) { return true; }
+  if ((a.udata == P8INF) || (b.udata == P8INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata >= b.sdata);
 }
 
 extern "C"   bool p8e1_gte(const p8e1_t a,const  p8e1_t b) {
-  if (a.udata == P8INF) { return true; }
+  if ((a.udata == P8INF) || (b.udata == P8INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata >= b.sdata);
 }
 
 extern "C"   bool p8e2_gte(const p8e2_t a,const  p8e2_t b) {
-  if (a.udata == P8INF) { return true; }
+  if ((a.udata == P8INF) || (b.udata == P8INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata >= b.sdata);
 }
 
@@ -1015,17 +1015,17 @@ extern "C"   bool p8e2_gte(const p8e2_t a,const  p8e2_t b) {
 //  posit_16 section, variable ES adapters for gte
 ///////////////////////////////////////////////////////////////
 extern "C"   bool p16e0_gte(const p16e0_t a,const  p16e0_t b) {
-  if (a.udata == P16INF) { return true; }
+  if ((a.udata == P16INF) || (b.udata == P16INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata >= b.sdata);
 }
 
 extern "C"   bool p16e1_gte(const p16e1_t a,const  p16e1_t b) {
-  if (a.udata == P16INF) { return true; }
+  if ((a.udata == P16INF) || (b.udata == P16INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata >= b.sdata);
 }
 
 extern "C"   bool p16e2_gte(const p16e2_t a,const  p16e2_t b) {
-  if (a.udata == P16INF) { return true; }
+  if ((a.udata == P16INF) || (b.udata == P16INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata >= b.sdata);
 }
 
@@ -1034,23 +1034,86 @@ extern "C"   bool p16e2_gte(const p16e2_t a,const  p16e2_t b) {
 //  posit_32 section, variable ES adapters for gte
 ///////////////////////////////////////////////////////////////
 extern "C"   bool p32e0_gte(const p32e0_t a,const  p32e0_t b) {
-  if (a.udata == P32INF) { return true; }
+  if ((a.udata == P32INF) || (b.udata == P32INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata >= b.sdata);
 }
 
 extern "C"   bool p32e1_gte(const p32e1_t a,const  p32e1_t b) {
-  if (a.udata == P32INF) { return true; }
+  if ((a.udata == P32INF) || (b.udata == P32INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata >= b.sdata);
 }
 
 extern "C"   bool p32e2_gte(const p32e2_t a,const  p32e2_t b) {
-  if (a.udata == P32INF) { return true; }
+  if ((a.udata == P32INF) || (b.udata == P32INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata >= b.sdata);
 }
 
 extern "C"   bool p32e3_gte(const p32e3_t a,const  p32e3_t b) {
-  if (a.udata == P32INF) { return true; }
+  if ((a.udata == P32INF) || (b.udata == P32INF)) { return !POSIT_ENV.nanmode; }
   return (a.sdata >= b.sdata);
+}
+
+
+
+///////////////////////////////////////////////////////////////
+//  posit_8 section, variable ES adapters for eq
+///////////////////////////////////////////////////////////////
+extern "C"   bool p8e0_eq(const p8e0_t a,const  p8e0_t b) {
+  if ((a.udata == P8INF) || (b.udata == P8INF)) { return !POSIT_ENV.nanmode; }
+  return (a.sdata == b.sdata);
+}
+
+extern "C"   bool p8e1_eq(const p8e1_t a,const  p8e1_t b) {
+  if ((a.udata == P8INF) || (b.udata == P8INF)) { return !POSIT_ENV.nanmode; }
+  return (a.sdata == b.sdata);
+}
+
+extern "C"   bool p8e2_eq(const p8e2_t a,const  p8e2_t b) {
+  if ((a.udata == P8INF) || (b.udata == P8INF)) { return !POSIT_ENV.nanmode; }
+  return (a.sdata == b.sdata);
+}
+
+
+///////////////////////////////////////////////////////////////
+//  posit_16 section, variable ES adapters for eq
+///////////////////////////////////////////////////////////////
+extern "C"   bool p16e0_eq(const p16e0_t a,const  p16e0_t b) {
+  if ((a.udata == P16INF) || (b.udata == P16INF)) { return !POSIT_ENV.nanmode; }
+  return (a.sdata == b.sdata);
+}
+
+extern "C"   bool p16e1_eq(const p16e1_t a,const  p16e1_t b) {
+  if ((a.udata == P16INF) || (b.udata == P16INF)) { return !POSIT_ENV.nanmode; }
+  return (a.sdata == b.sdata);
+}
+
+extern "C"   bool p16e2_eq(const p16e2_t a,const  p16e2_t b) {
+  if ((a.udata == P16INF) || (b.udata == P16INF)) { return !POSIT_ENV.nanmode; }
+  return (a.sdata == b.sdata);
+}
+
+
+///////////////////////////////////////////////////////////////
+//  posit_32 section, variable ES adapters for eq
+///////////////////////////////////////////////////////////////
+extern "C"   bool p32e0_eq(const p32e0_t a,const  p32e0_t b) {
+  if ((a.udata == P32INF) || (b.udata == P32INF)) { return !POSIT_ENV.nanmode; }
+  return (a.sdata == b.sdata);
+}
+
+extern "C"   bool p32e1_eq(const p32e1_t a,const  p32e1_t b) {
+  if ((a.udata == P32INF) || (b.udata == P32INF)) { return !POSIT_ENV.nanmode; }
+  return (a.sdata == b.sdata);
+}
+
+extern "C"   bool p32e2_eq(const p32e2_t a,const  p32e2_t b) {
+  if ((a.udata == P32INF) || (b.udata == P32INF)) { return !POSIT_ENV.nanmode; }
+  return (a.sdata == b.sdata);
+}
+
+extern "C"   bool p32e3_eq(const p32e3_t a,const  p32e3_t b) {
+  if ((a.udata == P32INF) || (b.udata == P32INF)) { return !POSIT_ENV.nanmode; }
+  return (a.sdata == b.sdata);
 }
 
 

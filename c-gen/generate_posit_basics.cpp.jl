@@ -1,4 +1,4 @@
-const BASICS_FNS = [:add, :mul, :sub, :addinv, :lt, :lte, :gt, :gte]
+const BASICS_FNS = [:add, :mul, :sub, :addinv, :lt, :lte, :gt, :gte, :eq]
 const TPTR_TO_BINF = Dict(:add => "+", :mul => "*", :sub => "-", :div => "/")
 const ftype = Dict(8 => :float, 16 => :float, 32 => :double)
 
@@ -60,29 +60,36 @@ const basics_code = Dict(
 
   :lt => (n, es) -> """
   extern "C" $(ops[:lt][2](n,es)) {
-    if (b.udata == P$(n)INF) { return true; }
+    if ((a.udata == P$(n)INF) || (b.udata == P$(n)INF)) { return !POSIT_ENV.nanmode; }
     return (a.sdata < b.sdata);
   }
   """,
 
   :lte => (n, es) -> """
   extern "C" $(ops[:lte][2](n,es)) {
-    if (b.udata == P$(n)INF) { return true; }
+    if ((a.udata == P$(n)INF) || (b.udata == P$(n)INF)) { return !POSIT_ENV.nanmode; }
     return (a.sdata <= b.sdata);
   }
   """,
 
   :gt => (n, es) -> """
   extern "C" $(ops[:gt][2](n,es)) {
-    if (a.udata == P$(n)INF) { return true; }
+    if ((a.udata == P$(n)INF) || (b.udata == P$(n)INF)) { return !POSIT_ENV.nanmode; }
     return (a.sdata > b.sdata);
   }
   """,
 
   :gte => (n, es) -> """
   extern "C" $(ops[:gte][2](n,es)) {
-    if (a.udata == P$(n)INF) { return true; }
+    if ((a.udata == P$(n)INF) || (b.udata == P$(n)INF)) { return !POSIT_ENV.nanmode; }
     return (a.sdata >= b.sdata);
+  }
+  """,
+
+  :eq => (n, es) -> """
+  extern "C" $(ops[:eq][2](n,es)) {
+    if ((a.udata == P$(n)INF) || (b.udata == P$(n)INF)) { return !POSIT_ENV.nanmode; }
+    return (a.sdata == b.sdata);
   }
   """)
 

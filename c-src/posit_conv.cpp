@@ -10,7 +10,12 @@ static uint8_t float_to_p8(float fval, int16_t es, int16_t maximum_exponent, int
   //infinity and NaN checks:
   if (isinf(fval)) {return ((uint8_t) 0x80);};
   if (fval == 0)   {return ((uint8_t) 0x00);};
-  if (isnan(fval)){ printf("bad: %f \n", fval); errno = EDOM; return P8INF; }
+  if (isnan(fval)) {
+    if (POSIT_ENV.nanmode)
+      { return P8INF; }
+    else
+      { printf("bad: %f \n", fval); errno = EDOM; return P8INF; }
+  }
   //do a surreptitious conversion from float precision to UInt8
   uint32_t *ival = (uint32_t *) &fval;
   bool signbit = ((0x80000000L & (*ival)) != 0);
@@ -77,7 +82,12 @@ static uint8_t float_to_p8_zero_es(float fval){
   //infinity and NaN checks:
   if (isinf(fval)) {return ((uint8_t) 0x80);};
   if (fval == 0)   {return ((uint8_t) 0x00);};
-  if (isnan(fval)){ printf("bad: %f \n", fval); errno = EDOM; return P8INF; }
+  if (isnan(fval)) {
+    if (POSIT_ENV.nanmode)
+      { return P8INF; }
+    else
+      { printf("bad: %f \n", fval); errno = EDOM; return P8INF; }
+  }
   //do a surreptitious conversion from float precision to UInt8
   uint32_t *ival = (uint32_t *) &fval;
   bool signbit = ((0x80000000L & (*ival)) != 0);
@@ -139,7 +149,7 @@ static uint8_t float_to_p8_zero_es(float fval){
 
 static float p8_to_float(uint8_t pval, int16_t es, uint8_t es_mask){
   //check for infs and zeros, which do not necessarily play nice with our algorithm.
-  if (pval == ((uint8_t) 0x80)) return INFINITY;
+  if (pval == ((uint8_t) 0x80))  return (POSIT_ENV.nanmode) ? NAN : INFINITY;
   if (pval == ((uint8_t) 0x00)) return (float) 0;
   //next, determine the sign of the posit value
   bool negative = ((pval & ((uint8_t) 0x80)) != 0);
@@ -231,7 +241,12 @@ static uint16_t float_to_p16(float fval, int16_t es, int16_t maximum_exponent, i
   //infinity and NaN checks:
   if (isinf(fval)) {return ((uint16_t) 0x8000);};
   if (fval == 0)   {return ((uint16_t) 0x0000);};
-  if (isnan(fval)){ printf("bad: %f \n", fval); errno = EDOM; return P16INF; }
+  if (isnan(fval)) {
+    if (POSIT_ENV.nanmode)
+      { return P16INF; }
+    else
+      { printf("bad: %f \n", fval); errno = EDOM; return P16INF; }
+  }
   //do a surreptitious conversion from float precision to UInt16
   uint32_t *ival = (uint32_t *) &fval;
   bool signbit = ((0x80000000L & (*ival)) != 0);
@@ -298,7 +313,12 @@ static uint16_t float_to_p16_zero_es(float fval){
   //infinity and NaN checks:
   if (isinf(fval)) {return ((uint16_t) 0x8000);};
   if (fval == 0)   {return ((uint16_t) 0x0000);};
-  if (isnan(fval)){ printf("bad: %f \n", fval); errno = EDOM; return P16INF; }
+  if (isnan(fval)) {
+    if (POSIT_ENV.nanmode)
+      { return P16INF; }
+    else
+      { printf("bad: %f \n", fval); errno = EDOM; return P16INF; }
+  }
   //do a surreptitious conversion from float precision to UInt16
   uint32_t *ival = (uint32_t *) &fval;
   bool signbit = ((0x80000000L & (*ival)) != 0);
@@ -360,7 +380,7 @@ static uint16_t float_to_p16_zero_es(float fval){
 
 static float p16_to_float(uint16_t pval, int16_t es, uint16_t es_mask){
   //check for infs and zeros, which do not necessarily play nice with our algorithm.
-  if (pval == ((uint16_t) 0x8000)) return INFINITY;
+  if (pval == ((uint16_t) 0x8000))  return (POSIT_ENV.nanmode) ? NAN : INFINITY;
   if (pval == ((uint16_t) 0x0000)) return (float) 0;
   //next, determine the sign of the posit value
   bool negative = ((pval & ((uint16_t) 0x8000)) != 0);
@@ -452,7 +472,12 @@ static uint32_t double_to_p32(double fval, int16_t es, int16_t maximum_exponent,
   //infinity and NaN checks:
   if (isinf(fval)) {return 0x80000000L;};
   if (fval == 0)   {return 0x00000000L;};
-  if (isnan(fval)){ printf("bad: %f \n", fval); errno = EDOM; return P32INF; }
+  if (isnan(fval)) {
+    if (POSIT_ENV.nanmode)
+      { return P32INF; }
+    else
+      { printf("bad: %f \n", fval); errno = EDOM; return P32INF; }
+  }
   //do a surreptitious conversion from double precision to UInt32
   uint64_t *ival = (uint64_t *) &fval;
   bool signbit = ((0x8000000000000000LL & (*ival)) != 0);
@@ -519,7 +544,12 @@ static uint32_t double_to_p32_zero_es(double fval){
   //infinity and NaN checks:
   if (isinf(fval)) {return 0x80000000L;};
   if (fval == 0)   {return 0x00000000L;};
-  if (isnan(fval)){ printf("bad: %f \n", fval); errno = EDOM; return P32INF; }
+  if (isnan(fval)) {
+    if (POSIT_ENV.nanmode)
+      { return P32INF; }
+    else
+      { printf("bad: %f \n", fval); errno = EDOM; return P32INF; }
+  }
   //do a surreptitious conversion from double precision to UInt32
   uint64_t *ival = (uint64_t *) &fval;
   bool signbit = ((0x8000000000000000LL & (*ival)) != 0);
@@ -581,7 +611,7 @@ static uint32_t double_to_p32_zero_es(double fval){
 
 static double p32_to_double(uint32_t pval, int16_t es, uint32_t es_mask){
   //check for infs and zeros, which do not necessarily play nice with our algorithm.
-  if (pval == 0x80000000L) return INFINITY;
+  if (pval == 0x80000000L)  return (POSIT_ENV.nanmode) ? NAN : INFINITY;
   if (pval == 0x00000000L) return (double) 0;
   //next, determine the sign of the posit value
   bool negative = ((pval & 0x80000000L) != 0);

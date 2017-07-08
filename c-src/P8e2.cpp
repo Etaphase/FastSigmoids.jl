@@ -132,6 +132,15 @@ P8e2 P8e2::operator /(const P8e2 rhs) const{
 }
 
 
+bool P8e2::operator ==(const P8e2 rhs) const{
+  p8e2_t lhs_p, rhs_p;
+  lhs_p.udata = this->data;
+  rhs_p.udata = rhs.data;
+
+  return p8e2_eq(lhs_p, rhs_p);
+}
+
+
 bool P8e2::operator >(const P8e2 rhs) const{
   p8e2_t lhs_p, rhs_p;
   lhs_p.udata = this->data;
@@ -183,6 +192,10 @@ P8e2::operator p8e2_t() const{
   return res;
 }
 
+
+bool isequal(const P8e2 a, const P8e2 b){
+  return a.data == b.data;
+}
 
 
 P8e2 mulinv (const P8e2 x){

@@ -397,7 +397,7 @@ extern "C"    int p8e0_log2(p8e0_t * res, const p8e0_t a) {
   switch (status){
    case 1: pres.udata = P8ZER; res->udata = pres.udata; return 0;
    case 2: pres.udata = P8INF; res->udata = pres.udata; return 0;
-   case 3: return EDOM;
+   case 3: if (POSIT_ENV.nanmode) { res->udata = P8INF; return 0; } else { return EDOM; }
   }
 
   float fres = log2(p8e0_to_f(a));
@@ -411,7 +411,7 @@ extern "C"    p8e0_t p8e0_log2_e(const p8e0_t a) {
   switch (status){
    case 1: pres.udata = P8ZER; return pres;
    case 2: pres.udata = P8INF; return pres;
-   case 3: pres.udata = P8ZER; errno = EDOM; return pres;
+   case 3: pres.udata = P8INF; errno = (POSIT_ENV.nanmode) ? 0 : EDOM; return pres;
   }
 
   float fres = log2(p8e0_to_f(a));
@@ -426,7 +426,7 @@ extern "C"    int p8e1_log2(p8e1_t * res, const p8e1_t a) {
   switch (status){
    case 1: pres.udata = P8ZER; res->udata = pres.udata; return 0;
    case 2: pres.udata = P8INF; res->udata = pres.udata; return 0;
-   case 3: return EDOM;
+   case 3: if (POSIT_ENV.nanmode) { res->udata = P8INF; return 0; } else { return EDOM; }
   }
 
   float fres = log2(p8e1_to_f(a));
@@ -440,7 +440,7 @@ extern "C"    p8e1_t p8e1_log2_e(const p8e1_t a) {
   switch (status){
    case 1: pres.udata = P8ZER; return pres;
    case 2: pres.udata = P8INF; return pres;
-   case 3: pres.udata = P8ZER; errno = EDOM; return pres;
+   case 3: pres.udata = P8INF; errno = (POSIT_ENV.nanmode) ? 0 : EDOM; return pres;
   }
 
   float fres = log2(p8e1_to_f(a));
@@ -455,7 +455,7 @@ extern "C"    int p8e2_log2(p8e2_t * res, const p8e2_t a) {
   switch (status){
    case 1: pres.udata = P8ZER; res->udata = pres.udata; return 0;
    case 2: pres.udata = P8INF; res->udata = pres.udata; return 0;
-   case 3: return EDOM;
+   case 3: if (POSIT_ENV.nanmode) { res->udata = P8INF; return 0; } else { return EDOM; }
   }
 
   float fres = log2(p8e2_to_f(a));
@@ -469,7 +469,7 @@ extern "C"    p8e2_t p8e2_log2_e(const p8e2_t a) {
   switch (status){
    case 1: pres.udata = P8ZER; return pres;
    case 2: pres.udata = P8INF; return pres;
-   case 3: pres.udata = P8ZER; errno = EDOM; return pres;
+   case 3: pres.udata = P8INF; errno = (POSIT_ENV.nanmode) ? 0 : EDOM; return pres;
   }
 
   float fres = log2(p8e2_to_f(a));
@@ -500,7 +500,7 @@ extern "C"    int p16e0_log2(p16e0_t * res, const p16e0_t a) {
   switch (status){
    case 1: pres.udata = P16ZER; res->udata = pres.udata; return 0;
    case 2: pres.udata = P16INF; res->udata = pres.udata; return 0;
-   case 3: return EDOM;
+   case 3: if (POSIT_ENV.nanmode) { res->udata = P16INF; return 0; } else { return EDOM; }
   }
 
   float fres = log2(p16e0_to_f(a));
@@ -514,7 +514,7 @@ extern "C"    p16e0_t p16e0_log2_e(const p16e0_t a) {
   switch (status){
    case 1: pres.udata = P16ZER; return pres;
    case 2: pres.udata = P16INF; return pres;
-   case 3: pres.udata = P16ZER; errno = EDOM; return pres;
+   case 3: pres.udata = P16INF; errno = (POSIT_ENV.nanmode) ? 0 : EDOM; return pres;
   }
 
   float fres = log2(p16e0_to_f(a));
@@ -529,7 +529,7 @@ extern "C"    int p16e1_log2(p16e1_t * res, const p16e1_t a) {
   switch (status){
    case 1: pres.udata = P16ZER; res->udata = pres.udata; return 0;
    case 2: pres.udata = P16INF; res->udata = pres.udata; return 0;
-   case 3: return EDOM;
+   case 3: if (POSIT_ENV.nanmode) { res->udata = P16INF; return 0; } else { return EDOM; }
   }
 
   float fres = log2(p16e1_to_f(a));
@@ -543,7 +543,7 @@ extern "C"    p16e1_t p16e1_log2_e(const p16e1_t a) {
   switch (status){
    case 1: pres.udata = P16ZER; return pres;
    case 2: pres.udata = P16INF; return pres;
-   case 3: pres.udata = P16ZER; errno = EDOM; return pres;
+   case 3: pres.udata = P16INF; errno = (POSIT_ENV.nanmode) ? 0 : EDOM; return pres;
   }
 
   float fres = log2(p16e1_to_f(a));
@@ -558,7 +558,7 @@ extern "C"    int p16e2_log2(p16e2_t * res, const p16e2_t a) {
   switch (status){
    case 1: pres.udata = P16ZER; res->udata = pres.udata; return 0;
    case 2: pres.udata = P16INF; res->udata = pres.udata; return 0;
-   case 3: return EDOM;
+   case 3: if (POSIT_ENV.nanmode) { res->udata = P16INF; return 0; } else { return EDOM; }
   }
 
   float fres = log2(p16e2_to_f(a));
@@ -572,7 +572,7 @@ extern "C"    p16e2_t p16e2_log2_e(const p16e2_t a) {
   switch (status){
    case 1: pres.udata = P16ZER; return pres;
    case 2: pres.udata = P16INF; return pres;
-   case 3: pres.udata = P16ZER; errno = EDOM; return pres;
+   case 3: pres.udata = P16INF; errno = (POSIT_ENV.nanmode) ? 0 : EDOM; return pres;
   }
 
   float fres = log2(p16e2_to_f(a));
@@ -603,7 +603,7 @@ extern "C"    int p32e0_log2(p32e0_t * res, const p32e0_t a) {
   switch (status){
    case 1: pres.udata = P32ZER; res->udata = pres.udata; return 0;
    case 2: pres.udata = P32INF; res->udata = pres.udata; return 0;
-   case 3: return EDOM;
+   case 3: if (POSIT_ENV.nanmode) { res->udata = P32INF; return 0; } else { return EDOM; }
   }
 
   double fres = log2(p32e0_to_f(a));
@@ -617,7 +617,7 @@ extern "C"    p32e0_t p32e0_log2_e(const p32e0_t a) {
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
+   case 3: pres.udata = P32INF; errno = (POSIT_ENV.nanmode) ? 0 : EDOM; return pres;
   }
 
   double fres = log2(p32e0_to_f(a));
@@ -632,7 +632,7 @@ extern "C"    int p32e1_log2(p32e1_t * res, const p32e1_t a) {
   switch (status){
    case 1: pres.udata = P32ZER; res->udata = pres.udata; return 0;
    case 2: pres.udata = P32INF; res->udata = pres.udata; return 0;
-   case 3: return EDOM;
+   case 3: if (POSIT_ENV.nanmode) { res->udata = P32INF; return 0; } else { return EDOM; }
   }
 
   double fres = log2(p32e1_to_f(a));
@@ -646,7 +646,7 @@ extern "C"    p32e1_t p32e1_log2_e(const p32e1_t a) {
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
+   case 3: pres.udata = P32INF; errno = (POSIT_ENV.nanmode) ? 0 : EDOM; return pres;
   }
 
   double fres = log2(p32e1_to_f(a));
@@ -661,7 +661,7 @@ extern "C"    int p32e2_log2(p32e2_t * res, const p32e2_t a) {
   switch (status){
    case 1: pres.udata = P32ZER; res->udata = pres.udata; return 0;
    case 2: pres.udata = P32INF; res->udata = pres.udata; return 0;
-   case 3: return EDOM;
+   case 3: if (POSIT_ENV.nanmode) { res->udata = P32INF; return 0; } else { return EDOM; }
   }
 
   double fres = log2(p32e2_to_f(a));
@@ -675,7 +675,7 @@ extern "C"    p32e2_t p32e2_log2_e(const p32e2_t a) {
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
+   case 3: pres.udata = P32INF; errno = (POSIT_ENV.nanmode) ? 0 : EDOM; return pres;
   }
 
   double fres = log2(p32e2_to_f(a));
@@ -690,7 +690,7 @@ extern "C"    int p32e3_log2(p32e3_t * res, const p32e3_t a) {
   switch (status){
    case 1: pres.udata = P32ZER; res->udata = pres.udata; return 0;
    case 2: pres.udata = P32INF; res->udata = pres.udata; return 0;
-   case 3: return EDOM;
+   case 3: if (POSIT_ENV.nanmode) { res->udata = P32INF; return 0; } else { return EDOM; }
   }
 
   double fres = log2(p32e3_to_f(a));
@@ -704,7 +704,7 @@ extern "C"    p32e3_t p32e3_log2_e(const p32e3_t a) {
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
+   case 3: pres.udata = P32INF; errno = (POSIT_ENV.nanmode) ? 0 : EDOM; return pres;
   }
 
   double fres = log2(p32e3_to_f(a));
@@ -734,7 +734,7 @@ extern "C"    int p8e0_exp2(p8e0_t * res, const p8e0_t a) {
   switch (status){
    case 1: pres.udata = P8ZER; res->udata = pres.udata; return 0;
    case 2: pres.udata = P8INF; res->udata = pres.udata; return 0;
-   case 3: return EDOM;
+   case 3: if (POSIT_ENV.nanmode) { res->udata = P8INF; return 0; } else { return EDOM; }
   }
 
   float fres = exp2(p8e0_to_f(a));
@@ -748,7 +748,7 @@ extern "C"    p8e0_t p8e0_exp2_e(const p8e0_t a) {
   switch (status){
    case 1: pres.udata = P8ZER; return pres;
    case 2: pres.udata = P8INF; return pres;
-   case 3: pres.udata = P8ZER; errno = EDOM; return pres;
+   case 3: pres.udata = P8INF; errno = (POSIT_ENV.nanmode) ? 0 : EDOM; return pres;
   }
 
   float fres = exp2(p8e0_to_f(a));
@@ -763,7 +763,7 @@ extern "C"    int p8e1_exp2(p8e1_t * res, const p8e1_t a) {
   switch (status){
    case 1: pres.udata = P8ZER; res->udata = pres.udata; return 0;
    case 2: pres.udata = P8INF; res->udata = pres.udata; return 0;
-   case 3: return EDOM;
+   case 3: if (POSIT_ENV.nanmode) { res->udata = P8INF; return 0; } else { return EDOM; }
   }
 
   float fres = exp2(p8e1_to_f(a));
@@ -777,7 +777,7 @@ extern "C"    p8e1_t p8e1_exp2_e(const p8e1_t a) {
   switch (status){
    case 1: pres.udata = P8ZER; return pres;
    case 2: pres.udata = P8INF; return pres;
-   case 3: pres.udata = P8ZER; errno = EDOM; return pres;
+   case 3: pres.udata = P8INF; errno = (POSIT_ENV.nanmode) ? 0 : EDOM; return pres;
   }
 
   float fres = exp2(p8e1_to_f(a));
@@ -792,7 +792,7 @@ extern "C"    int p8e2_exp2(p8e2_t * res, const p8e2_t a) {
   switch (status){
    case 1: pres.udata = P8ZER; res->udata = pres.udata; return 0;
    case 2: pres.udata = P8INF; res->udata = pres.udata; return 0;
-   case 3: return EDOM;
+   case 3: if (POSIT_ENV.nanmode) { res->udata = P8INF; return 0; } else { return EDOM; }
   }
 
   float fres = exp2(p8e2_to_f(a));
@@ -806,7 +806,7 @@ extern "C"    p8e2_t p8e2_exp2_e(const p8e2_t a) {
   switch (status){
    case 1: pres.udata = P8ZER; return pres;
    case 2: pres.udata = P8INF; return pres;
-   case 3: pres.udata = P8ZER; errno = EDOM; return pres;
+   case 3: pres.udata = P8INF; errno = (POSIT_ENV.nanmode) ? 0 : EDOM; return pres;
   }
 
   float fres = exp2(p8e2_to_f(a));
@@ -835,7 +835,7 @@ extern "C"    int p16e0_exp2(p16e0_t * res, const p16e0_t a) {
   switch (status){
    case 1: pres.udata = P16ZER; res->udata = pres.udata; return 0;
    case 2: pres.udata = P16INF; res->udata = pres.udata; return 0;
-   case 3: return EDOM;
+   case 3: if (POSIT_ENV.nanmode) { res->udata = P16INF; return 0; } else { return EDOM; }
   }
 
   float fres = exp2(p16e0_to_f(a));
@@ -849,7 +849,7 @@ extern "C"    p16e0_t p16e0_exp2_e(const p16e0_t a) {
   switch (status){
    case 1: pres.udata = P16ZER; return pres;
    case 2: pres.udata = P16INF; return pres;
-   case 3: pres.udata = P16ZER; errno = EDOM; return pres;
+   case 3: pres.udata = P16INF; errno = (POSIT_ENV.nanmode) ? 0 : EDOM; return pres;
   }
 
   float fres = exp2(p16e0_to_f(a));
@@ -864,7 +864,7 @@ extern "C"    int p16e1_exp2(p16e1_t * res, const p16e1_t a) {
   switch (status){
    case 1: pres.udata = P16ZER; res->udata = pres.udata; return 0;
    case 2: pres.udata = P16INF; res->udata = pres.udata; return 0;
-   case 3: return EDOM;
+   case 3: if (POSIT_ENV.nanmode) { res->udata = P16INF; return 0; } else { return EDOM; }
   }
 
   float fres = exp2(p16e1_to_f(a));
@@ -878,7 +878,7 @@ extern "C"    p16e1_t p16e1_exp2_e(const p16e1_t a) {
   switch (status){
    case 1: pres.udata = P16ZER; return pres;
    case 2: pres.udata = P16INF; return pres;
-   case 3: pres.udata = P16ZER; errno = EDOM; return pres;
+   case 3: pres.udata = P16INF; errno = (POSIT_ENV.nanmode) ? 0 : EDOM; return pres;
   }
 
   float fres = exp2(p16e1_to_f(a));
@@ -893,7 +893,7 @@ extern "C"    int p16e2_exp2(p16e2_t * res, const p16e2_t a) {
   switch (status){
    case 1: pres.udata = P16ZER; res->udata = pres.udata; return 0;
    case 2: pres.udata = P16INF; res->udata = pres.udata; return 0;
-   case 3: return EDOM;
+   case 3: if (POSIT_ENV.nanmode) { res->udata = P16INF; return 0; } else { return EDOM; }
   }
 
   float fres = exp2(p16e2_to_f(a));
@@ -907,7 +907,7 @@ extern "C"    p16e2_t p16e2_exp2_e(const p16e2_t a) {
   switch (status){
    case 1: pres.udata = P16ZER; return pres;
    case 2: pres.udata = P16INF; return pres;
-   case 3: pres.udata = P16ZER; errno = EDOM; return pres;
+   case 3: pres.udata = P16INF; errno = (POSIT_ENV.nanmode) ? 0 : EDOM; return pres;
   }
 
   float fres = exp2(p16e2_to_f(a));
@@ -936,7 +936,7 @@ extern "C"    int p32e0_exp2(p32e0_t * res, const p32e0_t a) {
   switch (status){
    case 1: pres.udata = P32ZER; res->udata = pres.udata; return 0;
    case 2: pres.udata = P32INF; res->udata = pres.udata; return 0;
-   case 3: return EDOM;
+   case 3: if (POSIT_ENV.nanmode) { res->udata = P32INF; return 0; } else { return EDOM; }
   }
 
   double fres = exp2(p32e0_to_f(a));
@@ -950,7 +950,7 @@ extern "C"    p32e0_t p32e0_exp2_e(const p32e0_t a) {
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
+   case 3: pres.udata = P32INF; errno = (POSIT_ENV.nanmode) ? 0 : EDOM; return pres;
   }
 
   double fres = exp2(p32e0_to_f(a));
@@ -965,7 +965,7 @@ extern "C"    int p32e1_exp2(p32e1_t * res, const p32e1_t a) {
   switch (status){
    case 1: pres.udata = P32ZER; res->udata = pres.udata; return 0;
    case 2: pres.udata = P32INF; res->udata = pres.udata; return 0;
-   case 3: return EDOM;
+   case 3: if (POSIT_ENV.nanmode) { res->udata = P32INF; return 0; } else { return EDOM; }
   }
 
   double fres = exp2(p32e1_to_f(a));
@@ -979,7 +979,7 @@ extern "C"    p32e1_t p32e1_exp2_e(const p32e1_t a) {
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
+   case 3: pres.udata = P32INF; errno = (POSIT_ENV.nanmode) ? 0 : EDOM; return pres;
   }
 
   double fres = exp2(p32e1_to_f(a));
@@ -994,7 +994,7 @@ extern "C"    int p32e2_exp2(p32e2_t * res, const p32e2_t a) {
   switch (status){
    case 1: pres.udata = P32ZER; res->udata = pres.udata; return 0;
    case 2: pres.udata = P32INF; res->udata = pres.udata; return 0;
-   case 3: return EDOM;
+   case 3: if (POSIT_ENV.nanmode) { res->udata = P32INF; return 0; } else { return EDOM; }
   }
 
   double fres = exp2(p32e2_to_f(a));
@@ -1008,7 +1008,7 @@ extern "C"    p32e2_t p32e2_exp2_e(const p32e2_t a) {
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
+   case 3: pres.udata = P32INF; errno = (POSIT_ENV.nanmode) ? 0 : EDOM; return pres;
   }
 
   double fres = exp2(p32e2_to_f(a));
@@ -1023,7 +1023,7 @@ extern "C"    int p32e3_exp2(p32e3_t * res, const p32e3_t a) {
   switch (status){
    case 1: pres.udata = P32ZER; res->udata = pres.udata; return 0;
    case 2: pres.udata = P32INF; res->udata = pres.udata; return 0;
-   case 3: return EDOM;
+   case 3: if (POSIT_ENV.nanmode) { res->udata = P32INF; return 0; } else { return EDOM; }
   }
 
   double fres = exp2(p32e3_to_f(a));
@@ -1037,7 +1037,7 @@ extern "C"    p32e3_t p32e3_exp2_e(const p32e3_t a) {
   switch (status){
    case 1: pres.udata = P32ZER; return pres;
    case 2: pres.udata = P32INF; return pres;
-   case 3: pres.udata = P32ZER; errno = EDOM; return pres;
+   case 3: pres.udata = P32INF; errno = (POSIT_ENV.nanmode) ? 0 : EDOM; return pres;
   }
 
   double fres = exp2(p32e3_to_f(a));

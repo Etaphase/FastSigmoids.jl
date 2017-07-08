@@ -80,7 +80,7 @@ function arith_operators(n,es)
 end
 
 
-const CPP_BOOL_OPS = Dict(:lt => "<", :gt => ">", :lte => "<=", :gte => ">=")
+const CPP_BOOL_OPS = Dict(:lt => "<", :gt => ">", :lte => "<=", :gte => ">=", :eq => "==")
 
 function bool_operators(n,es)
   operator_code = []
@@ -227,6 +227,10 @@ function generate_posit_class_cpp(io, n, es)
   $(bool_operators(n,es))
 
   $(conversion_operators(n,es))
+
+  bool isequal(const $(c(n,es)) a, const $(c(n,es)) b){
+    return a.data == b.data;
+  }
 
   $(unary_functions(n,es))
 

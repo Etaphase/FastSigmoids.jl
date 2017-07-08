@@ -44,7 +44,7 @@ doc"""
 function unop_fn(n::Integer ,es::Integer, op::Symbol, status::Bool)
   opfn = ops[op][status + 1]
   val = status ? "int" : p(n,es)
-  err = status ? "return EDOM" : "pres.udata = P$(n)ZER; errno = EDOM; return pres"
+  err = status ? "if (POSIT_ENV.nanmode) { res->udata = P$(n)INF; return 0; } else { return EDOM; }" : "pres.udata = P$(n)INF; errno = (POSIT_ENV.nanmode) ? 0 : EDOM; return pres;"
   ret = status ? "res->udata = pres.udata; return 0" : "return pres"
 
 """
@@ -54,7 +54,7 @@ extern "C" $(opfn(n,es)) {
   switch (status){
    case 1: pres.udata = P$(n)ZER; $ret;
    case 2: pres.udata = P$(n)INF; $ret;
-   case 3: $err;
+   case 3: $err
   }
 
   $(ftype[n]) fres = $(op)($(to_f(n,es,:a)));

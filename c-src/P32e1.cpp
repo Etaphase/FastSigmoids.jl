@@ -132,6 +132,15 @@ P32e1 P32e1::operator /(const P32e1 rhs) const{
 }
 
 
+bool P32e1::operator ==(const P32e1 rhs) const{
+  p32e1_t lhs_p, rhs_p;
+  lhs_p.udata = this->data;
+  rhs_p.udata = rhs.data;
+
+  return p32e1_eq(lhs_p, rhs_p);
+}
+
+
 bool P32e1::operator >(const P32e1 rhs) const{
   p32e1_t lhs_p, rhs_p;
   lhs_p.udata = this->data;
@@ -183,6 +192,10 @@ P32e1::operator p32e1_t() const{
   return res;
 }
 
+
+bool isequal(const P32e1 a, const P32e1 b){
+  return a.data == b.data;
+}
 
 
 P32e1 mulinv (const P32e1 x){

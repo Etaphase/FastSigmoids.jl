@@ -65,7 +65,12 @@ static uint$(n)_t $(ftype)_to_p$(n)$(es_fn)($(ftype) fval$(es_hd)){
   //infinity and NaN checks:
   if (isinf(fval)) {return $(c_literal(top_bits(n)));};
   if (fval == 0)   {return $(c_literal(zero_bits(n)));};
-  if (isnan(fval)){ printf(\"bad: %f \\n\", fval); errno = EDOM; return P$(n)INF; }
+  if (isnan(fval)) {
+    if (POSIT_ENV.nanmode)
+      { return P$(n)INF; }
+    else
+      { printf(\"bad: %f \\n\", fval); errno = EDOM; return P$(n)INF; }
+  }
   //do a surreptitious conversion from $(ftype) precision to UInt$(n)
   uint$(fpsize)_t *ival = (uint$(fpsize)_t *) &fval;
   bool signbit = (($(c_literal(top_bits(fpsize))) & (*ival)) != 0);
@@ -140,7 +145,7 @@ function positconvert(n)
   """
 static $(ftype) p$(n)_to_$(ftype)(uint$(n)_t pval, int16_t es, uint$(n)_t es_mask){
   //check for infs and zeros, which do not necessarily play nice with our algorithm.
-  if (pval == $(c_literal(top_bits(n)))) return INFINITY;
+  if (pval == $(c_literal(top_bits(n))))  return (POSIT_ENV.nanmode) ? NAN : INFINITY;
   if (pval == $(c_literal(zero_bits(n)))) return ($(ftype)) 0;
   //next, determine the sign of the posit value
   bool negative = ((pval & $(c_literal(top_bits(n)))) != 0);

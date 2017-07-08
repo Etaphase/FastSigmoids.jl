@@ -32,6 +32,7 @@ function generate_posit_class_h(io, n, es)
       bool operator <=(const $(c(n,es)) rhs) const;
       bool operator >(const $(c(n,es)) rhs) const;
       bool operator >=(const $(c(n,es)) rhs) const;
+      bool operator ==(const $(c(n,es)) rhs) const;
       $(c(n,es)) operator /(const $(c(n,es)) rhs) const;
       $(c(n,es)) &operator /=(const $(c(n,es)) rhs);
 
@@ -40,6 +41,7 @@ function generate_posit_class_h(io, n, es)
       operator $(p(n,es))() const;
   };
 
+  bool isequal(const $(c(n,es)) a, const $(c(n,es)) b);
   $(c(n,es)) mulinv(const $(c(n,es)) arg);
   $(c(n,es)) log2(const $(c(n,es)) arg);
   $(c(n,es)) exp2(const $(c(n,es)) arg);

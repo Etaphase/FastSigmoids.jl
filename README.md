@@ -10,9 +10,9 @@ validated in templated C++ libraries for scientific applications.  Supports
 Installation (julia)
 --------------------
 
-1   Download Julia (currently, must be version 0.5.x)
-2   Enter the Julia repl.
-3   `Pkg.clone("git://github.com/Etaphase/FastSigmoids.jl.git", "FastSigmoid")`
+1.   Download Julia (currently, must be version 0.5.x)
+2.   Enter the Julia repl.
+3.   `Pkg.clone("git://github.com/Etaphase/FastSigmoids.jl.git", "FastSigmoid")`
 
 FastSigmoid-c
 =============
@@ -60,6 +60,12 @@ OPERATION MODES IN C
 --------------------
 
 this library supports two operational mode settings, underflow mode and NaN mode.
+You may set the operational modes using the following functions:
+
+```c
+  extern "C" set_nanmode(bool);
+  extern "C" set_underflow(bool);
+```
 
 ## Underflow Mode
 

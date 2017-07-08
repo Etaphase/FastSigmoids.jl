@@ -26,6 +26,7 @@ class P8e0{
     bool operator <=(const P8e0 rhs) const;
     bool operator >(const P8e0 rhs) const;
     bool operator >=(const P8e0 rhs) const;
+    bool operator ==(const P8e0 rhs) const;
     P8e0 operator /(const P8e0 rhs) const;
     P8e0 &operator /=(const P8e0 rhs);
 
@@ -34,6 +35,7 @@ class P8e0{
     operator p8e0_t() const;
 };
 
+bool isequal(const P8e0 a, const P8e0 b);
 P8e0 mulinv(const P8e0 arg);
 P8e0 log2(const P8e0 arg);
 P8e0 exp2(const P8e0 arg);
