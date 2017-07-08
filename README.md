@@ -31,8 +31,30 @@ types.  By default, it implements the following posit environments:
 * Posit{32,2}
 * Posit{32,3}
 
-Support for 64- bit environments is forthcoming.  You may generate a custom C
-library by importing the cgen spec in julia and generating a library as follows:
+Support for 64- bit environments is forthcoming.
+
+NB:  The C portion of the library is comprehensively validated using Julia.
+basic operations in Posit{8,N} are exhaustively tested and basic operations in
+Posit{16,N} and Posit{32,N} are subjected to broad scope random testing.
+
+## Building the default library (does not require Julia)
+
+Enter the ./c-src library.  Execute the following commands to generate libfastposit.so.
+The default installation location is /usr/lib - if you'd like it elsewhere,
+simply copy it to the desired location after exceuting `make build`.
+
+```bash
+> make clean
+> make build
+> sudo make install      #optional
+> make test              #optional
+```
+
+## Generating Custom libraries (requires Julia)
+
+A custom library can be pared down to only include desired posit environments,
+saving space.  You may generate a custom C library by entering the c-gen
+directory and spinning up julia and executing the following command:
 
 ```julia
 julia> include("cgen.jl")
@@ -43,17 +65,6 @@ the generate_fastsigmoid_c_library function, passed an suitable dict.
 
 ```julia
 julia> generate_fastsigmoid_c_library(Dict(8=>[0,1,2],16=>[0,1,2],32=>[0,1,2,3]))
-```
-
-If you have a suitable C compiler, this will automatically compile libfastposit.so
-into the ./c-src library.  The companion libfastvalid.so library is forthcoming.  You
-may also enter the ./c-src library and execute make commands to generate libfastposit.so.
-
-```bash
-> make clean
-> make build
-> sudo make install
-> make test              #optional
 ```
 
 OPERATION MODES IN C
@@ -241,7 +252,6 @@ The following class conversions are overloaded for all posit classes:
 
 **NaN Exceptions** are implemented for the C++ library by throwing a
 domain_error object.  These should be caught using an outside try/catch block.
-
 
 
 FastSigmoid library is a part of the uDESIGN project
