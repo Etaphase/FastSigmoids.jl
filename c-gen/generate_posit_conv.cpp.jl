@@ -25,6 +25,9 @@ $(f2pheader(n,es)){
   """
 end
 
+#printf specifiers
+const ps = Dict(32 => "%08x", 64 => "%016lx")
+
 function floatconvert(n; zero_es = false)
 
   fpsize = float_for_posit_size(n)  #for now.
@@ -68,6 +71,7 @@ static uint$(n)_t $(ftype)_to_p$(n)$(es_fn)($(ftype) fval$(es_hd)){
   bool signbit = (($(c_literal(top_bits(fpsize))) & (*ival)) != 0);
   //capture the exponent value
   int16_t exponent = ((($(c_literal(exp_mask(fpsize))) & (*ival)) >> $(exp_shift(fpsize))) - $(exp_bias(fpsize)));
+
   //pin the exponent.
   exponent = (exponent > $(max_exp)) ? $(max_exp) : exponent;
   //underflow behavior is defined by the POSIT_ENV.underflows setting.
@@ -77,6 +81,7 @@ static uint$(n)_t $(ftype)_to_p$(n)$(es_fn)($(ftype) fval$(es_hd)){
 
   //next, append the appropriate shift prefix in front of the value.
   int16_t shift;
+
   if (regime >= 0) {
     shift = 1 + regime;
     frac |= $(c_literal(top_bits(fpsize)));
@@ -105,7 +110,7 @@ static uint$(n)_t $(ftype)_to_p$(n)$(es_fn)($(ftype) fval$(es_hd)){
   frac = frac >> $(fpsize - n);
 
   //check to recast zeros to the smallest value
-  frac = (frac == 0) ? $(c_literal(one(bits_to_UInt[fpsize]))) : frac;
+  frac = (frac != 0 || POSIT_ENV.underflows) ? frac : $(c_literal(one(bits_to_UInt[fpsize])));
 
   uint$(n)_t sfrac = (uint$(n)_t) frac;
 

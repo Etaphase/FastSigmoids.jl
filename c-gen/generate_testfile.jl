@@ -28,9 +28,11 @@ function generate_testfile(io::IO)
 
   P32e2 positdotproduct(vector <P32e2> &pv1, vector <P32e2> &pv2){
 
+    //this is a placeholder function for future testing of the exact dot product.
     //just use the STL dot product.  Since the + and * operators are overloaded
     //this works just fine with no modification.
 
+    return (P32e2) 0.0;
   }
 
   // a utility function to print out float vectors.

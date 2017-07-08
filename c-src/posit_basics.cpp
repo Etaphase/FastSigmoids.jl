@@ -1,6 +1,15 @@
 #include "include/posit.h"
 #include "include/posit_conv.h"
 #include <errno.h>
+#include <stdbool.h>
+
+environment_t POSIT_ENV = {false, false};
+
+extern "C" void set_nanmode(bool nanmode){ POSIT_ENV.nanmode = nanmode; }
+extern "C" void set_underflow(bool underflows){ POSIT_ENV.underflows = underflows; }
+extern "C" bool get_nanmode(){ return POSIT_ENV.nanmode; }
+extern "C" bool get_underflow(){ return POSIT_ENV.underflows; }
+
 
 ///////////////////////////////////////////////////////////////
 //  posit_8 section, variable ES adapters for add

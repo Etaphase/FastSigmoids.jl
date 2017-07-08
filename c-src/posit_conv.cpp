@@ -16,9 +16,11 @@ static uint8_t float_to_p8(float fval, int16_t es, int16_t maximum_exponent, int
   bool signbit = ((0x80000000L & (*ival)) != 0);
   //capture the exponent value
   int16_t exponent = (((0x7f800000L & (*ival)) >> 23) - 127);
+
   //pin the exponent.
   exponent = (exponent > maximum_exponent) ? maximum_exponent : exponent;
-  exponent = (exponent < minimum_exponent) ? minimum_exponent : exponent;
+  //underflow behavior is defined by the POSIT_ENV.underflows setting.
+  exponent = (exponent >= minimum_exponent || POSIT_ENV.underflows) ? exponent : minimum_exponent;
 
   //divide up this exponent into a proper exponent and regime.
   int16_t regime = exponent >> es;
@@ -33,6 +35,7 @@ static uint8_t float_to_p8(float fval, int16_t es, int16_t maximum_exponent, int
 
   //next, append the appropriate shift prefix in front of the value.
   int16_t shift;
+
   if (regime >= 0) {
     shift = 1 + regime;
     frac |= 0x80000000L;
@@ -61,7 +64,7 @@ static uint8_t float_to_p8(float fval, int16_t es, int16_t maximum_exponent, int
   frac = frac >> 24;
 
   //check to recast zeros to the smallest value
-  frac = (frac == 0) ? 0x00000001L : frac;
+  frac = (frac != 0 || POSIT_ENV.underflows) ? frac : 0x00000001L;
 
   uint8_t sfrac = (uint8_t) frac;
 
@@ -80,9 +83,11 @@ static uint8_t float_to_p8_zero_es(float fval){
   bool signbit = ((0x80000000L & (*ival)) != 0);
   //capture the exponent value
   int16_t exponent = (((0x7f800000L & (*ival)) >> 23) - 127);
+
   //pin the exponent.
   exponent = (exponent > 6) ? 6 : exponent;
-  exponent = (exponent < -7) ? -7 : exponent;
+  //underflow behavior is defined by the POSIT_ENV.underflows setting.
+  exponent = (exponent >= -7 || POSIT_ENV.underflows) ? exponent : -7;
 
   //use an uint32_t value as an intermediary store for
   //raw fraction bits.  Shift all the way to the right and then
@@ -95,6 +100,7 @@ static uint8_t float_to_p8_zero_es(float fval){
 
   //next, append the appropriate shift prefix in front of the value.
   int16_t shift;
+
   if (regime >= 0) {
     shift = 1 + regime;
     frac |= 0x80000000L;
@@ -123,7 +129,7 @@ static uint8_t float_to_p8_zero_es(float fval){
   frac = frac >> 24;
 
   //check to recast zeros to the smallest value
-  frac = (frac == 0) ? 0x00000001L : frac;
+  frac = (frac != 0 || POSIT_ENV.underflows) ? frac : 0x00000001L;
 
   uint8_t sfrac = (uint8_t) frac;
 
@@ -231,9 +237,11 @@ static uint16_t float_to_p16(float fval, int16_t es, int16_t maximum_exponent, i
   bool signbit = ((0x80000000L & (*ival)) != 0);
   //capture the exponent value
   int16_t exponent = (((0x7f800000L & (*ival)) >> 23) - 127);
+
   //pin the exponent.
   exponent = (exponent > maximum_exponent) ? maximum_exponent : exponent;
-  exponent = (exponent < minimum_exponent) ? minimum_exponent : exponent;
+  //underflow behavior is defined by the POSIT_ENV.underflows setting.
+  exponent = (exponent >= minimum_exponent || POSIT_ENV.underflows) ? exponent : minimum_exponent;
 
   //divide up this exponent into a proper exponent and regime.
   int16_t regime = exponent >> es;
@@ -248,6 +256,7 @@ static uint16_t float_to_p16(float fval, int16_t es, int16_t maximum_exponent, i
 
   //next, append the appropriate shift prefix in front of the value.
   int16_t shift;
+
   if (regime >= 0) {
     shift = 1 + regime;
     frac |= 0x80000000L;
@@ -276,7 +285,7 @@ static uint16_t float_to_p16(float fval, int16_t es, int16_t maximum_exponent, i
   frac = frac >> 16;
 
   //check to recast zeros to the smallest value
-  frac = (frac == 0) ? 0x00000001L : frac;
+  frac = (frac != 0 || POSIT_ENV.underflows) ? frac : 0x00000001L;
 
   uint16_t sfrac = (uint16_t) frac;
 
@@ -295,9 +304,11 @@ static uint16_t float_to_p16_zero_es(float fval){
   bool signbit = ((0x80000000L & (*ival)) != 0);
   //capture the exponent value
   int16_t exponent = (((0x7f800000L & (*ival)) >> 23) - 127);
+
   //pin the exponent.
   exponent = (exponent > 14) ? 14 : exponent;
-  exponent = (exponent < -15) ? -15 : exponent;
+  //underflow behavior is defined by the POSIT_ENV.underflows setting.
+  exponent = (exponent >= -15 || POSIT_ENV.underflows) ? exponent : -15;
 
   //use an uint32_t value as an intermediary store for
   //raw fraction bits.  Shift all the way to the right and then
@@ -310,6 +321,7 @@ static uint16_t float_to_p16_zero_es(float fval){
 
   //next, append the appropriate shift prefix in front of the value.
   int16_t shift;
+
   if (regime >= 0) {
     shift = 1 + regime;
     frac |= 0x80000000L;
@@ -338,7 +350,7 @@ static uint16_t float_to_p16_zero_es(float fval){
   frac = frac >> 16;
 
   //check to recast zeros to the smallest value
-  frac = (frac == 0) ? 0x00000001L : frac;
+  frac = (frac != 0 || POSIT_ENV.underflows) ? frac : 0x00000001L;
 
   uint16_t sfrac = (uint16_t) frac;
 
@@ -446,9 +458,11 @@ static uint32_t double_to_p32(double fval, int16_t es, int16_t maximum_exponent,
   bool signbit = ((0x8000000000000000LL & (*ival)) != 0);
   //capture the exponent value
   int16_t exponent = (((0x7ff0000000000000LL & (*ival)) >> 52) - 1023);
+
   //pin the exponent.
   exponent = (exponent > maximum_exponent) ? maximum_exponent : exponent;
-  exponent = (exponent < minimum_exponent) ? minimum_exponent : exponent;
+  //underflow behavior is defined by the POSIT_ENV.underflows setting.
+  exponent = (exponent >= minimum_exponent || POSIT_ENV.underflows) ? exponent : minimum_exponent;
 
   //divide up this exponent into a proper exponent and regime.
   int16_t regime = exponent >> es;
@@ -463,6 +477,7 @@ static uint32_t double_to_p32(double fval, int16_t es, int16_t maximum_exponent,
 
   //next, append the appropriate shift prefix in front of the value.
   int16_t shift;
+
   if (regime >= 0) {
     shift = 1 + regime;
     frac |= 0x8000000000000000LL;
@@ -491,7 +506,7 @@ static uint32_t double_to_p32(double fval, int16_t es, int16_t maximum_exponent,
   frac = frac >> 32;
 
   //check to recast zeros to the smallest value
-  frac = (frac == 0) ? 0x0000000000000001LL : frac;
+  frac = (frac != 0 || POSIT_ENV.underflows) ? frac : 0x0000000000000001LL;
 
   uint32_t sfrac = (uint32_t) frac;
 
@@ -510,9 +525,11 @@ static uint32_t double_to_p32_zero_es(double fval){
   bool signbit = ((0x8000000000000000LL & (*ival)) != 0);
   //capture the exponent value
   int16_t exponent = (((0x7ff0000000000000LL & (*ival)) >> 52) - 1023);
+
   //pin the exponent.
   exponent = (exponent > 30) ? 30 : exponent;
-  exponent = (exponent < -31) ? -31 : exponent;
+  //underflow behavior is defined by the POSIT_ENV.underflows setting.
+  exponent = (exponent >= -31 || POSIT_ENV.underflows) ? exponent : -31;
 
   //use an uint64_t value as an intermediary store for
   //raw fraction bits.  Shift all the way to the right and then
@@ -525,6 +542,7 @@ static uint32_t double_to_p32_zero_es(double fval){
 
   //next, append the appropriate shift prefix in front of the value.
   int16_t shift;
+
   if (regime >= 0) {
     shift = 1 + regime;
     frac |= 0x8000000000000000LL;
@@ -553,7 +571,7 @@ static uint32_t double_to_p32_zero_es(double fval){
   frac = frac >> 32;
 
   //check to recast zeros to the smallest value
-  frac = (frac == 0) ? 0x0000000000000001LL : frac;
+  frac = (frac != 0 || POSIT_ENV.underflows) ? frac : 0x0000000000000001LL;
 
   uint32_t sfrac = (uint32_t) frac;
 

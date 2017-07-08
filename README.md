@@ -1,6 +1,19 @@
 FastSigmoid
 ===========
 
+This is a hybrid julia/C/C++ package which implements sigmoid numbers (aka Type III unums), backed by
+IEEE floating point.  This is in contrast to [http://github.com/interplanetary-robot/SigmoidNumbers.jl]
+which implements it as strictly binary operations.  This library has been rigorously
+validated in templated C++ libraries for scientific applications.  Supports
+8, 16, and 32-bit operations.  64-bit operations are forthcoming.
+
+Installation (julia)
+--------------------
+
+1   Download Julia (currently, must be version 0.5.x)
+2   Enter the Julia repl.
+3   `Pkg.clone("git://github.com/Etaphase/FastSigmoids.jl.git", "FastSigmoid")`
+
 FastSigmoid-c
 =============
 

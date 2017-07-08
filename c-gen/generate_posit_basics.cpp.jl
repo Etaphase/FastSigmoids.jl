@@ -92,11 +92,14 @@ function generate_posit_basics_cpp(io, posit_defs)
   #include "include/posit.h"
   #include "include/posit_conv.h"
   #include <errno.h>
+  #include <stdbool.h>
 
   environment_t POSIT_ENV = {false, false};
 
-  void set_nanmode(bool nanmode){ POSIT_ENV.nanmode = nanmode; }
-  void set_underflow(bool underflows){ POSIT_ENV.underflows = underflows; }
+  extern "C" void set_nanmode(bool nanmode){ POSIT_ENV.nanmode = nanmode; }
+  extern "C" void set_underflow(bool underflows){ POSIT_ENV.underflows = underflows; }
+  extern "C" bool get_nanmode(){ return POSIT_ENV.nanmode; }
+  extern "C" bool get_underflow(){ return POSIT_ENV.underflows; }
 
   """)
 

@@ -11,15 +11,19 @@ function generate_posit_h(io, posit_defs)
 
   #define a data structure that holds the environment settings and extern it.
   write(io, """
-  typedef struct{
+
+  typedef struct {
     bool nanmode;
     bool underflows;
   } environment_t;
 
-  extern environment_t POSIT_ENV;
+  extern "C" environment_t POSIT_ENV;
 
-  extern void set_nanmode(bool nanmode);
-  extern void set_underflow(bool underflows);
+  extern "C" void set_nanmode(bool nanmode);
+  extern "C" void set_underflow(bool underflows);
+  extern "C" bool get_nanmode();
+  extern "C" bool get_underflow();
+
   """)
 
 
@@ -50,5 +54,7 @@ function generate_posit_h(io, posit_defs)
     end
     write(io, "\n")
   end
+
+  write(io, "#endif")  #to close out the header guard #define
 
 end
